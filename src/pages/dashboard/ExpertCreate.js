@@ -1,4 +1,5 @@
 import { paramCase, capitalCase } from 'change-case';
+import { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 // @mui
 import { Container } from '@mui/material';
@@ -13,6 +14,8 @@ import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
 import ExpertNewEditForm from '../../sections/@dashboard/expert/ExpertNewEditForm';
+import axios from '../../utils/axios';
+import { isValidToken, setSession } from '../../utils/jwt';
 
 // ----------------------------------------------------------------------
 
@@ -23,9 +26,19 @@ export default function ExpertCreate() {
 
   const { name = '' } = useParams();
 
-  const isEdit = pathname.includes('edit');
+  const [ currentExpert, setCurrentExpert ] = useState({});
 
-  const currentExpert = _expertList.find((expert) => paramCase(expert.name) === name);
+  const isEdit = pathname.includes('edit');
+  useEffect(async () => {
+    const accessToken = localStorage.getItem('accessToken');
+
+        if (accessToken && isValidToken(accessToken) && isEdit) {
+          setSession(accessToken);
+          const response = await axios.get(`/expert/${name}`); 
+          const { user } = response.data;
+          setCurrentExpert(user);
+        }
+  }, [name])
 
   return (
     <Page title="Expert: Create a new expert">

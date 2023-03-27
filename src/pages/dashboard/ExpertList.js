@@ -96,12 +96,11 @@ export default function ExpertList() {
  
   useEffect(async () => {
     const accessToken = localStorage.getItem('accessToken');
-
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
           const response = await axios.get('/expert');
-          const { expert } = response.data;
-          setTableData(expert);
+          const { user } = response.data;
+          setTableData(user);
         }
   }, [])
   
@@ -121,8 +120,15 @@ export default function ExpertList() {
     setFilterRole(event.target.value);
   };
 
-  const handleDeleteRow = (id) => {
+  const handleDeleteRow = async(id) => {
     const deleteRow = tableData.filter((row) => row.id !== id);
+    const accessToken = localStorage.getItem('accessToken');
+        if (accessToken && isValidToken(accessToken)) {
+          setSession(accessToken);
+          const response = await axios.delete(`/expert/${id}`);
+          // const { expert } = response.data;
+          // setTableData(expert);
+        }
     setSelected([]);
     setTableData(deleteRow);
   };
@@ -134,7 +140,7 @@ export default function ExpertList() {
   };
 
   const handleEditRow = (id) => {
-    navigate(PATH_DASHBOARD.expert.edit(paramCase(id)));
+    navigate(PATH_DASHBOARD.expert.edit(id));
   };
 
   const dataFiltered = applySortFilter({
@@ -245,7 +251,7 @@ export default function ExpertList() {
                       selected={selected.includes(row.id)}
                       onSelectRow={() => onSelectRow(row.id)}
                       onDeleteRow={() => handleDeleteRow(row.id)}
-                      onEditRow={() => handleEditRow(row.name)}
+                      onEditRow={() => handleEditRow(row.id)}
                     />
                   ))}
 

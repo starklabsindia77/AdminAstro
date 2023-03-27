@@ -15,6 +15,8 @@ import { fData } from '../../../utils/formatNumber';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // _mock
 import { countries } from '../../../_mock';
+import axios from '../../../utils/axios';
+import { isValidToken, setSession } from '../../../utils/jwt';
 // components
 import Label from '../../../components/Label';
 import { FormProvider, RHFSelect, RHFSwitch, RHFTextField, RHFUploadAvatar } from '../../../components/hook-form';
@@ -34,21 +36,21 @@ export default function ExpertNewEditForm({ isEdit, currentExpert }) {
   const NewExpertSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
     email: Yup.string().required('Email is required').email(),
-    phoneNumber: Yup.string().required('Phone number is required'),
+    mobileNo: Yup.string().required('Phone number is required'),
     address: Yup.string().required('Address is required'),
     country: Yup.string().required('country is required'),
-    company: Yup.string().required('Company is required'),
+    firstName: Yup.string().required('First Name is required'),
     state: Yup.string().required('State is required'),
     city: Yup.string().required('City is required'),
-    role: Yup.string().required('Role Number is required'),
-    avatarUrl: Yup.mixed().test('required', 'Avatar is required', (value) => value !== ''),
+    lastName: Yup.string().required('Last Name is required'),
+    // avatarUrl: Yup.mixed().test('required', 'Avatar is required', (value) => value !== ''),
   });
 
   const defaultValues = useMemo(
     () => ({
       name: currentExpert?.name || '',
       email: currentExpert?.email || '',
-      phoneNumber: currentExpert?.phoneNumber || '',
+      mobileNo: currentExpert?.mobileNo || '',
       address: currentExpert?.address || '',
       country: currentExpert?.country || '',
       state: currentExpert?.state || '',
@@ -57,8 +59,8 @@ export default function ExpertNewEditForm({ isEdit, currentExpert }) {
       avatarUrl: currentExpert?.avatarUrl || '',
       isVerified: currentExpert?.isVerified || true,
       status: currentExpert?.status,
-      company: currentExpert?.company || '',
-      role: currentExpert?.role || '',
+      firstName: currentExpert?.firstName || '',
+      lastName: currentExpert?.lastName || '',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentExpert]
@@ -90,10 +92,23 @@ export default function ExpertNewEditForm({ isEdit, currentExpert }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, currentExpert]);
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      reset();
+      
+      const accessToken = localStorage.getItem('accessToken');
+        if (accessToken && isValidToken(accessToken)) {
+          setSession(accessToken);
+          if(isEdit){
+            const response = await axios.put(`/expert/${currentExpert?.id}`, data);
+          }else{
+            const response2 = await axios.post('/expert', data);
+          }
+          
+          
+          // const { expert } = response.data;
+        }
+      // await new Promise((resolve) => setTimeout(resolve, 500));
+      // reset();
       enqueueSnackbar(!isEdit ? 'Create success!' : 'Update success!');
       navigate(PATH_DASHBOARD.expert.list);
     } catch (error) {
@@ -127,7 +142,7 @@ export default function ExpertNewEditForm({ isEdit, currentExpert }) {
                 color={values.status !== 'active' ? 'error' : 'success'}
                 sx={{ textTransform: 'uppercase', position: 'absolute', top: 24, right: 24 }}
               >
-                {values.status}
+                {values.status === 0 ? 'Active' : 'Banned' }
               </Label>
             )}
 
@@ -215,6 +230,8 @@ export default function ExpertNewEditForm({ isEdit, currentExpert }) {
             >
               <RHFTextField name="firstName" label="First Name" />
               <RHFTextField name="lastName" label="Last Name" />
+              <RHFTextField name="role" label="Role" sx={{display: 'none'}} />
+              <RHFTextField name="roleId" label="Role Id"  sx={{display: 'none'}} />
               <RHFTextField name="name" label="Full Name" />
               <RHFTextField name="email" label="Email Address" />
               <RHFTextField name="mobileNo" label="Phone Number" />
