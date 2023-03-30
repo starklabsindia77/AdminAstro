@@ -21,7 +21,7 @@ ExpertTableRow.propTypes = {
 export default function ExpertTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
   const theme = useTheme();
 
-  const { name, avatarUrl, email, mobileNo, isVerified, status } = row;
+  const { displayName, photoURL, email, mobileNo, isVerified, status } = row;
 
   const [openMenu, setOpenMenuActions] = useState(null);
 
@@ -40,9 +40,9 @@ export default function ExpertTableRow({ row, selected, onEditRow, onSelectRow, 
       </TableCell>
 
       <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
-        <Avatar alt={name} src={avatarUrl} sx={{ mr: 2 }} />
+        <Avatar alt={displayName} src={photoURL} sx={{ mr: 2 }} />
         <Typography variant="subtitle2" noWrap>
-          {name}
+          {displayName}
         </Typography>
       </TableCell>
 

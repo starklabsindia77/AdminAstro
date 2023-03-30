@@ -34,7 +34,7 @@ export default function ExpertNewEditForm({ isEdit, currentExpert }) {
   const { enqueueSnackbar } = useSnackbar();
 
   const NewExpertSchema = Yup.object().shape({
-    name: Yup.string().required('Name is required'),
+    // password: Yup.string().required('Password is required'),
     email: Yup.string().required('Email is required').email(),
     mobileNo: Yup.string().required('Phone number is required'),
     address: Yup.string().required('Address is required'),
@@ -48,7 +48,7 @@ export default function ExpertNewEditForm({ isEdit, currentExpert }) {
 
   const defaultValues = useMemo(
     () => ({
-      name: currentExpert?.name || '',
+      password: '',
       email: currentExpert?.email || '',
       mobileNo: currentExpert?.mobileNo || '',
       address: currentExpert?.address || '',
@@ -56,7 +56,7 @@ export default function ExpertNewEditForm({ isEdit, currentExpert }) {
       state: currentExpert?.state || '',
       city: currentExpert?.city || '',
       zipCode: currentExpert?.zipCode || '',
-      avatarUrl: currentExpert?.avatarUrl || '',
+      photoURL: currentExpert?.photoURL || '',
       isVerified: currentExpert?.isVerified || true,
       status: currentExpert?.status,
       firstName: currentExpert?.firstName || '',
@@ -148,7 +148,7 @@ export default function ExpertNewEditForm({ isEdit, currentExpert }) {
 
             <Box sx={{ mb: 5 }}>
               <RHFUploadAvatar
-                name="avatarUrl"
+                name="photoURL"
                 accept="image/*"
                 maxSize={3145728}
                 onDrop={handleDrop}
@@ -232,8 +232,8 @@ export default function ExpertNewEditForm({ isEdit, currentExpert }) {
               <RHFTextField name="lastName" label="Last Name" />
               <RHFTextField name="role" label="Role" sx={{display: 'none'}} />
               <RHFTextField name="roleId" label="Role Id"  sx={{display: 'none'}} />
-              <RHFTextField name="name" label="Full Name" />
               <RHFTextField name="email" label="Email Address" />
+              <RHFTextField name="password" label="Password" />
               <RHFTextField name="mobileNo" label="Phone Number" />
               <RHFSelect name="country" label="Country" placeholder="Country">
                 <option value="" />

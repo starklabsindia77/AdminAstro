@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { paramCase, capitalCase } from 'change-case';
 import { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';

@@ -121,7 +121,7 @@ export default function UserList() {
   };
 
   const handleDeleteRow = async(id) => {
-    const deleteRow = tableData.filter((row) => row.id !== id);
+    const deleteRow = tableData?.filter((row) => row.id !== id);
     const accessToken = localStorage.getItem('accessToken');
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
@@ -134,7 +134,7 @@ export default function UserList() {
   };
 
   const handleDeleteRows = (selected) => {
-    const deleteRows = tableData.filter((row) => !selected.includes(row.id));
+    const deleteRows = tableData?.filter((row) => !selected.includes(row.id));
     setSelected([]);
     setTableData(deleteRows);
   };
@@ -154,9 +154,9 @@ export default function UserList() {
   const denseHeight = dense ? 52 : 72;
 
   const isNotFound =
-    (!dataFiltered.length && !!filterName) ||
-    (!dataFiltered.length && !!filterRole) ||
-    (!dataFiltered.length && !!filterStatus);
+    (!dataFiltered?.length && !!filterName) ||
+    (!dataFiltered?.length && !!filterRole) ||
+    (!dataFiltered?.length && !!filterStatus);
 
   return (
     <Page title="User: List">
@@ -210,11 +210,11 @@ export default function UserList() {
                 <TableSelectedActions
                   dense={dense}
                   numSelected={selected.length}
-                  rowCount={tableData.length}
+                  rowCount={tableData?.length}
                   onSelectAllRows={(checked) =>
                     onSelectAllRows(
                       checked,
-                      tableData.map((row) => row.id)
+                      tableData?.map((row) => row.id)
                     )
                   }
                   actions={
@@ -232,19 +232,19 @@ export default function UserList() {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={tableData.length}
+                  rowCount={tableData?.length}
                   numSelected={selected.length}
                   onSort={onSort}
                   onSelectAllRows={(checked) =>
                     onSelectAllRows(
                       checked,
-                      tableData.map((row) => row.id)
+                      tableData?.map((row) => row.id)
                     )
                   }
                 />
 
                 <TableBody>
-                  {dataFiltered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+                  {dataFiltered?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                     <UserTableRow
                       key={row.id}
                       row={row}
@@ -255,7 +255,7 @@ export default function UserList() {
                     />
                   ))}
 
-                  <TableEmptyRows height={denseHeight} emptyRows={emptyRows(page, rowsPerPage, tableData.length)} />
+                  <TableEmptyRows height={denseHeight} emptyRows={emptyRows(page, rowsPerPage, tableData?.length)} />
 
                   <TableNoData isNotFound={isNotFound} />
                 </TableBody>
@@ -267,7 +267,7 @@ export default function UserList() {
             <TablePagination
               rowsPerPageOptions={[5, 10, 25]}
               component="div"
-              count={dataFiltered.length}
+              count={dataFiltered?.length}
               rowsPerPage={rowsPerPage}
               page={page}
               onPageChange={onChangePage}
@@ -289,32 +289,32 @@ export default function UserList() {
 // ----------------------------------------------------------------------
 
 function applySortFilter({ tableData, comparator, filterName, filterStatus, filterRole }) {
-  const stabilizedThis = tableData.map((el, index) => [el, index]);
+  const stabilizedThis = tableData?.map((el, index) => [el, index]);
 
-  stabilizedThis.sort((a, b) => {
+  stabilizedThis?.sort((a, b) => {
     const order = comparator(a[0], b[0]);
     if (order !== 0) return order;
     return a[1] - b[1];
   });
 
-  tableData = stabilizedThis.map((el) => el[0]);
+  tableData = stabilizedThis?.map((el) => el[0]);
 
   if (filterName) {
-    tableData = tableData.filter((item) => item.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1);
+    tableData = tableData?.filter((item) => item.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1);
   }
 
   // if (filterStatus !== 'all') {
-  //   tableData = tableData.filter((item) => item.status === filterStatus);
+  //   tableData = tableData?.filter((item) => item.status === filterStatus);
   // }
   if (filterStatus === 'active') {
-    tableData = tableData.filter((item) => item.status === 1);
+    tableData = tableData?.filter((item) => item.status === 1);
   }
   if (filterStatus === 'banned') {
-    tableData = tableData.filter((item) => item.status === 0);
+    tableData = tableData?.filter((item) => item.status === 0);
   }
 
   if (filterRole !== 'all') {
-    tableData = tableData.filter((item) => item.role === filterRole);
+    tableData = tableData?.filter((item) => item.role === filterRole);
   }
 
   return tableData;
