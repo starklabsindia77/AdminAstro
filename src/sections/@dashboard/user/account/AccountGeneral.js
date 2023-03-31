@@ -15,6 +15,8 @@ import { fData } from '../../../../utils/formatNumber';
 import { countries } from '../../../../_mock';
 // components
 import { FormProvider, RHFSwitch, RHFSelect, RHFTextField, RHFUploadAvatar } from '../../../../components/hook-form';
+import axios from '../../../../utils/axios';
+import { isValidToken, setSession } from '../../../../utils/jwt';
 
 // ----------------------------------------------------------------------
 
@@ -52,9 +54,10 @@ export default function AccountGeneral() {
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      // await new Promise((resolve) => setTimeout(resolve, 500));
+      await axios.put(`/expert/${user?.id}`, data);
       enqueueSnackbar('Update success!');
     } catch (error) {
       console.error(error);

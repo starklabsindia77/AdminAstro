@@ -73,8 +73,13 @@ function AuthProvider({ children }) {
 
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
+          
 
-          const response = await axios.get('/api/account/my-account');
+          const response = await axios.get('expertsingle', {
+            headers: {
+              'Authorization': `Bearer${accessToken}`,
+              'Content-Type': 'application/json'
+            }});
           const { user } = response.data;
 
           dispatch({
@@ -115,6 +120,7 @@ function AuthProvider({ children }) {
       password,
     });
     const { accessToken, user } = response.data;
+
     const role = localStorage.setItem('role', user.role);
 
     setSession(accessToken);

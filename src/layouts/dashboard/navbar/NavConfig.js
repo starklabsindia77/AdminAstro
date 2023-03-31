@@ -30,6 +30,7 @@ const ICONS = {
 
 const role = localStorage.getItem('role');
 let navConfig = [];
+console.log("role", role);
 if(role === 'Admin'){
   navConfig = [
     // GENERAL
