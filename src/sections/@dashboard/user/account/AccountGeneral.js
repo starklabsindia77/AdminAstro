@@ -143,7 +143,7 @@ export default function AccountGeneral() {
             </Box>
 
             <Stack spacing={3} alignItems="flex-end" sx={{ mt: 3 }}>
-              <RHFTextField name="about" multiline rows={4} label="About" />
+              <RHFTextField name="bio" multiline rows={4} label="Bio" />
 
               <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
                 Save Changes

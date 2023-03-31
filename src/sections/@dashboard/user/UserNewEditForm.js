@@ -118,6 +118,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
 
   const handleDrop = useCallback(
     (acceptedFiles) => {
+      console.log("texts", acceptedFiles);
       const file = acceptedFiles[0];
 
       if (file) {

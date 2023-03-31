@@ -56,6 +56,8 @@ export default function ExpertNewEditForm({ isEdit, currentExpert }) {
       state: currentExpert?.state || '',
       city: currentExpert?.city || '',
       zipCode: currentExpert?.zipCode || '',
+      bio: currentExpert?.bio || '',
+      skill: currentExpert?.skill || '',
       photoURL: currentExpert?.photoURL || '',
       isVerified: currentExpert?.isVerified || true,
       status: currentExpert?.status,
@@ -250,8 +252,15 @@ export default function ExpertNewEditForm({ isEdit, currentExpert }) {
               <RHFTextField name="zipCode" label="Zip/Code" />
               
             </Box>
+            <Stack spacing={3} alignItems="flex-end" sx={{ mt: 3 }} >
+            <RHFTextField name="skill" multiline rows={4} label="Skill" />
+            <RHFTextField name="bio" multiline rows={4} label="Bio" />
+              
+            </Stack>
+           
 
             <Stack alignItems="flex-end" sx={{ mt: 3 }}>
+              
               <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
                 {!isEdit ? 'Create Expert' : 'Save Changes'}
               </LoadingButton>
