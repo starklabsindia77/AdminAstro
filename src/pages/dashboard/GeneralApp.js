@@ -54,8 +54,14 @@ export default function GeneralApp() {
             />
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          {/* <Grid item xs={12} md={4}>
             <AppFeatured list={_appFeatured} />
+          </Grid> */}
+           <Grid item xs={12} md={4} lg={4}>
+            <Stack spacing={3}>
+              <AppWidget title="Total Sessions" total={38566} icon={'eva:person-fill'} chartData={48} />
+              <AppWidget title="Today Sessions" total={55566} icon={'eva:email-fill'} color="warning" chartData={75} />
+            </Stack>
           </Grid>
 
           <Grid item xs={12} md={4}>
@@ -70,7 +76,7 @@ export default function GeneralApp() {
 
           <Grid item xs={12} md={4}>
             <AppWidgetSummary
-              title="Total Installed"
+              title="Total Expert"
               percent={0.2}
               total={4876}
               chartColor={theme.palette.chart.blue[0]}
@@ -80,7 +86,7 @@ export default function GeneralApp() {
 
           <Grid item xs={12} md={4}>
             <AppWidgetSummary
-              title="Total Downloads"
+              title="Total Income"
               percent={-0.1}
               total={678}
               chartColor={theme.palette.chart.red[0]}
@@ -145,10 +151,10 @@ export default function GeneralApp() {
           </Grid>
 
           <Grid item xs={12} md={6} lg={4}>
-            <AppTopRelated title="Top Related Applications" list={_appRelated} />
+            <AppTopRelated title="My Expertise" list={_appRelated} />
           </Grid>
 
-          <Grid item xs={12} md={6} lg={4}>
+          {/* <Grid item xs={12} md={6} lg={4}>
             <AppTopInstalledCountries title="Top Installed Countries" list={_appInstalled} />
           </Grid>
 
@@ -161,7 +167,7 @@ export default function GeneralApp() {
               <AppWidget title="Conversion" total={38566} icon={'eva:person-fill'} chartData={48} />
               <AppWidget title="Applications" total={55566} icon={'eva:email-fill'} color="warning" chartData={75} />
             </Stack>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container>
     </Page>

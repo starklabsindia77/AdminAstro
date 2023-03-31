@@ -95,6 +95,19 @@ if(role === 'Admin'){
           // ],
         },
         {
+          title: 'Sessions',
+          path: PATH_DASHBOARD.user.list,
+          icon: <Iconify icon={'icon-park-outline:online-meeting'} width={20} height={20} />,
+        },
+  
+        // Expert
+        {
+          title: 'Schedule',
+          path: PATH_DASHBOARD.expert.list,
+          icon: <Iconify icon={'carbon:event-schedule'} width={20} height={20} />,
+         
+        },
+        {
           title: 'Setting',
           path: PATH_DASHBOARD.user.account,
           icon: <Iconify icon={'ep:setting'} width={20} height={20} />,          
@@ -226,7 +239,7 @@ if(role === 'Admin'){
         {
           title: 'Sessions',
           path: PATH_DASHBOARD.user.list,
-          icon: <Iconify icon={'con-park-outline:online-meeting'} width={20} height={20} />,
+          icon: <Iconify icon={'icon-park-outline:online-meeting'} width={20} height={20} />,
           // children: [
           //   { title: 'profile', path: PATH_DASHBOARD.user.profile },
           //   { title: 'cards', path: PATH_DASHBOARD.user.cards },
