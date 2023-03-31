@@ -40,7 +40,7 @@ export default function GeneralApp() {
           <Grid item xs={12} md={8}>
             <AppWelcome
               title={`Welcome back! \n ${user?.displayName}`}
-              description="If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything."
+              description="Wish you a great day !!"
               img={
                 <SeoIllustration
                   sx={{
@@ -59,8 +59,8 @@ export default function GeneralApp() {
           </Grid> */}
            <Grid item xs={12} md={4} lg={4}>
             <Stack spacing={3}>
-              <AppWidget title="Total Sessions" total={38566} icon={'eva:person-fill'} chartData={48} />
-              <AppWidget title="Today Sessions" total={55566} icon={'eva:email-fill'} color="warning" chartData={75} />
+              <AppWidget title="Total visits" total={38566} icon={'eva:person-fill'} chartData={78} />
+              <AppWidget title="Total Sessions" total={5566} icon={'eva:email-fill'} color="warning" chartData={30} />
             </Stack>
           </Grid>
 
@@ -76,7 +76,7 @@ export default function GeneralApp() {
 
           <Grid item xs={12} md={4}>
             <AppWidgetSummary
-              title="Total Expert"
+              title="Total Experts"
               percent={0.2}
               total={4876}
               chartColor={theme.palette.chart.blue[0]}
@@ -88,7 +88,7 @@ export default function GeneralApp() {
             <AppWidgetSummary
               title="Total Income"
               percent={-0.1}
-              total={678}
+              total={6789800}
               chartColor={theme.palette.chart.red[0]}
               chartData={[8, 9, 31, 8, 16, 37, 8, 33, 46, 31]}
             />
@@ -138,10 +138,10 @@ export default function GeneralApp() {
 
           <Grid item xs={12} lg={8}>
             <AppNewInvoice
-              title="New Invoice"
+              title="Latest Transactions"
               tableData={_appInvoices}
               tableLabels={[
-                { id: 'id', label: 'Invoice ID' },
+                { id: 'id', label: 'Session ID' },
                 { id: 'category', label: 'Category' },
                 { id: 'price', label: 'Price' },
                 { id: 'status', label: 'Status' },
@@ -151,7 +151,7 @@ export default function GeneralApp() {
           </Grid>
 
           <Grid item xs={12} md={6} lg={4}>
-            <AppTopRelated title="My Expertise" list={_appRelated} />
+            <AppTopRelated title="Top Skills searched" list={_appRelated} />
           </Grid>
 
           {/* <Grid item xs={12} md={6} lg={4}>
