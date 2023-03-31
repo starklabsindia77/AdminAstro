@@ -72,20 +72,23 @@ export default function Login() {
       <RootStyle>
         <HeaderStyle>
           <Logo />
-          {smUp && (
+          {/* {smUp && (
             <Typography variant="body2" sx={{ mt: { md: -2 } }}>
               Don’t have an account? {''}
               <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
                 Get started
               </Link>
             </Typography>
-          )}
+          )} */}
         </HeaderStyle>
 
         {mdUp && (
           <SectionStyle>
             <Typography variant="h3" sx={{ px: 5, mt: 20, mb: 5 }}>
               Hi, Welcome Back
+            </Typography>
+            <Typography variant="h4" sx={{ px: 5, mt: 10, mb: 5 }}>
+              Get into the world's 1st AI based Astrology platform
             </Typography>
             <Image visibleByDefault disabledEffect src="/assets/illustrations/illustration_login.png" alt="login" />
           </SectionStyle>
@@ -113,7 +116,7 @@ export default function Login() {
             </Stack>
 
             <Alert severity="info" sx={{ mb: 3 }}>
-              Use email : <strong>starklabsindia@gmail.com</strong> / password :<strong> demo1234</strong>
+              Use email : <strong>yatish@gmail.com</strong> / password :<strong> Baba1234</strong>
             </Alert>
 
             <LoginForm />

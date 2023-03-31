@@ -37,7 +37,7 @@ export default function LoginForm() {
   // };
 
   const defaultValues = {
-    email: 'starklabsindia@gmail.com',
+    email: 'yatish@gmail.com',
     password: 'Baba1234',
     remember: true,
   };
