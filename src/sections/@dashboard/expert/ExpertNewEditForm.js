@@ -97,11 +97,12 @@ export default function ExpertNewEditForm({ isEdit, currentExpert }) {
   const onSubmit = async (data) => {
     try {
       data.image = uploadImage;
+      data.id = currentExpert?.id;
       const accessToken = localStorage.getItem('accessToken');
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
           if(isEdit){
-            const response = await axios.put(`/expert/${currentExpert?.id}`, data);
+            const response = await axios.put(`/expert/${currentExpert?.expertId}`, data);
           }else{
             const response2 = await axios.post('/expert', data);
           }
@@ -159,7 +160,7 @@ export default function ExpertNewEditForm({ isEdit, currentExpert }) {
           <Card sx={{ py: 10, px: 3 }}>
             {isEdit && (
               <Label
-                color={values.status !== 'active' ? 'error' : 'success'}
+                color={values.status !== 'active' ? 'success' : 'error'}
                 sx={{ textTransform: 'uppercase', position: 'absolute', top: 24, right: 24 }}
               >
                 {values.status === 'active' ? 'Banned' : 'Active' }

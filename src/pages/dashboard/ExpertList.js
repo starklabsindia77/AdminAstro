@@ -100,6 +100,7 @@ export default function ExpertList() {
           setSession(accessToken);
           const response = await axios.get('/expert');
           const { user } = response.data;
+          
           setTableData(user);
         }
   }, [])
@@ -215,7 +216,7 @@ export default function ExpertList() {
                   onSelectAllRows={(checked) =>
                     onSelectAllRows(
                       checked,
-                      tableData?.map((row) => row.id)
+                      tableData?.map((row) => row.expertId)
                     )
                   }
                   actions={
@@ -239,7 +240,7 @@ export default function ExpertList() {
                   onSelectAllRows={(checked) =>
                     onSelectAllRows(
                       checked,
-                      tableData?.map((row) => row.id)
+                      tableData?.map((row) => row.expertId)
                     )
                   }
                 />
@@ -247,12 +248,12 @@ export default function ExpertList() {
                 <TableBody>
                   {dataFiltered?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)?.map((row) => (
                     <ExpertTableRow
-                      key={row.id}
+                      key={row.expertId}
                       row={row}
-                      selected={selected.includes(row.id)}
-                      onSelectRow={() => onSelectRow(row.id)}
-                      onDeleteRow={() => handleDeleteRow(row.id)}
-                      onEditRow={() => handleEditRow(row.id)}
+                      selected={selected.includes(row.expertId)}
+                      onSelectRow={() => onSelectRow(row.expertId)}
+                      onDeleteRow={() => handleDeleteRow(row.expertId)}
+                      onEditRow={() => handleEditRow(row.expertId)}
                     />
                   ))}
 
