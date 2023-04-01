@@ -108,6 +108,30 @@ export default function Router() {
           ],
         },
         {
+          path: 'sessions',
+          children: [
+            { element: <Navigate to="/dashboard/sessions/list" replace />, index: true },
+            // { path: 'profile', element: <ExpertProfile /> },
+            // { path: 'cards', element: <ExpertCards /> },
+            { path: 'list', element: <Sessions /> },
+            // { path: 'new', element: <ExpertCreate /> },
+            // { path: ':name/edit', element: <ExpertCreate /> },
+            // { path: 'account', element: <ExpertAccount /> },
+          ],
+        },
+        {
+          path: 'schedule',
+          children: [
+            { element: <Navigate to="/dashboard/schedule/list" replace />, index: true },
+            // { path: 'profile', element: <ExpertProfile /> },
+            // { path: 'cards', element: <ExpertCards /> },
+            { path: 'list', element: <Schedule /> },
+            // { path: 'new', element: <ExpertCreate /> },
+            // { path: ':name/edit', element: <ExpertCreate /> },
+            // { path: 'account', element: <ExpertAccount /> },
+          ],
+        },
+        {
           path: 'invoice',
           children: [
             { element: <Navigate to="/dashboard/invoice/list" replace />, index: true },
@@ -227,6 +251,20 @@ const ExpertCards = Loadable(lazy(() => import('../pages/dashboard/ExpertCards')
 const ExpertList = Loadable(lazy(() => import('../pages/dashboard/ExpertList')));
 const ExpertAccount = Loadable(lazy(() => import('../pages/dashboard/ExpertAccount')));
 const ExpertCreate = Loadable(lazy(() => import('../pages/dashboard/ExpertCreate')));
+
+// Sessions 
+// const ExpertProfile = Loadable(lazy(() => import('../pages/dashboard/ExpertProfile')));
+// const ExpertCards = Loadable(lazy(() => import('../pages/dashboard/ExpertCards')));
+const Sessions = Loadable(lazy(() => import('../pages/dashboard/Sessions')));
+// const ExpertAccount = Loadable(lazy(() => import('../pages/dashboard/ExpertAccount')));
+// const ExpertCreate = Loadable(lazy(() => import('../pages/dashboard/ExpertCreate')));
+
+// Schedule 
+// const ExpertProfile = Loadable(lazy(() => import('../pages/dashboard/ExpertProfile')));
+// const ExpertCards = Loadable(lazy(() => import('../pages/dashboard/ExpertCards')));
+const Schedule = Loadable(lazy(() => import('../pages/dashboard/Schedule')));
+// const ExpertAccount = Loadable(lazy(() => import('../pages/dashboard/ExpertAccount')));
+// const ExpertCreate = Loadable(lazy(() => import('../pages/dashboard/ExpertCreate')));
 
 // APP
 const Chat = Loadable(lazy(() => import('../pages/dashboard/Chat')));
