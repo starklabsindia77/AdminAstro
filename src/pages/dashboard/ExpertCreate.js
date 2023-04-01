@@ -26,6 +26,7 @@ export default function ExpertCreate() {
   const { pathname } = useLocation();
 
   const { name = '' } = useParams();
+  console.log("id", name);
 
   const [ currentExpert, setCurrentExpert ] = useState({});
 

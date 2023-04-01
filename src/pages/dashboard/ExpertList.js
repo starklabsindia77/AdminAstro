@@ -140,6 +140,7 @@ export default function ExpertList() {
   };
 
   const handleEditRow = (id) => {
+    console.log('EditRow:', id);
     navigate(PATH_DASHBOARD.expert.edit(id));
   };
 

@@ -67,7 +67,7 @@ export default function ExpertTableRow({ row, selected, onEditRow, onSelectRow, 
       <TableCell align="left">
         <Label
           variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
-          color={(status === 'banned' && 'error') || 'success'}
+          color={(status === 0 && 'error') || 'success'}
           sx={{ textTransform: 'capitalize' }}
         >
           {status === 1 ? 'Active' : 'Banned'}

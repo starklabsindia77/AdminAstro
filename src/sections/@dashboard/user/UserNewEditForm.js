@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 // form
@@ -30,6 +30,7 @@ UserNewEditForm.propTypes = {
 
 export default function UserNewEditForm({ isEdit, currentUser }) {
   const navigate = useNavigate();
+  const [uploadImage, setUploadImage] = useState()
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -94,7 +95,11 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
 
   const onSubmit = async (data) => {
     try {
+      // const formData = new FormData();
+      // formData.append('avatarUrl', data.avatarUrl);
       
+      data.image = uploadImage;
+      // formData.append('file', file);
       const accessToken = localStorage.getItem('accessToken');
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
@@ -116,10 +121,24 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
     }
   };
 
+
+
   const handleDrop = useCallback(
     (acceptedFiles) => {
-      console.log("texts", acceptedFiles);
+      
       const file = acceptedFiles[0];
+      
+      const reader = new FileReader();
+  
+      reader.onload = () => {
+        const base64String = reader.result.split(',')[1];
+        // console.log(base64String);
+        setUploadImage(base64String);
+        // Do something with the Base64 string
+      };
+      
+      reader.readAsDataURL(file);
+      
 
       if (file) {
         setValue(
@@ -129,6 +148,11 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
           })
         );
       }
+      // if (file) {
+      //   setValue(
+      //     'avatarUrl', file
+      //   );
+      // }
     },
     [setValue]
   );
@@ -140,14 +164,15 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
           <Card sx={{ py: 10, px: 3 }}>
             {isEdit && (
               <Label
-                color={values.status !== 'active' ? 'error' : 'success'}
+                color={values.status !== 'active' ? 'success' : 'error'}
                 sx={{ textTransform: 'uppercase', position: 'absolute', top: 24, right: 24 }}
               >
-                {values.status === 0 ? 'Active' : 'Banned' }
+                {values.status === 'active' ? 'Banned' : 'Active' }
               </Label>
             )}
 
             <Box sx={{ mb: 5 }}>
+            
               <RHFUploadAvatar
                 name="avatarUrl"
                 accept="image/*"
@@ -182,7 +207,8 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
                       <Switch
                         {...field}
                         checked={field.value !== 'active'}
-                        onChange={(event) => field.onChange(event.target.checked ? 'banned' : 'active')}
+                        onChange={(event) => field.onChange(                          
+                          event.target.checked ? 'banned' : 'active')}
                       />
                     )}
                   />
@@ -190,10 +216,10 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
                 label={
                   <>
                     <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
-                      Banned
+                      Active
                     </Typography>
                     <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                      Apply disable account
+                      Apply Active account
                     </Typography>
                   </>
                 }
@@ -231,8 +257,6 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
             >
               <RHFTextField name="firstName" label="First Name" />
               <RHFTextField name="lastName" label="Last Name" />
-              <RHFTextField name="role" label="Role" sx={{display: 'none'}} />
-              <RHFTextField name="roleId" label="Role Id"  sx={{display: 'none'}} />
               <RHFTextField name="name" label="Full Name" />
               <RHFTextField name="email" label="Email Address" />
               <RHFTextField name="mobileNo" label="Phone Number" />

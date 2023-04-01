@@ -23,6 +23,7 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
 
   const { name, avatarUrl, email, mobileNo, isVerified, status } = row;
 
+
   const [openMenu, setOpenMenuActions] = useState(null);
 
   const handleOpenMenu = (event) => {
@@ -67,7 +68,7 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
       <TableCell align="left">
         <Label
           variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
-          color={(status === 'banned' && 'error') || 'success'}
+          color={(status === 0 && 'error') || 'success'}
           sx={{ textTransform: 'capitalize' }}
         >
           {status === 1 ? 'Active' : 'Banned'}

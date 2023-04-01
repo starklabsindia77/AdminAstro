@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 // form
@@ -30,7 +30,7 @@ ExpertNewEditForm.propTypes = {
 
 export default function ExpertNewEditForm({ isEdit, currentExpert }) {
   const navigate = useNavigate();
-
+  const [uploadImage, setUploadImage] = useState()
   const { enqueueSnackbar } = useSnackbar();
 
   const NewExpertSchema = Yup.object().shape({
@@ -96,7 +96,7 @@ export default function ExpertNewEditForm({ isEdit, currentExpert }) {
 
   const onSubmit = async (data) => {
     try {
-      
+      data.image = uploadImage;
       const accessToken = localStorage.getItem('accessToken');
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
@@ -120,16 +120,34 @@ export default function ExpertNewEditForm({ isEdit, currentExpert }) {
 
   const handleDrop = useCallback(
     (acceptedFiles) => {
+      
       const file = acceptedFiles[0];
+      
+      const reader = new FileReader();
+  
+      reader.onload = () => {
+        const base64String = reader.result.split(',')[1];
+        // console.log(base64String);
+        setUploadImage(base64String);
+        // Do something with the Base64 string
+      };
+      
+      reader.readAsDataURL(file);
+      
 
       if (file) {
         setValue(
-          'avatarUrl',
+          'photoURL',
           Object.assign(file, {
             preview: URL.createObjectURL(file),
           })
         );
       }
+      // if (file) {
+      //   setValue(
+      //     'avatarUrl', file
+      //   );
+      // }
     },
     [setValue]
   );
@@ -144,7 +162,7 @@ export default function ExpertNewEditForm({ isEdit, currentExpert }) {
                 color={values.status !== 'active' ? 'error' : 'success'}
                 sx={{ textTransform: 'uppercase', position: 'absolute', top: 24, right: 24 }}
               >
-                {values.status === 0 ? 'Active' : 'Banned' }
+                {values.status === 'active' ? 'Banned' : 'Active' }
               </Label>
             )}
 
@@ -191,10 +209,10 @@ export default function ExpertNewEditForm({ isEdit, currentExpert }) {
                 label={
                   <>
                     <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
-                      Banned
+                      Active
                     </Typography>
                     <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                      Apply disable account
+                      Apply Active account
                     </Typography>
                   </>
                 }
