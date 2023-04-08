@@ -8,7 +8,7 @@ import { PATH_DASHBOARD } from './routes/paths';
 
 // export const HOST_API = process.env.REACT_APP_HOST_API_KEY || '';
 // export const HOST_API = "http://localhost:3001/api/admin"; 
-export const HOST_API = "http://65.0.231.240/api/admin"; 
+export const HOST_API = "65.0.231.240:3001/api/admin"; 
 
 
 export const FIREBASE_API = {
