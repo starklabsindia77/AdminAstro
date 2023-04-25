@@ -100,7 +100,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
       
       data.image = uploadImage;
       // formData.append('file', file);
-      const accessToken = localStorage.getItem('accessToken');
+        const accessToken = localStorage.getItem('accessToken');
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
           if(isEdit){

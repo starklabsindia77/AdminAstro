@@ -77,7 +77,7 @@ export const PATH_DASHBOARD = {
   },
   sessions: {
     root: path(ROOTS_DASHBOARD, '/sessions'),
-    // new: path(ROOTS_DASHBOARD, '/sessions/new'),
+    new: path(ROOTS_DASHBOARD, '/sessions/new'),
     list: path(ROOTS_DASHBOARD, '/sessions/list'),
     // cards: path(ROOTS_DASHBOARD, '/expert/cards'),
     // profile: path(ROOTS_DASHBOARD, '/expert/profile'),

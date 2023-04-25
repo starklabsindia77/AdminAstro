@@ -36,13 +36,36 @@ import Scrollbar from '../../components/Scrollbar';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import { TableEmptyRows, TableHeadCustom, TableNoData, TableSelectedActions } from '../../components/table';
 // sections
-import { UserTableToolbar, UserTableRow } from '../../sections/@dashboard/user/list';
+import { SessionsTableToolbar, SessionsTableRow } from '../../sections/@dashboard/sessions/list';
 import axios from '../../utils/axios';
 import { isValidToken, setSession } from '../../utils/jwt';
 
 // ----------------------------------------------------------------------
 
 
+  const STATUS_OPTIONS = ['all', 'active', 'banned'];
+
+  const ROLE_OPTIONS = [
+    'all',
+    'ux designer',
+    'full stack designer',
+    'backend developer',
+    'project manager',
+    'leader',
+    'ui designer',
+    'ui/ux designer',
+    'front end developer',
+    'full stack developer',
+  ];
+
+  const TABLE_HEAD = [
+    { id: 'StartDate', label: 'Start Date', align: 'left' },
+    { id: 'EndDate', label: 'End Date', align: 'left' },
+    // { id: 'phone', label: 'Phone', align: 'left' },
+    // { id: 'isVerified', label: 'Verified', align: 'center' },
+    // { id: 'status', label: 'Status', align: 'left' },
+    { id: '' },
+  ];
 
 // ----------------------------------------------------------------------
 
@@ -70,23 +93,74 @@ export default function Sessions() {
 
   const navigate = useNavigate();
 
-//   const [tableData, setTableData] = useState([]);
+
+  const [tableData, setTableData] = useState([]);
  
-//   useEffect(async () => {
-//     const accessToken = localStorage.getItem('accessToken');
-//         if (accessToken && isValidToken(accessToken)) {
-//           setSession(accessToken);
-//           const response = await axios.get('/user');
-//           const { user } = response.data;
-//           setTableData(user);
-//         }
-//   }, [])
+  useEffect(async () => {
+    const accessToken = localStorage.getItem('accessToken');
+        if (accessToken && isValidToken(accessToken)) {
+          setSession(accessToken);
+          const response = await axios.get('/sessions');
+          const { data } = response.data;
+          console.log("data", data);
+          setTableData(data);
+        }
+  }, [])
   
 
-  
+  const [filterName, setFilterName] = useState('');
 
+  const [filterRole, setFilterRole] = useState('all');
 
+  const { currentTab: filterStatus, onChangeTab: onChangeFilterStatus } = useTabs('all');
 
+  const handleFilterName = (filterName) => {
+    setFilterName(filterName);
+    setPage(0);
+  };
+
+  const handleFilterRole = (event) => {
+    setFilterRole(event.target.value);
+  };
+
+  const handleDeleteRow = async(id) => {
+    const deleteRow = tableData?.filter((row) => row.id !== id);
+    const accessToken = localStorage.getItem('accessToken');
+        if (accessToken && isValidToken(accessToken)) {
+          setSession(accessToken);
+          const response = await axios.delete(`/sessions/${id}`);
+          console.log("delete", response);
+          const { data } = response.data;
+          // setTableData(user);
+        }
+    setSelected([]);
+    setTableData(deleteRow);
+  };
+
+  const handleDeleteRows = (selected) => {
+    const deleteRows = tableData?.filter((row) => !selected.includes(row.id));
+    setSelected([]);
+    setTableData(deleteRows);
+  };
+
+  const handleEditRow = (id) => {
+    navigate(PATH_DASHBOARD.user.edit(id));
+  };
+
+  const dataFiltered = applySortFilter({
+    tableData,
+    comparator: getComparator(order, orderBy),
+    filterName,
+    filterRole,
+    filterStatus,
+  });
+
+  const denseHeight = dense ? 52 : 72;
+
+  const isNotFound =
+    (!dataFiltered?.length && !!filterName) ||
+    (!dataFiltered?.length && !!filterRole) ||
+    (!dataFiltered?.length && !!filterStatus);
 
   return (
     <Page title="Sessions: List">
@@ -98,16 +172,16 @@ export default function Sessions() {
             { name: 'Sessions', href: PATH_DASHBOARD.sessions.root },
             { name: 'List' },
           ]}
-        //   action={
-        //     <Button
-        //       variant="contained"
-        //       component={RouterLink}
-        //       to={PATH_DASHBOARD.user.new}
-        //       startIcon={<Iconify icon={'eva:plus-fill'} />}
-        //     >
-        //       New User
-        //     </Button>
-        //   }
+          action={
+            <Button
+              variant="contained"
+              component={RouterLink}
+              to={PATH_DASHBOARD.sessions.new}
+              startIcon={<Iconify icon={'eva:plus-fill'} />}
+            >
+              New Sessions
+            </Button>
+          }
         />
 
         <Card>
@@ -124,9 +198,9 @@ export default function Sessions() {
             ))}
           </Tabs>
 
-          <Divider />
+          <Divider /> */}
 
-          <UserTableToolbar
+          <SessionsTableToolbar
             filterName={filterName}
             filterRole={filterRole}
             onFilterName={handleFilterName}
@@ -175,7 +249,7 @@ export default function Sessions() {
 
                 <TableBody>
                   {dataFiltered?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-                    <UserTableRow
+                    <SessionsTableRow
                       key={row.id}
                       row={row}
                       selected={selected.includes(row.id)}
@@ -209,7 +283,7 @@ export default function Sessions() {
               label="Dense"
               sx={{ px: 3, py: 1.5, top: 0, position: { md: 'absolute' } }}
             />
-          </Box> */}
+          </Box> 
         </Card>
       </Container>
     </Page>
@@ -218,3 +292,35 @@ export default function Sessions() {
 
 // ----------------------------------------------------------------------
 
+
+function applySortFilter({ tableData, comparator, filterName, filterStatus, filterRole }) {
+  const stabilizedThis = tableData?.map((el, index) => [el, index]);
+
+  stabilizedThis?.sort((a, b) => {
+    const order = comparator(a[0], b[0]);
+    if (order !== 0) return order;
+    return a[1] - b[1];
+  });
+
+  tableData = stabilizedThis?.map((el) => el[0]);
+
+  if (filterName) {
+    tableData = tableData?.filter((item) => item.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1);
+  }
+
+  // if (filterStatus !== 'all') {
+  //   tableData = tableData?.filter((item) => item.status === filterStatus);
+  // }
+  if (filterStatus === 'active') {
+    tableData = tableData?.filter((item) => item.status === 1);
+  }
+  if (filterStatus === 'banned') {
+    tableData = tableData?.filter((item) => item.status === 0);
+  }
+
+  if (filterRole !== 'all') {
+    tableData = tableData?.filter((item) => item.role === filterRole);
+  }
+
+  return tableData;
+}

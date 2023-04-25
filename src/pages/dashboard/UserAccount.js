@@ -1,4 +1,7 @@
+/* eslint-disable consistent-return */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { capitalCase } from 'change-case';
+import { useState, useLayoutEffect, useEffect } from 'react';
 // @mui
 import { Container, Tab, Box, Tabs } from '@mui/material';
 // routes
@@ -21,10 +24,48 @@ import {
   AccountChangePassword,
 } from '../../sections/@dashboard/user/account';
 
+import { isValidToken, setSession } from '../../utils/jwt';
+import useAuth from '../../hooks/useAuth';
+import axios from '../../utils/axios';
+
 // ----------------------------------------------------------------------
 
 export default function UserAccount() {
   const { themeStretch } = useSettings();
+
+  const { user } = useAuth();
+
+  const [ currentExpert, setCurrentExpert ] = useState({});
+
+  useEffect(async () => {
+    const accessToken = localStorage.getItem('accessToken');
+    console.log("test Effect",user)
+    if (accessToken && isValidToken(accessToken) && user.role !== 'Admin') {
+      // console.log("test Effect 12",accessToken);
+      setSession(accessToken);
+      const response = await axios.get(`/expert/${user.id}`);
+      console.log("test Effect 3");
+      // const { user } = response.data;
+      console.log("res1", response);
+      // console.log("res", user);
+      setCurrentExpert(response.data.user);
+    }
+  }, [user.id])
+
+  // const currentExpert = async () => {
+  //   const accessToken = localStorage.getItem('accessToken');
+  //   console.log("test Effect",user)
+  //   if (accessToken && isValidToken(accessToken) && user.role !== 'Admin') {
+  //     // console.log("test Effect 12",accessToken);
+  //     setSession(accessToken);
+  //     const response = await axios.get(`/expert/${user.id}`);
+  //     console.log("test Effect 3");
+  //     // const { user } = response.data;
+  //     console.log("res1", response);
+  //     // console.log("res", user);
+  //     return response.data.user;
+  //   }
+  // }
 
   const { currentTab, onChangeTab } = useTabs('general');
 
@@ -32,23 +73,23 @@ export default function UserAccount() {
     {
       value: 'general',
       icon: <Iconify icon={'ic:round-account-box'} width={20} height={20} />,
-      component: <AccountGeneral />,
+      component: <AccountGeneral user={user.role === 'Admin' ? user : currentExpert} />,
     },
     {
       value: 'billing',
       icon: <Iconify icon={'ic:round-receipt'} width={20} height={20} />,
       component: <AccountBilling cards={_userPayment} addressBook={_userAddressBook} invoices={_userInvoices} />,
     },
-    {
-      value: 'notifications',
-      icon: <Iconify icon={'eva:bell-fill'} width={20} height={20} />,
-      component: <AccountNotifications />,
-    },
-    {
-      value: 'social_links',
-      icon: <Iconify icon={'eva:share-fill'} width={20} height={20} />,
-      component: <AccountSocialLinks myProfile={_userAbout} />,
-    },
+    // {
+    //   value: 'notifications',
+    //   icon: <Iconify icon={'eva:bell-fill'} width={20} height={20} />,
+    //   component: <AccountNotifications />,
+    // },
+    // {
+    //   value: 'social_links',
+    //   icon: <Iconify icon={'eva:share-fill'} width={20} height={20} />,
+    //   component: <AccountSocialLinks myProfile={_userAbout} />,
+    // },
     {
       value: 'change_password',
       icon: <Iconify icon={'ic:round-vpn-key'} width={20} height={20} />,

@@ -114,7 +114,7 @@ export default function Router() {
             // { path: 'profile', element: <ExpertProfile /> },
             // { path: 'cards', element: <ExpertCards /> },
             { path: 'list', element: <Sessions /> },
-            // { path: 'new', element: <ExpertCreate /> },
+            { path: 'new', element: <SessionsCreate /> },
             // { path: ':name/edit', element: <ExpertCreate /> },
             // { path: 'account', element: <ExpertAccount /> },
           ],
@@ -257,7 +257,7 @@ const ExpertCreate = Loadable(lazy(() => import('../pages/dashboard/ExpertCreate
 // const ExpertCards = Loadable(lazy(() => import('../pages/dashboard/ExpertCards')));
 const Sessions = Loadable(lazy(() => import('../pages/dashboard/Sessions')));
 // const ExpertAccount = Loadable(lazy(() => import('../pages/dashboard/ExpertAccount')));
-// const ExpertCreate = Loadable(lazy(() => import('../pages/dashboard/ExpertCreate')));
+const SessionsCreate = Loadable(lazy(() => import('../pages/dashboard/SessionsCreate')));
 
 // Schedule 
 // const ExpertProfile = Loadable(lazy(() => import('../pages/dashboard/ExpertProfile')));
