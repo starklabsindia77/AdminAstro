@@ -70,17 +70,17 @@ export default function Schedule() {
 
   const navigate = useNavigate();
 
-//   const [tableData, setTableData] = useState([]);
+  const [tableData, setTableData] = useState([]);
  
-//   useEffect(async () => {
-//     const accessToken = localStorage.getItem('accessToken');
-//         if (accessToken && isValidToken(accessToken)) {
-//           setSession(accessToken);
-//           const response = await axios.get('/user');
-//           const { user } = response.data;
-//           setTableData(user);
-//         }
-//   }, [])
+  useEffect(async () => {
+    const accessToken = localStorage.getItem('accessToken');
+        if (accessToken && isValidToken(accessToken)) {
+          setSession(accessToken);
+          const response = await axios.get('/user');
+          const { user } = response.data;
+          setTableData(user);
+        }
+  }, [])
   
 
   
@@ -122,7 +122,7 @@ export default function Schedule() {
             {STATUS_OPTIONS.map((tab) => (
               <Tab disableRipple key={tab} label={tab} value={tab} />
             ))}
-          </Tabs>
+          </Tabs> */}
 
           <Divider />
 
@@ -209,7 +209,7 @@ export default function Schedule() {
               label="Dense"
               sx={{ px: 3, py: 1.5, top: 0, position: { md: 'absolute' } }}
             />
-          </Box> */}
+          </Box>
         </Card>
       </Container>
     </Page>
