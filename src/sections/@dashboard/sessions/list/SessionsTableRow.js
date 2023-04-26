@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import moment from 'moment';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Avatar, Checkbox, TableRow, TableCell, Typography, MenuItem } from '@mui/material';
@@ -42,16 +43,15 @@ export default function SessionsTableRow({ row, selected, onEditRow, onSelectRow
         <Checkbox checked={selected} onClick={onSelectRow} />
       </TableCell>
 
-      <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
-        {/* <Avatar alt={name} src={avatarUrl} sx={{ mr: 2 }} /> */}
+      <TableCell align="left">       
         <Typography variant="subtitle2" noWrap>
-          {start_date}
+          {moment(start_date).format('MMMM Do YYYY')}
         </Typography>
       </TableCell>
 
       <TableCell align="left"> 
         <Typography variant="subtitle2" noWrap>
-          {end_date}
+        {moment(end_date).format('MMMM Do YYYY')}
         </Typography>
       </TableCell>
 

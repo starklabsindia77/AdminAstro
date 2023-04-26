@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import moment from 'moment';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Avatar, Checkbox, TableRow, TableCell, Typography, MenuItem } from '@mui/material';
@@ -8,6 +9,8 @@ import { Avatar, Checkbox, TableRow, TableCell, Typography, MenuItem } from '@mu
 import Label from '../../../../components/Label';
 import Iconify from '../../../../components/Iconify';
 import { TableMoreMenu } from '../../../../components/table';
+
+
 
 // ----------------------------------------------------------------------
 
@@ -25,7 +28,7 @@ export default function ScheduleTableRow({ row, selected, onEditRow, onSelectRow
   // eslint-disable-next-line camelcase
   const { name, date, start_time, end_time, booking_status, avatarUrl } = row;
 
-
+  
   const [openMenu, setOpenMenuActions] = useState(null);
 
   const handleOpenMenu = (event) => {
@@ -51,7 +54,7 @@ export default function ScheduleTableRow({ row, selected, onEditRow, onSelectRow
 
       <TableCell align="left"> 
         <Typography variant="subtitle2" noWrap>
-          {date}
+          {moment(date).format('MMMM Do YYYY')}
         </Typography>
       </TableCell>
 
