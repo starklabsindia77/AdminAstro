@@ -23,7 +23,7 @@ export default function ScheduleTableRow({ row, selected, onEditRow, onSelectRow
   const theme = useTheme();
 
   // eslint-disable-next-line camelcase
-  const { start_date, end_date } = row;
+  const { name, date, start_time, end_time, booking_status, avatarUrl } = row;
 
 
   const [openMenu, setOpenMenuActions] = useState(null);
@@ -43,15 +43,33 @@ export default function ScheduleTableRow({ row, selected, onEditRow, onSelectRow
       </TableCell>
 
       <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
-        {/* <Avatar alt={name} src={avatarUrl} sx={{ mr: 2 }} /> */}
+        <Avatar alt={name} src={avatarUrl} sx={{ mr: 2 }} /> 
         <Typography variant="subtitle2" noWrap>
-          {start_date}
+          {name}
         </Typography>
       </TableCell>
 
       <TableCell align="left"> 
         <Typography variant="subtitle2" noWrap>
-          {end_date}
+          {date}
+        </Typography>
+      </TableCell>
+
+      <TableCell align="left"> 
+        <Typography variant="subtitle2" noWrap>
+          {start_time}
+        </Typography>
+      </TableCell>
+
+      <TableCell align="left"> 
+        <Typography variant="subtitle2" noWrap>
+          {end_time}
+        </Typography>
+      </TableCell>
+
+      <TableCell align="left"> 
+        <Typography variant="subtitle2" noWrap>
+          {booking_status}
         </Typography>
       </TableCell>
 

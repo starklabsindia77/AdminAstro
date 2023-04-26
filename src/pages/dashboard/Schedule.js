@@ -36,13 +36,21 @@ import Scrollbar from '../../components/Scrollbar';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import { TableEmptyRows, TableHeadCustom, TableNoData, TableSelectedActions } from '../../components/table';
 // sections
-import { UserTableToolbar, UserTableRow } from '../../sections/@dashboard/user/list';
+import { ScheduleTableToolbar, ScheduleTableRow } from '../../sections/@dashboard/schedule/list';
 import axios from '../../utils/axios';
 import { isValidToken, setSession } from '../../utils/jwt';
 
 // ----------------------------------------------------------------------
 
-
+const TABLE_HEAD = [
+  { id: 'name', label: 'Name', align: 'left' },
+  { id: 'date', label: 'Date', align: 'left' },
+  { id: 'startTime', label: 'Start Time', align: 'left' },
+  { id: 'endTime', label: 'End Time', align: 'left' },
+  { id: 'status', label: 'Status', align: 'left' },
+  // { id: 'status', label: 'Status', align: 'left' },
+  { id: '' },
+];
 
 // ----------------------------------------------------------------------
 
@@ -76,15 +84,67 @@ export default function Schedule() {
     const accessToken = localStorage.getItem('accessToken');
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
-          const response = await axios.get('/user');
-          const { user } = response.data;
-          setTableData(user);
+          const response = await axios.get('/appointment');
+          const { data } = response.data;
+          console.log("appointment data", data);
+          setTableData(data);
         }
   }, [])
   
 
-  
+  const [filterName, setFilterName] = useState('');
 
+  const [filterRole, setFilterRole] = useState('all');
+
+  const { currentTab: filterStatus, onChangeTab: onChangeFilterStatus } = useTabs('all');
+
+  const handleFilterName = (filterName) => {
+    setFilterName(filterName);
+    setPage(0);
+  };
+
+  const handleFilterRole = (event) => {
+    setFilterRole(event.target.value);
+  };
+
+  const handleDeleteRow = async(id) => {
+    // const deleteRow = tableData?.filter((row) => row.id !== id);
+    // const accessToken = localStorage.getItem('accessToken');
+    //     if (accessToken && isValidToken(accessToken)) {
+    //       setSession(accessToken);
+    //       const response = await axios.delete(`/sessions/${id}`);
+    //       console.log("delete", response);
+    //       const { data } = response.data;
+    //       // setTableData(user);
+    //     }
+    // setSelected([]);
+    // setTableData(deleteRow);
+  };
+
+  const handleDeleteRows = (selected) => {
+    const deleteRows = tableData?.filter((row) => !selected.includes(row.id));
+    setSelected([]);
+    setTableData(deleteRows);
+  };
+
+  const handleEditRow = (id) => {
+    navigate(PATH_DASHBOARD.user.edit(id));
+  };
+
+  const dataFiltered = applySortFilter({
+    tableData,
+    comparator: getComparator(order, orderBy),
+    filterName,
+    filterRole,
+    filterStatus,
+  });
+  
+  const denseHeight = dense ? 52 : 72;
+
+  const isNotFound =
+    (!dataFiltered?.length && !!filterName) ||
+    (!dataFiltered?.length && !!filterRole) ||
+    (!dataFiltered?.length && !!filterStatus);
 
 
 
@@ -126,12 +186,12 @@ export default function Schedule() {
 
           <Divider />
 
-          <UserTableToolbar
+          <ScheduleTableToolbar
             filterName={filterName}
             filterRole={filterRole}
             onFilterName={handleFilterName}
             onFilterRole={handleFilterRole}
-            optionsRole={ROLE_OPTIONS}
+            // optionsRole={ROLE_OPTIONS}
           />
 
           <Scrollbar>
@@ -175,7 +235,7 @@ export default function Schedule() {
 
                 <TableBody>
                   {dataFiltered?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-                    <UserTableRow
+                    <ScheduleTableRow
                       key={row.id}
                       row={row}
                       selected={selected.includes(row.id)}
@@ -218,3 +278,36 @@ export default function Schedule() {
 
 // ----------------------------------------------------------------------
 
+
+
+function applySortFilter({ tableData, comparator, filterName, filterStatus, filterRole }) {
+  const stabilizedThis = tableData?.map((el, index) => [el, index]);
+
+  stabilizedThis?.sort((a, b) => {
+    const order = comparator(a[0], b[0]);
+    if (order !== 0) return order;
+    return a[1] - b[1];
+  });
+
+  tableData = stabilizedThis?.map((el) => el[0]);
+
+  if (filterName) {
+    tableData = tableData?.filter((item) => item.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1);
+  }
+
+  // if (filterStatus !== 'all') {
+  //   tableData = tableData?.filter((item) => item.status === filterStatus);
+  // }
+  if (filterStatus === 'active') {
+    tableData = tableData?.filter((item) => item.status === 1);
+  }
+  if (filterStatus === 'banned') {
+    tableData = tableData?.filter((item) => item.status === 0);
+  }
+
+  if (filterRole !== 'all') {
+    tableData = tableData?.filter((item) => item.role === filterRole);
+  }
+
+  return tableData;
+}

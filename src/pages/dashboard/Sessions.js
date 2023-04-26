@@ -102,7 +102,7 @@ export default function Sessions() {
           setSession(accessToken);
           const response = await axios.get('/sessions');
           const { data } = response.data;
-          console.log("data", data);
+          // console.log("data", data);
           setTableData(data);
         }
   }, [])
@@ -126,13 +126,13 @@ export default function Sessions() {
   const handleDeleteRow = async(id) => {
     const deleteRow = tableData?.filter((row) => row.id !== id);
     const accessToken = localStorage.getItem('accessToken');
-        if (accessToken && isValidToken(accessToken)) {
-          setSession(accessToken);
-          const response = await axios.delete(`/sessions/${id}`);
-          console.log("delete", response);
-          const { data } = response.data;
-          // setTableData(user);
-        }
+    if (accessToken && isValidToken(accessToken)) {
+      setSession(accessToken);
+      const response = await axios.delete(`/sessions/${id}`);
+      console.log("delete", response);
+      const { data } = response.data;
+      // setTableData(user);
+    }
     setSelected([]);
     setTableData(deleteRow);
   };
