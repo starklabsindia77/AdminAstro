@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import * as Yup from 'yup';
 import { useSnackbar } from 'notistack';
@@ -23,7 +24,6 @@ import { isValidToken, setSession } from '../../../../utils/jwt';
 
 export default function AccountGeneral({ user }) {
   const { enqueueSnackbar } = useSnackbar();
-  console.log("user ", user);
   // const { user } = useAuth();
   const [defaultValues, setdefaultValues] = useState()
 
@@ -48,6 +48,7 @@ export default function AccountGeneral({ user }) {
   const UpdateUserSchema = Yup.object().shape({
     displayName: Yup.string().required('Name is required'),
   });
+  console.log("values", defaultValues);
 
   // const defaultValues = {
   //   displayName: user?.displayName || '',

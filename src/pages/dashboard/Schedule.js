@@ -38,19 +38,20 @@ import { TableEmptyRows, TableHeadCustom, TableNoData, TableSelectedActions } fr
 // sections
 import { ScheduleTableToolbar, ScheduleTableRow } from '../../sections/@dashboard/schedule/list';
 import axios from '../../utils/axios';
+import useAuth from '../../hooks/useAuth';
 import { isValidToken, setSession } from '../../utils/jwt';
 
 // ----------------------------------------------------------------------
 
-const TABLE_HEAD = [
-  { id: 'name', label: 'Name', align: 'left' },
-  { id: 'date', label: 'Date', align: 'left' },
-  { id: 'startTime', label: 'Start Time', align: 'left' },
-  { id: 'endTime', label: 'End Time', align: 'left' },
-  { id: 'status', label: 'Status', align: 'left' },
-  // { id: 'status', label: 'Status', align: 'left' },
-  { id: '' },
-];
+// const TABLE_HEAD = [
+//   { id: 'name', label: 'Name', align: 'left' },
+//   { id: 'date', label: 'Date', align: 'left' },
+//   { id: 'startTime', label: 'Start Time', align: 'left' },
+//   { id: 'endTime', label: 'End Time', align: 'left' },
+//   { id: 'status', label: 'Status', align: 'left' },
+//   // { id: 'status', label: 'Status', align: 'left' },
+//   { id: '' },
+// ];
 
 // ----------------------------------------------------------------------
 
@@ -75,12 +76,38 @@ export default function Schedule() {
   } = useTable();
 
   const { themeStretch } = useSettings();
+  const { user } = useAuth();
 
   const navigate = useNavigate();
 
   const [tableData, setTableData] = useState([]);
+  const [TABLE_HEAD, setTABLEHEAD] = useState([]);
  
   useEffect(async () => {
+    if(user.role !== 'Admin'){
+      setTABLEHEAD(
+        [
+          { id: 'name', label: 'Name', align: 'left' },
+          { id: 'date', label: 'Date', align: 'left' },
+          { id: 'startTime', label: 'Start Time', align: 'left' },
+          { id: 'endTime', label: 'End Time', align: 'left' },
+          { id: 'status', label: 'Status', align: 'left' },
+          { id: '' },
+        ]
+      )
+    }else{
+      setTABLEHEAD(
+        [
+          { id: 'name', label: 'Name', align: 'left' },
+          { id: 'expert', label: 'Expert Name', align: 'left' },
+          { id: 'date', label: 'Date', align: 'left' },
+          { id: 'startTime', label: 'Start Time', align: 'left' },
+          { id: 'endTime', label: 'End Time', align: 'left' },
+          { id: 'status', label: 'Status', align: 'left' },          
+          { id: '' },
+        ]
+      )
+    }
     const accessToken = localStorage.getItem('accessToken');
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
@@ -89,7 +116,7 @@ export default function Schedule() {
           console.log("appointment data", data);
           setTableData(data);
         }
-  }, [])
+  }, [user])
   
 
   const [filterName, setFilterName] = useState('');

@@ -6,6 +6,7 @@ import moment from 'moment';
 import { useTheme } from '@mui/material/styles';
 import { Avatar, Checkbox, TableRow, TableCell, Typography, MenuItem } from '@mui/material';
 // components
+import useAuth from '../../../../hooks/useAuth';
 import Label from '../../../../components/Label';
 import Iconify from '../../../../components/Iconify';
 import { TableMoreMenu } from '../../../../components/table';
@@ -24,9 +25,9 @@ ScheduleTableRow.propTypes = {
 
 export default function ScheduleTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
   const theme = useTheme();
-
+  const { user } = useAuth();
   // eslint-disable-next-line camelcase
-  const { name, date, start_time, end_time, booking_status, avatarUrl } = row;
+  // const { name, date, start_time, end_time, booking_status, avatarUrl } = row;
 
   
   const [openMenu, setOpenMenuActions] = useState(null);
@@ -46,33 +47,42 @@ export default function ScheduleTableRow({ row, selected, onEditRow, onSelectRow
       </TableCell>
 
       <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
-        <Avatar alt={name} src={avatarUrl} sx={{ mr: 2 }} /> 
+        <Avatar alt={row.name} src={row.avatarUrl} sx={{ mr: 2 }} /> 
         <Typography variant="subtitle2" noWrap>
-          {name}
+          {row.name}
+        </Typography>
+      </TableCell>
+      
+      {user.role === 'Admin' && (
+        <TableCell align="left">
+          {/* <Avatar alt={row.displayName} src={row.photoURL} sx={{ mr: 2 }} />  */}
+          <Typography variant="subtitle2" noWrap>
+            {row.displayName}            
+          </Typography>
+        </TableCell>
+      )}
+
+      <TableCell align="left"> 
+        <Typography variant="subtitle2" noWrap>
+          {moment(row.date).format('MMMM Do YYYY')}
         </Typography>
       </TableCell>
 
       <TableCell align="left"> 
         <Typography variant="subtitle2" noWrap>
-          {moment(date).format('MMMM Do YYYY')}
+          {row.start_time}
         </Typography>
       </TableCell>
 
       <TableCell align="left"> 
         <Typography variant="subtitle2" noWrap>
-          {start_time}
+        {row.end_time}
         </Typography>
       </TableCell>
 
       <TableCell align="left"> 
         <Typography variant="subtitle2" noWrap>
-          {end_time}
-        </Typography>
-      </TableCell>
-
-      <TableCell align="left"> 
-        <Typography variant="subtitle2" noWrap>
-          {booking_status}
+          {row.booking_status}
         </Typography>
       </TableCell>
 

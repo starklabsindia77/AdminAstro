@@ -1,11 +1,13 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import moment from 'moment';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Avatar, Checkbox, TableRow, TableCell, Typography, MenuItem } from '@mui/material';
 // components
+import useAuth from '../../../../hooks/useAuth';
 import Label from '../../../../components/Label';
 import Iconify from '../../../../components/Iconify';
 import { TableMoreMenu } from '../../../../components/table';
@@ -22,9 +24,18 @@ SessionsTableRow.propTypes = {
 
 export default function SessionsTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
   const theme = useTheme();
-
+  const { user } = useAuth();
   // eslint-disable-next-line camelcase
-  const { start_date, end_date } = row;
+  // const { start_date, end_date } = row;
+  // useEffect(async () => {
+  //   if(user.role !== 'Admin'){
+  //     const { start_date, end_date } = row;
+  //   }else{
+  //     const { displayName, email, photoURL, start_date, end_date } = row;
+  //   }
+    
+    
+  // }, [])
 
 
   const [openMenu, setOpenMenuActions] = useState(null);
@@ -42,16 +53,24 @@ export default function SessionsTableRow({ row, selected, onEditRow, onSelectRow
       <TableCell padding="checkbox">
         <Checkbox checked={selected} onClick={onSelectRow} />
       </TableCell>
+      {user.role === 'Admin' && (
+        <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
+          <Avatar alt={row.displayName} src={row.photoURL} sx={{ mr: 2 }} /> 
+          <Typography variant="subtitle2" noWrap>
+            {row.displayName}            
+          </Typography>
+        </TableCell>
+      )}
 
       <TableCell align="left">       
         <Typography variant="subtitle2" noWrap>
-          {moment(start_date).format('MMMM Do YYYY')}
+          {moment(row.start_date).format('MMMM Do YYYY')}
         </Typography>
       </TableCell>
 
       <TableCell align="left"> 
         <Typography variant="subtitle2" noWrap>
-        {moment(end_date).format('MMMM Do YYYY')}
+        {moment(row.end_date).format('MMMM Do YYYY')}
         </Typography>
       </TableCell>
 

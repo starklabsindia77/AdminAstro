@@ -34,21 +34,21 @@ export default function ExpertAccount() {
       icon: <Iconify icon={'ic:round-account-box'} width={20} height={20} />,
       component: <AccountGeneral />,
     },
-    {
-      value: 'billing',
-      icon: <Iconify icon={'ic:round-receipt'} width={20} height={20} />,
-      component: <AccountBilling cards={_expertPayment} addressBook={_expertAddressBook} invoices={_expertInvoices} />,
-    },
-    {
-      value: 'notifications',
-      icon: <Iconify icon={'eva:bell-fill'} width={20} height={20} />,
-      component: <AccountNotifications />,
-    },
-    {
-      value: 'social_links',
-      icon: <Iconify icon={'eva:share-fill'} width={20} height={20} />,
-      component: <AccountSocialLinks myProfile={_expertAbout} />,
-    },
+    // {
+    //   value: 'billing',
+    //   icon: <Iconify icon={'ic:round-receipt'} width={20} height={20} />,
+    //   component: <AccountBilling cards={_expertPayment} addressBook={_expertAddressBook} invoices={_expertInvoices} />,
+    // },
+    // {
+    //   value: 'notifications',
+    //   icon: <Iconify icon={'eva:bell-fill'} width={20} height={20} />,
+    //   component: <AccountNotifications />,
+    // },
+    // {
+    //   value: 'social_links',
+    //   icon: <Iconify icon={'eva:share-fill'} width={20} height={20} />,
+    //   component: <AccountSocialLinks myProfile={_expertAbout} />,
+    // },
     {
       value: 'change_password',
       icon: <Iconify icon={'ic:round-vpn-key'} width={20} height={20} />,

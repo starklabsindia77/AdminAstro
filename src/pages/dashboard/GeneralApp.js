@@ -138,7 +138,7 @@ export default function GeneralApp() {
 
           <Grid item xs={12} lg={8}>
             <AppNewInvoice
-              title="Latest Transactions"
+              title="Latest Appoinments"
               tableData={_appInvoices}
               tableLabels={[
                 { id: 'id', label: 'Session ID' },

@@ -38,6 +38,7 @@ import { TableEmptyRows, TableHeadCustom, TableNoData, TableSelectedActions } fr
 // sections
 import { SessionsTableToolbar, SessionsTableRow } from '../../sections/@dashboard/sessions/list';
 import axios from '../../utils/axios';
+import useAuth from '../../hooks/useAuth';
 import { isValidToken, setSession } from '../../utils/jwt';
 
 // ----------------------------------------------------------------------
@@ -58,14 +59,7 @@ import { isValidToken, setSession } from '../../utils/jwt';
     'full stack developer',
   ];
 
-  const TABLE_HEAD = [
-    { id: 'StartDate', label: 'Start Date', align: 'left' },
-    { id: 'EndDate', label: 'End Date', align: 'left' },
-    // { id: 'phone', label: 'Phone', align: 'left' },
-    // { id: 'isVerified', label: 'Verified', align: 'center' },
-    // { id: 'status', label: 'Status', align: 'left' },
-    { id: '' },
-  ];
+  
 
 // ----------------------------------------------------------------------
 
@@ -93,19 +87,50 @@ export default function Sessions() {
 
   const navigate = useNavigate();
 
+  const { user } = useAuth();
 
   const [tableData, setTableData] = useState([]);
- 
+
+  const [TABLE_HEAD, setTABLEHEAD] = useState([]);
+  
+  // const TABLE_HEAD = [
+  //   { id: 'StartDate', label: 'Start Date', align: 'left' },
+  //   { id: 'EndDate', label: 'End Date', align: 'left' },
+  //   // { id: 'phone', label: 'Phone', align: 'left' },
+  //   // { id: 'isVerified', label: 'Verified', align: 'center' },
+  //   // { id: 'status', label: 'Status', align: 'left' },
+  //   { id: '' },
+  // ];
+
   useEffect(async () => {
+    if(user.role !== 'Admin'){
+      setTABLEHEAD(
+        [         
+          { id: 'StartDate', label: 'Start Date', align: 'left' },
+          { id: 'EndDate', label: 'End Date', align: 'left' },
+          { id: '' },
+        ]
+      )
+    }else{
+      setTABLEHEAD(
+        [
+          { id: 'Name', label: 'Name', align: 'left' },
+          { id: 'StartDate', label: 'Start Date', align: 'left' },
+          { id: 'EndDate', label: 'End Date', align: 'left' },
+          { id: '' },
+        ]
+      )
+    }
+    
     const accessToken = localStorage.getItem('accessToken');
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
           const response = await axios.get('/sessions');
           const { data } = response.data;
-          // console.log("data", data);
+          console.log("data", data);
           setTableData(data);
         }
-  }, [])
+  }, [user])
   
 
   const [filterName, setFilterName] = useState('');

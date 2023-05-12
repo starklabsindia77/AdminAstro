@@ -41,13 +41,9 @@ export default function UserAccount() {
     const accessToken = localStorage.getItem('accessToken');
     console.log("test Effect",user)
     if (accessToken && isValidToken(accessToken) && user.role !== 'Admin') {
-      // console.log("test Effect 12",accessToken);
       setSession(accessToken);
       const response = await axios.get(`/expert/${user.id}`);
-      console.log("test Effect 3");
-      // const { user } = response.data;
       console.log("res1", response);
-      // console.log("res", user);
       setCurrentExpert(response.data.user);
     }
   }, [user.id])
@@ -75,11 +71,11 @@ export default function UserAccount() {
       icon: <Iconify icon={'ic:round-account-box'} width={20} height={20} />,
       component: <AccountGeneral user={user.role === 'Admin' ? user : currentExpert} />,
     },
-    {
-      value: 'billing',
-      icon: <Iconify icon={'ic:round-receipt'} width={20} height={20} />,
-      component: <AccountBilling cards={_userPayment} addressBook={_userAddressBook} invoices={_userInvoices} />,
-    },
+    // {
+    //   value: 'billing',
+    //   icon: <Iconify icon={'ic:round-receipt'} width={20} height={20} />,
+    //   component: <AccountBilling cards={_userPayment} addressBook={_userAddressBook} invoices={_userInvoices} />,
+    // },
     // {
     //   value: 'notifications',
     //   icon: <Iconify icon={'eva:bell-fill'} width={20} height={20} />,
