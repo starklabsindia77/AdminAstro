@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { sentenceCase } from 'change-case';
+import moment from 'moment';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import {
@@ -9,6 +10,8 @@ import {
   Table,
   Button,
   Divider,
+  Avatar,
+  Typography,
   MenuItem,
   TableRow,
   TableBody,
@@ -44,7 +47,7 @@ export default function AppNewInvoice({ title, subheader, tableData, tableLabels
             <TableHeadCustom headLabel={tableLabels} />
 
             <TableBody>
-              {tableData.map((row) => (
+              {tableData !== undefined && tableData.map((row) => (
                 <AppNewInvoiceRow key={row.id} row={row} />
               ))}
             </TableBody>
@@ -67,94 +70,82 @@ export default function AppNewInvoice({ title, subheader, tableData, tableLabels
 
 AppNewInvoiceRow.propTypes = {
   row: PropTypes.shape({
-    category: PropTypes.string,
+    name: PropTypes.string,
     id: PropTypes.string,
-    price: PropTypes.number,
-    status: PropTypes.string,
+    avatarUrl: PropTypes.string,
+    date: PropTypes.string,
+    start_time: PropTypes.string,
+    end_time: PropTypes.string,
+    booking_status: PropTypes.string,
   }),
 };
 
 function AppNewInvoiceRow({ row }) {
   const theme = useTheme();
+  console.log("row Data", row);
+  // const [openMenu, setOpenMenuActions] = useState(null);
 
-  const [openMenu, setOpenMenuActions] = useState(null);
+  // const handleOpenMenu = (event) => {
+  //   setOpenMenuActions(event.currentTarget);
+  // };
 
-  const handleOpenMenu = (event) => {
-    setOpenMenuActions(event.currentTarget);
-  };
+  // const handleCloseMenu = () => {
+  //   setOpenMenuActions(null);
+  // };
 
-  const handleCloseMenu = () => {
-    setOpenMenuActions(null);
-  };
+  // const handleDownload = () => {
+  //   handleCloseMenu();
+  //   console.log('DOWNLOAD', row.id);
+  // };
 
-  const handleDownload = () => {
-    handleCloseMenu();
-    console.log('DOWNLOAD', row.id);
-  };
+  // const handlePrint = () => {
+  //   handleCloseMenu();
+  //   console.log('PRINT', row.id);
+  // };
 
-  const handlePrint = () => {
-    handleCloseMenu();
-    console.log('PRINT', row.id);
-  };
+  // const handleShare = () => {
+  //   handleCloseMenu();
+  //   console.log('SHARE', row.id);
+  // };
 
-  const handleShare = () => {
-    handleCloseMenu();
-    console.log('SHARE', row.id);
-  };
-
-  const handleDelete = () => {
-    handleCloseMenu();
-    console.log('DELETE', row.id);
-  };
+  // const handleDelete = () => {
+  //   handleCloseMenu();
+  //   console.log('DELETE', row.id);
+  // };
 
   return (
     <TableRow>
-      <TableCell>{`INV-${row.id}`}</TableCell>
 
-      <TableCell>{row.category}</TableCell>
+      <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
+        <Avatar alt={row.name} src={row.avatarUrl} sx={{ mr: 2 }} /> 
+        <Typography variant="subtitle2" noWrap>
+          {row.name}
+        </Typography>
+      </TableCell>
+      
 
-      <TableCell>{fCurrency(row.price)}</TableCell>
-
-      <TableCell>
-        <Label
-          variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
-          color={(row.status === 'in_progress' && 'warning') || (row.status === 'out_of_date' && 'error') || 'success'}
-        >
-          {sentenceCase(row.status)}
-        </Label>
+      <TableCell align="left"> 
+        <Typography variant="subtitle2" noWrap>
+          {moment(row.date).format('MMMM Do YYYY')}
+        </Typography>
       </TableCell>
 
-      <TableCell align="right">
-        <TableMoreMenu
-          open={openMenu}
-          onOpen={handleOpenMenu}
-          onClose={handleCloseMenu}
-          actions={
-            <>
-              <MenuItem onClick={handleDownload}>
-                <Iconify icon={'eva:download-fill'} />
-                Download
-              </MenuItem>
+      <TableCell align="left"> 
+        <Typography variant="subtitle2" noWrap>
+          {row.start_time}
+        </Typography>
+      </TableCell>
 
-              <MenuItem onClick={handlePrint}>
-                <Iconify icon={'eva:printer-fill'} />
-                Print
-              </MenuItem>
+      <TableCell align="left"> 
+        <Typography variant="subtitle2" noWrap>
+        {row.end_time}
+        </Typography>
+      </TableCell>
 
-              <MenuItem onClick={handleShare}>
-                <Iconify icon={'eva:share-fill'} />
-                Share
-              </MenuItem>
-
-              <Divider sx={{ borderStyle: 'dashed' }} />
-
-              <MenuItem onClick={handleDelete} sx={{ color: 'error.main' }}>
-                <Iconify icon={'eva:trash-2-outline'} />
-                Delete
-              </MenuItem>
-            </>
-          }
-        />
+      <TableCell align="left"> 
+        <Typography variant="subtitle2" noWrap>
+          {row.booking_status}
+        </Typography>
       </TableCell>
     </TableRow>
   );

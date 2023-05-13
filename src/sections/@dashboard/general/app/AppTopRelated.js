@@ -71,7 +71,7 @@ function ApplicationItem({ app }) {
 
       <Box sx={{ flexGrow: 1, minWidth: 160 }}>
         <Typography variant="subtitle2">{name}</Typography>
-        <Stack direction="row" alignItems="center" sx={{ mt: 0.5, color: 'text.secondary' }}>
+        {/* <Stack direction="row" alignItems="center" sx={{ mt: 0.5, color: 'text.secondary' }}>
           <Iconify
             width={16}
             height={16}
@@ -88,15 +88,15 @@ function ApplicationItem({ app }) {
           >
             {price === 0 ? 'Free' : fCurrency(price)}
           </Label>
-        </Stack>
+        </Stack> */}
       </Box>
 
-      <Stack alignItems="flex-end" sx={{ pr: 3 }}>
+      {/* <Stack alignItems="flex-end" sx={{ pr: 3 }}>
         <Rating readOnly size="small" precision={0.5} name="reviews" value={rating} />
         <Typography variant="caption" sx={{ mt: 0.5, color: 'text.secondary' }}>
           {fShortenNumber(review)}&nbsp;reviews
         </Typography>
-      </Stack>
+      </Stack> */}
     </Stack>
   );
 }

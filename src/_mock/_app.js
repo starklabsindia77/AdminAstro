@@ -5,14 +5,15 @@ import { randomNumberRange, randomInArray } from './funcs';
 
 // ----------------------------------------------------------------------
 
-export const _appRelated = ['Chrome', 'Drive', 'Dropbox', 'Evernote', 'Github'].map((appName, index) => ({
+export const _appRelated = ['Astrology', 'Numerology', 'Palmistry', 'Tarot reading'].map((appName, index) => ({
   id: _mock.id(index),
   name: appName,
   system: (index === 2 && 'Windows') || (index === 4 && 'Windows') || 'Mac',
   price: index === 0 || index === 2 || index === 4 ? 0 : _mock.number.price(index),
   rating: _mock.number.rating(index),
   review: randomNumberRange(999, 99999),
-  shortcut: `https://minimal-assets-api-dev.vercel.app/assets/icons/ic_${noCase(appName)}.svg`,
+  // shortcut: `https://minimal-assets-api-dev.vercel.app/assets/icons/ic_${noCase(appName)}.svg`,
+  shortcut: `/assets/illustrations/pt.png`,
 }));
 
 export const _appInstalled = ['de', 'en', 'fr', 'kr', 'us'].map((country, index) => ({
