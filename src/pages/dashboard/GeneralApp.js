@@ -53,7 +53,7 @@ export default function GeneralApp() {
     <Page title="General: App">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Grid container spacing={3}>
-        {user.role === 'Admin' && (
+        {user?.role === 'Admin' && (
           <Grid item xs={12} md={8}>
             <AppWelcome
               title={`Welcome back! \n ${user?.displayName}`}
@@ -71,7 +71,7 @@ export default function GeneralApp() {
             />
           </Grid>
           )}
-           {user.role !== 'Admin' && (
+           {user?.role !== 'Admin' && (
           <Grid item xs={12} md={12}>
             <AppWelcome
               title={`Welcome back! \n ${user?.displayName}`}
@@ -93,7 +93,7 @@ export default function GeneralApp() {
           {/* <Grid item xs={12} md={4}>
             <AppFeatured list={_appFeatured} />
           </Grid> */}
-          {user.role === 'Admin' && (
+          {user?.role === 'Admin' && (
           <Grid item xs={12} md={4} lg={4}>
             <Stack spacing={3}>
               <AppWidget title="Total visits" total={38566} icon={'eva:person-fill'} chartData={78} />
@@ -109,7 +109,7 @@ export default function GeneralApp() {
           )}
 
           
-            {user.role === 'Admin' && (
+            {user?.role === 'Admin' && (
               <Grid item xs={12} md={4}>
               <AppWidgetSummary
                 title="Total Active Users"
@@ -121,7 +121,7 @@ export default function GeneralApp() {
             </Grid>
             )}
 
-            {user.role !== 'Admin' && (
+            {user?.role !== 'Admin' && (
               <Grid item xs={12} md={6}>
                 <AppWidgetSummary
                   title="Total Upcoming Appoinments"
@@ -133,7 +133,7 @@ export default function GeneralApp() {
               </Grid>
             )}
 
-            {user.role !== 'Admin' && (
+            {user?.role !== 'Admin' && (
               <Grid item xs={12} md={6}>
                 <AppWidgetSummary
                   title="Total Past Appoinments"
@@ -147,7 +147,7 @@ export default function GeneralApp() {
           
 
           
-            {user.role === 'Admin' && (
+            {user?.role === 'Admin' && (
               <Grid item xs={12} md={4}>
                 <AppWidgetSummary
                   title="Total Experts"
@@ -161,7 +161,7 @@ export default function GeneralApp() {
             
           
 
-          {user.role === 'Admin' && (
+          {user?.role === 'Admin' && (
                 <Grid item xs={12} md={4}>
                   <AppWidgetSummary
                     title="Total Income"
@@ -216,7 +216,7 @@ export default function GeneralApp() {
               ]}
             />
           </Grid> */}
-          {user.role === 'Admin' && (
+          {user?.role === 'Admin' && (
           <Grid item xs={12} lg={8}>
             <AppNewInvoice
               title="Latest Appoinments"
@@ -231,7 +231,7 @@ export default function GeneralApp() {
               ]}
             />
           </Grid>)}
-          {user.role !== 'Admin' && (
+          {user?.role !== 'Admin' && (
           <Grid item xs={12} lg={12}>
             <AppNewInvoice
               title="Latest Appoinments"
@@ -246,7 +246,7 @@ export default function GeneralApp() {
               ]}
             />
           </Grid>)}
-          {user.role === 'Admin' && (
+          {user?.role === 'Admin' && (
           <Grid item xs={12} md={6} lg={4}>
             <AppTopRelated title="Top Skills searched" list={_appRelated} />
           </Grid>)}

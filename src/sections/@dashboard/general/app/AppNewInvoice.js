@@ -32,8 +32,8 @@ import { TableMoreMenu, TableHeadCustom } from '../../../../components/table';
 AppNewInvoice.propTypes = {
   title: PropTypes.string,
   subheader: PropTypes.string,
-  tableData: PropTypes.array.isRequired,
-  tableLabels: PropTypes.array.isRequired,
+  tableData: PropTypes.array,
+  tableLabels: PropTypes.array,
 };
 
 export default function AppNewInvoice({ title, subheader, tableData, tableLabels, ...other }) {
@@ -47,8 +47,8 @@ export default function AppNewInvoice({ title, subheader, tableData, tableLabels
             <TableHeadCustom headLabel={tableLabels} />
 
             <TableBody>
-              {tableData !== undefined && tableData.map((row) => (
-                <AppNewInvoiceRow key={row.id} row={row} />
+              {tableData !== undefined && tableData.map((row, index) => (
+                <AppNewInvoiceRow key={index} row={row} />
               ))}
             </TableBody>
           </Table>
@@ -71,7 +71,7 @@ export default function AppNewInvoice({ title, subheader, tableData, tableLabels
 AppNewInvoiceRow.propTypes = {
   row: PropTypes.shape({
     name: PropTypes.string,
-    id: PropTypes.string,
+    id: PropTypes.number,
     avatarUrl: PropTypes.string,
     date: PropTypes.string,
     start_time: PropTypes.string,
@@ -80,38 +80,9 @@ AppNewInvoiceRow.propTypes = {
   }),
 };
 
-function AppNewInvoiceRow({ row }) {
+function AppNewInvoiceRow({ row}) {
   const theme = useTheme();
-  console.log("row Data", row);
-  // const [openMenu, setOpenMenuActions] = useState(null);
-
-  // const handleOpenMenu = (event) => {
-  //   setOpenMenuActions(event.currentTarget);
-  // };
-
-  // const handleCloseMenu = () => {
-  //   setOpenMenuActions(null);
-  // };
-
-  // const handleDownload = () => {
-  //   handleCloseMenu();
-  //   console.log('DOWNLOAD', row.id);
-  // };
-
-  // const handlePrint = () => {
-  //   handleCloseMenu();
-  //   console.log('PRINT', row.id);
-  // };
-
-  // const handleShare = () => {
-  //   handleCloseMenu();
-  //   console.log('SHARE', row.id);
-  // };
-
-  // const handleDelete = () => {
-  //   handleCloseMenu();
-  //   console.log('DELETE', row.id);
-  // };
+  
 
   return (
     <TableRow>

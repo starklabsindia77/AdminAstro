@@ -24,11 +24,11 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 AppWidgetSummary.propTypes = {
-  chartColor: PropTypes.string.isRequired,
-  chartData: PropTypes.arrayOf(PropTypes.number).isRequired,
-  percent: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
+  chartColor: PropTypes.string,
+  chartData: PropTypes.arrayOf(PropTypes.number),
+  percent: PropTypes.number,
+  title: PropTypes.string,
+  total: PropTypes.number,
   sx: PropTypes.object,
 };
 

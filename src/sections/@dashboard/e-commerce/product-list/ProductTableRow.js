@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+/* eslint-disable no-unused-vars */
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { sentenceCase } from 'change-case';
@@ -27,7 +29,7 @@ ProductTableRow.propTypes = {
 export default function ProductTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
   const theme = useTheme();
 
-  const { name, cover, createdAt, inventoryType, price } = row;
+  const { title, icon, created_at, star, price } = row;
 
   const [openMenu, setOpenMenuActions] = useState(null);
 
@@ -46,16 +48,19 @@ export default function ProductTableRow({ row, selected, onEditRow, onSelectRow,
       </TableCell>
 
       <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
-        <Image disabledEffect alt={name} src={cover} sx={{ borderRadius: 1.5, width: 48, height: 48, mr: 2 }} />
+        <Image disabledEffect alt={title} src={icon} sx={{ borderRadius: 1.5, width: 48, height: 48, mr: 2 }} />
         <Typography variant="subtitle2" noWrap>
-          {name}
+          {title}
         </Typography>
       </TableCell>
 
-      <TableCell>{fDate(createdAt)}</TableCell>
+      <TableCell>{fDate(created_at)}</TableCell>
 
       <TableCell align="center">
-        <Label
+        <Typography variant="subtitle2" noWrap>
+          {star}
+        </Typography>
+        {/* <Label
           variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
           color={
             (inventoryType === 'out_of_stock' && 'error') || (inventoryType === 'low_stock' && 'warning') || 'success'
@@ -63,10 +68,10 @@ export default function ProductTableRow({ row, selected, onEditRow, onSelectRow,
           sx={{ textTransform: 'capitalize' }}
         >
           {inventoryType ? sentenceCase(inventoryType) : ''}
-        </Label>
+        </Label> */}
       </TableCell>
 
-      <TableCell align="right">{fCurrency(price)}</TableCell>
+      <TableCell align="right">{`₹ ${fCurrency(price)}`}</TableCell>
 
       <TableCell align="right">
         <TableMoreMenu

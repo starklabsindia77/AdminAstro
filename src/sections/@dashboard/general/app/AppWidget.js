@@ -32,11 +32,11 @@ const IconStyle = styled(Iconify)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 AppWidget.propTypes = {
-  chartData: PropTypes.number.isRequired,
+  chartData: PropTypes.number,
   color: PropTypes.oneOf(['primary', 'secondary', 'info', 'success', 'warning', 'error']),
-  icon: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
+  icon: PropTypes.string,
+  title: PropTypes.string,
+  total: PropTypes.number,
 };
 
 export default function AppWidget({ title, total, icon, color = 'primary', chartData, ...other }) {

@@ -113,7 +113,7 @@ export default function Schedule() {
           setSession(accessToken);
           const response = await axios.get('/appointment');
           const { data } = response.data;
-          console.log("appointment data", data);
+          // console.log("appointment data", data);
           setTableData(data);
         }
   }, [user])

@@ -127,7 +127,7 @@ export default function Sessions() {
           setSession(accessToken);
           const response = await axios.get('/sessions');
           const { data } = response.data;
-          console.log("data", data);
+          // console.log("data", data);
           setTableData(data);
         }
   }, [user])

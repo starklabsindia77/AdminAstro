@@ -1,3 +1,6 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-undef */
 import { paramCase } from 'change-case';
 import { useState, useEffect } from 'react';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
@@ -17,6 +20,7 @@ import {
   FormControlLabel,
 } from '@mui/material';
 // redux
+
 import { useDispatch, useSelector } from '../../redux/store';
 import { getProducts } from '../../redux/slices/product';
 // routes
@@ -29,6 +33,8 @@ import Page from '../../components/Page';
 import Iconify from '../../components/Iconify';
 import Scrollbar from '../../components/Scrollbar';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
+import useAuth from '../../hooks/useAuth';
+import axios from '../../utils/axios';
 import {
   TableNoData,
   TableSkeleton,
@@ -42,10 +48,10 @@ import { ProductTableRow, ProductTableToolbar } from '../../sections/@dashboard/
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Product', align: 'left' },
-  { id: 'createdAt', label: 'Create at', align: 'left' },
-  { id: 'inventoryType', label: 'Status', align: 'center', width: 180 },
-  { id: 'price', label: 'Price', align: 'right' },
+  { id: 'title', label: 'Product', align: 'left' }, 
+  { id: 'created_at', label: 'Create at', align: 'left' },
+  { id: 'star', label: 'Star', align: 'center', width: 180 },
+  { id: 'price', label: 'Price', align: 'right' },  
   { id: '' },
 ];
 
@@ -72,12 +78,14 @@ export default function EcommerceProductList() {
   } = useTable({
     defaultOrderBy: 'createdAt',
   });
-
+  
   const { themeStretch } = useSettings();
 
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
+  const { user } = useAuth();
+
 
   const { products, isLoading } = useSelector((state) => state.product);
 
@@ -94,20 +102,37 @@ export default function EcommerceProductList() {
       setTableData(products);
     }
   }, [products]);
+  
 
   const handleFilterName = (filterName) => {
     setFilterName(filterName);
     setPage(0);
   };
 
-  const handleDeleteRow = (id) => {
+  const handleDeleteRow = async (id) =>  {
     const deleteRow = tableData.filter((row) => row.id !== id);
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken && isValidToken(accessToken)) {
+      setSession(accessToken);
+      const response = await axios.delete(`/products/${id}`);
+      const { data } = response.data;
+      // setTableData(user);
+    }
     setSelected([]);
     setTableData(deleteRow);
   };
 
-  const handleDeleteRows = (selected) => {
+  const handleDeleteRows = async (selected) => {
     const deleteRows = tableData.filter((row) => !selected.includes(row.id));
+    selected.map(async (row) => {
+      const accessToken = localStorage.getItem('accessToken');
+      if (accessToken && isValidToken(accessToken)) {
+        setSession(accessToken);
+        const response = await axios.delete(`/products/${row}`);
+        const { data } = response.data;
+      }
+    })
+    // 
     setSelected([]);
     setTableData(deleteRows);
   };
@@ -204,7 +229,7 @@ export default function EcommerceProductList() {
                           selected={selected.includes(row.id)}
                           onSelectRow={() => onSelectRow(row.id)}
                           onDeleteRow={() => handleDeleteRow(row.id)}
-                          onEditRow={() => handleEditRow(row.name)}
+                          onEditRow={() => handleEditRow(row.id)}
                         />
                       ) : (
                         !isNotFound && <TableSkeleton key={index} sx={{ height: denseHeight }} />
