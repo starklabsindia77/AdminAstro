@@ -77,16 +77,17 @@ export default function AccountGeneral({ user }) {
   } = methods;
 
   const onSubmit = async (data) => {
-    try {
-      if(user.role !== 'Admin') {
-        await axios.put(`/expertUpdate/${user?.expertId}`, data);
-        enqueueSnackbar('Update success!');
-      }
-      // await new Promise((resolve) => setTimeout(resolve, 500));
+    console.log("update Data", data);
+    // try {
+    //   if(user.role !== 'Admin') {
+    //     await axios.put(`/expertUpdate/${user?.expertId}`, data);
+    //     enqueueSnackbar('Update success!');
+    //   }
+    //   // await new Promise((resolve) => setTimeout(resolve, 500));
       
-    } catch (error) {
-      console.error(error);
-    }
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
 
   const handleDrop = useCallback(
@@ -110,6 +111,7 @@ export default function AccountGeneral({ user }) {
       <Grid container spacing={3}>
         <Grid item xs={12} md={4}>
           <Card sx={{ py: 10, px: 3, textAlign: 'center' }}>
+            {/* <h1>{defaultValues?.email}</h1> */}
             <RHFUploadAvatar
               name="photoURL"
               accept="image/*"
@@ -146,11 +148,11 @@ export default function AccountGeneral({ user }) {
                 gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
               }}
             >
-              <RHFTextField name="displayName" label="Name" />
-              <RHFTextField name="email" label="Email Address" />
+              <RHFTextField name="displayName" label="Name" value={defaultValues?.displayName}/>
+              <RHFTextField name="email" label="Email Address" value={defaultValues?.email} />
 
-              <RHFTextField name="mobileNo" label="Phone Number" />
-              <RHFTextField name="address" label="Address" />
+              <RHFTextField name="mobileNo" label="Phone Number" value={defaultValues?.mobileNo} />
+              <RHFTextField name="address" label="Address" value={defaultValues?.address}/>
 
               <RHFSelect name="country" label="Country" placeholder="Country">
                 <option value="" />
