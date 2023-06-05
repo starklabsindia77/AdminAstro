@@ -7,8 +7,8 @@ import { PATH_DASHBOARD } from './routes/paths';
 // ----------------------------------------------------------------------
 
 // export const HOST_API = process.env.REACT_APP_HOST_API_KEY || '';
-export const HOST_API = "http://localhost:3001/api/admin"; 
-// export const HOST_API = "https://astroapi.onrender.com/api/admin"; 
+// ----------------------------------------------------------------------export const HOST_API = "http://localhost:3001/api/admin"; 
+export const HOST_API = "https://astroapi.onrender.com/api/admin"; 
 // export const HOST_API = "http://15.207.204.173:3001/api/api/admin"; 
 
 
@@ -72,7 +72,7 @@ export const defaultSettings = {
   themeDirection: 'ltr',
   themeContrast: 'default',
   themeLayout: 'horizontal',
-  themeColorPresets: 'default',
+  themeColorPresets: 'orange',
   themeStretch: false,
 };
 

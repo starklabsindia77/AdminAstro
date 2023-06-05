@@ -98,13 +98,8 @@ export default function HomeMinimal() {
             mb: { xs: 10, md: 25 },
           }}
         >
-          <m.div variants={varFade().inUp}>
-            <Typography component="div" variant="overline" sx={{ mb: 2, color: 'text.disabled' }}>
-              Minimal
-            </Typography>
-          </m.div>
           <m.div variants={varFade().inDown}>
-            <Typography variant="h2">What minimal helps you?</Typography>
+            <Typography variant="h2">How It Works</Typography>
           </m.div>
         </Box>
 

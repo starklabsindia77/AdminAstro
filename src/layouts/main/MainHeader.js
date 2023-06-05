@@ -1,4 +1,5 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link as RouterLink } from 'react-router-dom';
+
 // @mui
 import { styled, useTheme } from '@mui/material/styles';
 import { Box, Button, AppBar, Toolbar, Container } from '@mui/material';
@@ -7,6 +8,7 @@ import useOffSetTop from '../../hooks/useOffSetTop';
 import useResponsive from '../../hooks/useResponsive';
 // utils
 import cssStyles from '../../utils/cssStyles';
+import { PATH_DASHBOARD } from '../../routes/paths';
 // config
 import { HEADER } from '../../config';
 // components
@@ -75,10 +77,7 @@ export default function MainHeader() {
           }}
         >
           <Logo />
-
-          <Label color="info" sx={{ ml: 1 }}>
-            v3.4.0
-          </Label>
+          {/* <img src='/logo/logoastroscore.png' alt=""  className="logo"/> */}
           <Box sx={{ flexGrow: 1 }} />
 
           {isDesktop && <MenuDesktop isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
@@ -87,9 +86,10 @@ export default function MainHeader() {
             variant="contained"
             target="_blank"
             rel="noopener"
-            href="https://material-ui.com/store/items/minimal-dashboard/"
+            component={RouterLink}
+            to={PATH_DASHBOARD.root}
           >
-            Purchase Now
+            Login
           </Button>
 
           {!isDesktop && <MenuMobile isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}

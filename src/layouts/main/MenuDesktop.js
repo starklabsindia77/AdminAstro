@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import PropTypes from 'prop-types';
 import { m } from 'framer-motion';
 import { useState, useEffect } from 'react';
@@ -64,6 +65,7 @@ export default function MenuDesktop({ isOffset, isHome, navConfig }) {
   return (
     <Stack direction="row">
       {navConfig.map((link) => (
+      <a href={link.path}>
         <MenuDesktopItem
           key={link.title}
           item={link}
@@ -73,6 +75,8 @@ export default function MenuDesktop({ isOffset, isHome, navConfig }) {
           isOffset={isOffset}
           isHome={isHome}
         />
+      </a>
+        
       ))}
     </Stack>
   );
@@ -185,8 +189,8 @@ function MenuDesktopItem({ item, isHome, isOpen, isOffset, onOpen, onClose }) {
                     {items.map((item) => (
                       <ListItemStyle
                         key={item.title}
-                        to={item.path}
-                        component={RouterLink}
+                        // to={item.path}
+                        // component={RouterLink}
                         underline="none"
                         sx={{
                           '&.active': {

@@ -1,12 +1,16 @@
 // @mui
 import { styled } from '@mui/material/styles';
+import { Grid, Container } from '@mui/material';
 // components
 import Page from '../components/Page';
+import { _mapContact } from '../_mock';
+
 // sections
 import {
   HomeHero,
   HomeMinimal,
   HomeDarkMode,
+  HomeBlog,
   HomeLookingFor,
   HomeColorPresets,
   HomePricingPlans,
@@ -14,6 +18,9 @@ import {
   HomeCleanInterfaces,
   HomeHugePackElements,
 } from '../sections/home';
+
+import {ContactHero,  ContactForm, ContactMap } from '../sections/contact';
+import { AboutWhat, AboutTestimonials } from '../sections/about';
 
 // ----------------------------------------------------------------------
 
@@ -28,24 +35,53 @@ const ContentStyle = styled('div')(({ theme }) => ({
 export default function HomePage() {
   return (
     <Page title="The starting point for your next project">
-      <HomeHero />
+      <div id="home">
+        <HomeHero />
+      </div>
 
       <ContentStyle>
-        <HomeMinimal />
+        <div id="howitworks">
+          <HomeMinimal />
+        </div>
 
-        <HomeHugePackElements />
 
-        <HomeDarkMode />
+        {/* <HomeHugePackElements /> */}
+        <div id="aboutus">
+          <AboutWhat />
+        </div>
 
-        <HomeColorPresets />
+        <div id="darkmode">
+          <HomeDarkMode />
+        </div>
 
-        <HomeCleanInterfaces />
+        {/* <HomeColorPresets /> */}
 
-        <HomePricingPlans />
 
-        <HomeLookingFor />
+        {/* <HomeCleanInterfaces />
 
-        <HomeAdvertisement />
+        <HomePricingPlans /> */}
+        <div id="blog">
+          <HomeBlog />
+        </div>
+
+        <div id="contact">
+          <ContactHero />
+        </div>
+        <Container sx={{ my: 10 }}>
+          <Grid container spacing={10}>
+            <Grid item xs={12} md={6}>
+              <ContactForm />
+            </Grid>
+
+            <Grid item xs={12} md={6}>
+              <ContactMap contacts={_mapContact} />
+            </Grid>
+          </Grid>
+        </Container>
+
+        {/* <HomeLookingFor />
+
+        <HomeAdvertisement /> */}
       </ContentStyle>
     </Page>
   );

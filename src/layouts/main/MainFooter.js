@@ -12,7 +12,7 @@ import SocialsButton from '../../components/SocialsButton';
 
 const LINKS = [
   {
-    headline: 'Minimal',
+    headline: 'Pages',
     children: [
       { name: 'About us', href: PATH_PAGE.about },
       { name: 'Contact us', href: PATH_PAGE.contact },
@@ -37,7 +37,9 @@ const LINKS = [
 
 const RootStyle = styled('div')(({ theme }) => ({
   position: 'relative',
-  backgroundColor: theme.palette.background.default,
+  // backgroundColor: theme.palette.background.default,
+  backgroundColor: '#2b302d',
+  color: '#ffffff',
 }));
 
 // ----------------------------------------------------------------------
@@ -55,11 +57,16 @@ export default function MainFooter() {
           <Grid item xs={12} sx={{ mb: 3 }}>
             <Logo sx={{ mx: { xs: 'auto', md: 'inherit' } }} />
           </Grid>
-          <Grid item xs={8} md={3}>
-            {/* <Typography variant="body2" sx={{ pr: { md: 5 } }}>
-              The starting point for your next project with Minimal UI Kit, built on the newest
-              version of Material-UI ©, ready to be customized to your style.
-            </Typography> */}
+          <Grid item xs={8} md={4}>
+            <Typography variant="h4" sx={{ pr: { md: 5 } }}>
+              AstroScore: Your Cosmic Companion
+            </Typography>
+
+            <Typography variant="body2" sx={{ pr: { md: 5 } }}>
+            AstroScore is your gateway to personal horoscopes and astrological insights. 
+            Discover the celestial influences in your life, unlock your destiny, and 
+            navigate life's journey with clarity and confidence.
+            </Typography>
 
             <Stack
               direction="row"

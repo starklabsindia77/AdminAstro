@@ -189,18 +189,18 @@ export default function Router() {
     //     { path: '*', element: <Navigate to="/404" replace /> },
     //   ],
     // },
-    // {
-    //   path: '/',
-    //   element: <MainLayout />,
-    //   children: [
-    //     { element: <HomePage />, index: true },
-    //     { path: 'about-us', element: <About /> },
-    //     { path: 'contact-us', element: <Contact /> },
-    //     { path: 'faqs', element: <Faqs /> },
-    //   ],
-    // },
-    { path: '/', element: <Navigate to="/auth/login" replace /> },
-    { path: '*', element: <Navigate to="/404" replace /> },
+    {
+      path: '/',
+      element: <MainLayout />,
+      children: [
+        { element: <HomePage />, index: true },
+        { path: 'about-us', element: <About /> },
+        { path: 'contact-us', element: <Contact /> },
+        { path: 'faqs', element: <Faqs /> },
+      ],
+    },
+    // { path: '/', element: <Navigate to="/auth/login" replace /> },
+    // { path: '*', element: <Navigate to="/404" replace /> },
   ]);
 }
 

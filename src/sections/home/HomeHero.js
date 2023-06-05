@@ -15,7 +15,8 @@ import { MotionContainer, varFade } from '../../components/animate';
 
 const RootStyle = styled(m.div)(({ theme }) => ({
   position: 'relative',
-  backgroundColor: theme.palette.grey[400],
+  // backgroundColor: theme.palette.grey[400],
+  backgroundColor: '#2b302d',
   [theme.breakpoints.up('md')]: {
     top: 0,
     left: 0,
@@ -70,34 +71,34 @@ export default function HomeHero() {
   return (
     <MotionContainer>
       <RootStyle>
-        <HeroOverlayStyle alt="overlay" src="/assets/overlay.svg" variants={varFade().in} />
+        {/* <HeroOverlayStyle alt="overlay" src="/assets/overlay.svg" variants={varFade().inLeft} /> */}
 
         <HeroImgStyle
           alt="hero"
-          src="https://minimal-assets-api-dev.vercel.app/assets/images/home/hero.png"
+          // src="https://minimal-assets-api-dev.vercel.app/assets/images/home/hero.png"
+          src='/assets/hero_image.png'
           variants={varFade().inUp}
         />
 
         <Container>
           <ContentStyle>
             <m.div variants={varFade().inRight}>
-              <Typography variant="h1" sx={{ color: 'common.white' }}>
-                Start a <br />
-                new project <br /> with
-                <Typography component="span" variant="h1" sx={{ color: 'primary.main' }}>
-                  &nbsp;Minimal
+              <Typography variant="h2" sx={{ color: 'common.white' }}>
+                Cosmic Connections:<br />
+                {/* new project <br /> with */}
+                <Typography component="span" variant="h2" sx={{ color: 'primary.main' }}>
+                  Embrace Your Stellar Potential
                 </Typography>
               </Typography>
             </m.div>
 
             <m.div variants={varFade().inRight}>
               <Typography sx={{ color: 'common.white' }}>
-                The starting point for your next project based on easy-to-customize MUI helps you build apps faster and
-                better.
+              Unearth Your Astral Blueprint: Personalized Horoscopes, Zodiac Insights, and Spiritual Guidance from the Cosmos.
               </Typography>
             </m.div>
 
-            <Stack spacing={2.5} alignItems="center" direction={{ xs: 'column', md: 'row' }}>
+            {/* <Stack spacing={2.5} alignItems="center" direction={{ xs: 'column', md: 'row' }}>
               <m.div variants={varFade().inRight}>
                 <TextIconLabel
                   icon={
@@ -143,9 +144,9 @@ export default function HomeHero() {
                   }
                 />
               </m.div>
-            </Stack>
+            </Stack> */}
 
-            <m.div variants={varFade().inRight}>
+            {/* <m.div variants={varFade().inRight}>
               <Button
                 size="large"
                 variant="contained"
@@ -155,7 +156,7 @@ export default function HomeHero() {
               >
                 Live Preview
               </Button>
-            </m.div>
+            </m.div> */}
 
             <Stack spacing={2.5}>
               <m.div variants={varFade().inRight}>
@@ -165,13 +166,27 @@ export default function HomeHero() {
               </m.div>
 
               <Stack direction="row" spacing={1.5} justifyContent={{ xs: 'center', md: 'flex-start' }}>
-                {['ic_sketch', 'ic_figma', 'ic_js', 'ic_ts', 'ic_nextjs'].map((resource) => (
+                {/* {['ic_sketch', 'ic_figma', 'ic_js', 'ic_ts', 'ic_nextjs'].map((resource) => (
                   <m.img
                     key={resource}
                     variants={varFade().inRight}
                     src={`https://minimal-assets-api-dev.vercel.app/assets/images/home/${resource}.svg`}
                   />
-                ))}
+                ))} */}
+
+                  <m.img
+                    key={"ios"}
+                    variants={varFade().inRight}
+                    src={`assets/icons/new/ios-logo-500.svg`}
+                    height={50}
+                  />
+                  <m.img
+                    key={"android"}
+                    variants={varFade().inRight}
+                    src={`assets/icons/new/play-store.svg`}
+                    height={50}
+                    
+                  />
               </Stack>
             </Stack>
           </ContentStyle>
