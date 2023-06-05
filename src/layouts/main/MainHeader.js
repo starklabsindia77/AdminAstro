@@ -29,7 +29,7 @@ const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
   }),
   [theme.breakpoints.up('md')]: {
     height: HEADER.MAIN_DESKTOP_HEIGHT,
-  },
+  },  
 }));
 
 const ToolbarShadowStyle = styled('div')(({ theme }) => ({
@@ -43,6 +43,7 @@ const ToolbarShadowStyle = styled('div')(({ theme }) => ({
   position: 'absolute',
   width: `calc(100% - 48px)`,
   boxShadow: theme.customShadows.z8,
+  
 }));
 
 // ----------------------------------------------------------------------
@@ -57,14 +58,15 @@ export default function MainHeader() {
   const isDesktop = useResponsive('up', 'md');
 
   const isHome = pathname === '/';
-
+  // bgcolor: 'transparent', 
   return (
-    <AppBar sx={{ boxShadow: 0, bgcolor: 'transparent' }}>
+    <AppBar sx={{ boxShadow: 0, bgcolor: 'transparent' }} >
       <ToolbarStyle
         disableGutters
         sx={{
           ...(isOffset && {
-            ...cssStyles(theme).bgBlur(),
+            backgroundColor :'#2b302d',
+            // ...cssStyles(theme).bgBlur(),
             height: { md: HEADER.MAIN_DESKTOP_HEIGHT - 16 },
           }),
         }}

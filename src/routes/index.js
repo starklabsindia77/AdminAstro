@@ -173,22 +173,20 @@ export default function Router() {
         { path: 'permission-denied', element: <PermissionDenied /> },
       ],
     },
-
-    // Main Routes
-    // {
-    //   path: '*',
-    //   element: <LogoOnlyLayout />,
-    //   children: [
-    //     { path: 'coming-soon', element: <ComingSoon /> },
-    //     { path: 'maintenance', element: <Maintenance /> },
-    //     { path: 'pricing', element: <Pricing /> },
-    //     { path: 'payment', element: <Payment /> },
-    //     { path: '500', element: <Page500 /> },
-    //     { path: '404', element: <Page404 /> },
-    //     { path: '403', element: <Page403 /> },
-    //     { path: '*', element: <Navigate to="/404" replace /> },
-    //   ],
-    // },
+    {
+      path: '*',
+      element: <LogoOnlyLayout />,
+      children: [
+        { path: 'coming-soon', element: <ComingSoon /> },
+        { path: 'maintenance', element: <Maintenance /> },
+        { path: 'pricing', element: <Pricing /> },
+        { path: 'payment', element: <Payment /> },
+        { path: '500', element: <Page500 /> },
+        { path: '404', element: <Page404 /> },
+        { path: '403', element: <Page403 /> },
+        { path: '*', element: <Navigate to="/404" replace /> },
+      ],
+    },
     {
       path: '/',
       element: <MainLayout />,

@@ -15,8 +15,11 @@ import { MotionContainer, varFade } from '../../components/animate';
 
 const RootStyle = styled(m.div)(({ theme }) => ({
   position: 'relative',
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
   // backgroundColor: theme.palette.grey[400],
-  backgroundColor: '#2b302d',
+  backgroundColor: '#2b302d',  
+  // backgroundImage: 'url(https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/v1080-156e-kw39n34x.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=e16e1d0b247df83932030b38b7f89445)',
   [theme.breakpoints.up('md')]: {
     top: 0,
     left: 0,
@@ -70,23 +73,21 @@ const HeroImgStyle = styled(m.img)(({ theme }) => ({
 export default function HomeHero() {
   return (
     <MotionContainer>
-      <RootStyle>
+      <RootStyle >
         {/* <HeroOverlayStyle alt="overlay" src="/assets/overlay.svg" variants={varFade().inLeft} /> */}
 
         <HeroImgStyle
           alt="hero"
-          // src="https://minimal-assets-api-dev.vercel.app/assets/images/home/hero.png"
           src='/assets/hero_image.png'
           variants={varFade().inUp}
         />
 
         <Container>
           <ContentStyle>
-            <m.div variants={varFade().inRight}>
-              <Typography variant="h2" sx={{ color: 'common.white' }}>
+            <m.div variants={varFade().inRight} sx={{mt: 10}}>
+              <Typography variant="h3" sx={{ color: 'common.white' }}>
                 Cosmic Connections:<br />
-                {/* new project <br /> with */}
-                <Typography component="span" variant="h2" sx={{ color: 'primary.main' }}>
+                <Typography component="span" variant="h3" sx={{ color: 'primary.main' }}>
                   Embrace Your Stellar Potential
                 </Typography>
               </Typography>

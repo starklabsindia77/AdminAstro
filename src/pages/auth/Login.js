@@ -20,7 +20,9 @@ import { LoginForm } from '../../sections/auth/login';
 const RootStyle = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     display: 'flex',
+    
   },
+  
 }));
 
 const HeaderStyle = styled('header')(({ theme }) => ({
