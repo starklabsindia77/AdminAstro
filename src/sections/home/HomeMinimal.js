@@ -10,29 +10,29 @@ import { MotionViewport, varFade } from '../../components/animate';
 
 const CARDS = [
   {
-    icon: 'https://minimal-assets-api-dev.vercel.app/assets/icons/ic_design.svg',
-    title: 'UI & UX Design',
+    icon: 'images/scorecard-1.png',
+    title: 'Scorecard',
     description:
-      'The set is built on the principles of the atomic design system. It helps you to create projects fastest and easily customized packages for your projects.',
+      'Scorecard is an innovative Numerology Meeting Calculator that provides insights and analysis based on the principles of Numerology. It is designed to help individuals understand the subtle cosmic energies at play during their meetings and how these can impact their communication, collaboration, and outcomes.',
   },
   {
-    icon: 'https://minimal-assets-api-dev.vercel.app/assets/icons/ic_code.svg',
-    title: 'Development',
-    description: 'Easy to customize and extend each component, saving you time and money.',
+    icon: 'images/consultant-1.png',
+    title: 'Consultation',
+    description: 'Consultation is a comprehensive Astrology and Numerology service that provides personalized insights and guidance to individuals seeking to understand and navigate their life journey better. This service uses the profound wisdom of astrology and the numerical sciences to provide answers and solutions tailored to your unique life circumstances and questions.',
   },
   {
-    icon: '/logo/logo_single.svg',
-    title: 'Branding',
-    description: 'Consistent design in colors, fonts ... makes brand recognition easy.',
+    icon: 'images/yantra-1.png',
+    title: 'Buy Yantra',
+    description: 'Buy Yantra is an innovative astrology product e-commerce platform that provides access to a wide range of carefully curated and potent astrological items, often referred to as Yantras. Rooted in ancient wisdom and tradition, Yantras are sacred geometric representations designed to invoke and embody specific cosmic energies.',
   },
 ];
 
 const shadowIcon = (color) => `drop-shadow(2px 2px 2px ${alpha(color, 0.48)})`;
 
 const RootStyle = styled('div')(({ theme }) => ({
-  paddingTop: theme.spacing(15),
+  paddingTop: theme.spacing(10),
   [theme.breakpoints.up('md')]: {
-    paddingBottom: theme.spacing(15),
+    paddingBottom: theme.spacing(5),
   },
 }));
 
@@ -95,11 +95,11 @@ export default function HomeMinimal() {
         <Box
           sx={{
             textAlign: 'center',
-            mb: { xs: 10, md: 25 },
+            mb: { xs: 10, md: 20 },
           }}
         >
           <m.div variants={varFade().inDown}>
-            <Typography variant="h2">How It Works</Typography>
+            <Typography variant="h2">What We Do</Typography>
           </m.div>
         </Box>
 
@@ -117,10 +117,10 @@ export default function HomeMinimal() {
                   src={card.icon}
                   alt={card.title}
                   sx={{
-                    mb: 10,
+                    mb: 5,
                     mx: 'auto',
-                    width: 40,
-                    height: 40,
+                    height: 150,
+                    width: 150,
                     filter: (theme) => shadowIcon(theme.palette.primary.main),
                     ...(index === 0 && {
                       filter: (theme) => shadowIcon(theme.palette.info.main),
@@ -130,10 +130,10 @@ export default function HomeMinimal() {
                     }),
                   }}
                 />
-                <Typography variant="h5" paragraph>
+                <Typography variant="h5" paragraph sx={{color: 'primary.main'}}>
                   {card.title}
                 </Typography>
-                <Typography sx={{ color: isLight ? 'text.secondary' : 'common.white' }}>{card.description}</Typography>
+                <Typography sx={{ color: isLight ? 'text.secondary' : 'common.white', fontSize: '13px', mb: 5, }}>{card.description}</Typography>
               </CardStyle>
             </m.div>
           ))}

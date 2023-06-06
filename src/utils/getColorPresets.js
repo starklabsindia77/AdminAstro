@@ -49,6 +49,18 @@ export const colorPresets = [
     darker: '#793908',
     contrastText: palette.light.grey[800],
   },
+
+  // yellow
+  
+  {
+    name: 'yellow',
+    lighter: '#ffef80',
+    light: '#ffe84d',
+    main: '#ffe11a',
+    dark: '#f1d200',
+    darker: '#e6c800',
+    contrastText: palette.light.grey[800],
+  },
   // RED
   {
     name: 'red',
@@ -65,8 +77,8 @@ export const defaultPreset = colorPresets[0];
 export const purplePreset = colorPresets[1];
 export const cyanPreset = colorPresets[2];
 export const bluePreset = colorPresets[3];
-export const orangePreset = colorPresets[4];
-export const redPreset = colorPresets[5];
+export const orangePreset = colorPresets[5];
+export const redPreset = colorPresets[6];
 
 export default function getColorPresets(presetsKey) {
   return {

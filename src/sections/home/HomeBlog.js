@@ -16,6 +16,7 @@ import { MotionViewport, varFade } from '../../components/animate';
 
 const RootStyle = styled('div')(({ theme }) => ({
     padding: theme.spacing(15, 0),
+    backgroundColor: '#2b302d',
 }));
 
 const BlogCard = styled(Card)(({ theme }) => ({
@@ -37,22 +38,20 @@ const BlogCard = styled(Card)(({ theme }) => ({
 }));
 
 export default function HomeBlog() {
-    const blogs = [
-        { title: "Unlocking the Secrets of Your Birth Chart", date: "05 Jun 2023", imageUrl: "	https://api-prod-minimal-v5.vercel.app/assets/images/cover/cover_1.jpg", avatarUrl: "https://api-prod-minimal-v5.vercel.app/assets/images/avatar/avatar_1.jpg" },
-        { title: "The Influence of Planets on Your Daily Life", date: "28 May 2023", imageUrl: "https://api-prod-minimal-v5.vercel.app/assets/images/cover/cover_1.jpg", avatarUrl: "https://api-prod-minimal-v5.vercel.app/assets/images/avatar/avatar_1.jpg" },
-        { title: "Understanding Moon Phases and Their Astrological Significance", date: "25 May 2023", imageUrl: "https://api-prod-minimal-v5.vercel.app/assets/images/cover/cover_1.jpg", avatarUrl: "https://api-prod-minimal-v5.vercel.app/assets/images/avatar/avatar_1.jpg" },
-    ];
+    
 
-    const blogOne = { title: "Unlocking the Secrets of Your Birth Chart", date: "05 Jun 2023", imageUrl: "	https://api-prod-minimal-v5.vercel.app/assets/images/cover/cover_1.jpg", avatarUrl: "https://api-prod-minimal-v5.vercel.app/assets/images/avatar/avatar_1.jpg" };
-    const blogTwo = { title: "The Influence of Planets on Your Daily Life", date: "28 May 2023", imageUrl: "https://api-prod-minimal-v5.vercel.app/assets/images/cover/cover_1.jpg", avatarUrl: "https://api-prod-minimal-v5.vercel.app/assets/images/avatar/avatar_1.jpg" };
-    const blogThree = { title: "Understanding Moon Phases and Their Astrological Significance", date: "25 May 2023", imageUrl: "https://api-prod-minimal-v5.vercel.app/assets/images/cover/cover_1.jpg", avatarUrl: "https://api-prod-minimal-v5.vercel.app/assets/images/avatar/avatar_1.jpg" };
+    const blogOne = { title: "The Cosmic Dance: An Introduction to Astrology", date: "06 Jun 2023", 
+    imageUrl: "https://w7.pngwing.com/pngs/425/631/png-transparent-aries-astrological-sign-astrology-horoscope-zodiac-signs-logo-pisces-sagittarius-thumbnail.png", 
+    avatarUrl: "https://api-prod-minimal-v5.vercel.app/assets/images/avatar/avatar_1.jpg" };
+    const blogTwo = { title: "The Numbers Game: Unveiling the Magic of Numerology", date: "05 Jun 2023", imageUrl: "https://w0.peakpx.com/wallpaper/949/659/HD-wallpaper-astrology-astrologer-numerology-predictions-onlinepuja-thumbnail.jpg", avatarUrl: "https://api-prod-minimal-v5.vercel.app/assets/images/avatar/avatar_1.jpg" };
+    const blogThree = { title: "Palmistry: Decoding Life's Secrets in the Palm of Your Hand", date: "01 June 2023", imageUrl: "https://w7.pngwing.com/pngs/134/793/png-transparent-the-reading-of-hands-palmistry-astrology-divination-palm-reading-hand-human-horoscope-thumbnail.png", avatarUrl: "https://api-prod-minimal-v5.vercel.app/assets/images/avatar/avatar_1.jpg" };
 
 
     return (
         <RootStyle>
             <Container component={MotionViewport} sx={{ position: 'relative', textAlign: 'center' }}>
                 <m.div >
-                    <Typography variant="h2" gutterBottom align="center" sx={{ mb: 3, }}>
+                    <Typography variant="h2" gutterBottom align="center" sx={{ mb: 3, color:"primary.main"}}>
                         Latest Blogs
                     </Typography>
                 </m.div>
@@ -63,7 +62,7 @@ export default function HomeBlog() {
                                 <Box display="flex" flexDirection="column" alignItems="flex-start">
                                     <Avatar alt={blogOne.title} src={blogOne.avatarUrl} sx={{ bgcolor: red[500], alignSelf: 'left', mb: 1 }} />
                                     <Box display="flex" flexDirection="column" alignItems="flex-start" sx={{ position: 'absolute', bottom: '80px', left: '16px' }}>
-                                        <Typography gutterBottom color="text.secondary">
+                                        <Typography gutterBottom color="primary.main">
                                             {blogOne.date}
                                         </Typography>
                                         <Typography component="div">
@@ -101,7 +100,7 @@ export default function HomeBlog() {
                                 <Box display="flex" flexDirection="column" alignItems="flex-start">
                                     <Avatar alt={blogTwo.title} src={blogTwo.avatarUrl} sx={{ bgcolor: red[500], alignSelf: 'left', mb: 1 }} />
                                     <Box display="flex" flexDirection="column" alignItems="flex-start" sx={{ position: 'absolute', bottom: '80px', left: '16px' }}>
-                                        <Typography gutterBottom color="text.secondary"fontSize="12px" >
+                                        <Typography gutterBottom color="primary.main"fontSize="12px" >
                                             {blogTwo.date}
                                         </Typography>
                                         <Typography component="div" fontSize="12px" display="flex" flexDirection="column" alignItems="flex-start" >
@@ -138,7 +137,7 @@ export default function HomeBlog() {
                                 <Box display="flex" flexDirection="column" alignItems="flex-start">
                                     <Avatar alt={blogThree.title} src={blogThree.avatarUrl} sx={{ bgcolor: red[500], alignSelf: 'left', mb: 1 }} />
                                     <Box display="flex" flexDirection="column" alignItems="flex-start" sx={{ position: 'absolute', bottom: '80px', left: '16px' }}>
-                                        <Typography gutterBottom color="text.secondary" fontSize="12px" >
+                                        <Typography gutterBottom color="primary.main" fontSize="12px" >
                                             {blogThree.date}
                                         </Typography>
                                         <Typography component="div" fontSize="12px" display="flex" flexDirection="column" alignItems="flex-start" >

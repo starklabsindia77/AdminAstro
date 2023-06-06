@@ -23,7 +23,7 @@ const menuConfig = [
     
   },
   {
-    title: 'How It Works',
+    title: 'What We Do',
     icon: <Iconify icon={'eva:book-open-fill'} {...ICON_SIZE} />,
     path: '#howitworks',
     
