@@ -26,7 +26,7 @@ export default function Logo({ disabledLink = false, sx }) {
 
   
   const logo = (
-    <Box sx={{ width: 300, ...sx }}>
+    <Box sx={{ ...sx }}>
      <img src='/logo/logo_2.svg' alt="logo" />
     </Box>
   );

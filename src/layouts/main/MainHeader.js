@@ -78,8 +78,7 @@ export default function MainHeader() {
             justifyContent: 'space-between',
           }}
         >
-          <Logo />
-          {/* <img src='/logo/logoastroscore.png' alt=""  className="logo"/> */}
+          <Logo sx={{ width: 300,}} />
           <Box sx={{ flexGrow: 1 }} />
 
           {isDesktop && <MenuDesktop isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}

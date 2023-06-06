@@ -29,7 +29,10 @@ const RootStyle = styled('div')(({ theme }) => ({
     transition: theme.transitions.create('width', {
       duration: theme.transitions.duration.shorter,
     }),
+    
   },
+  
+
 }));
 
 // ----------------------------------------------------------------------
@@ -62,6 +65,7 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }) {
       sx={{
         height: 1,
         '& .simplebar-content': { height: 1, display: 'flex', flexDirection: 'column' },
+        backgroundColor: '#2b302d', 
       }}
     >
       <Stack
@@ -75,11 +79,11 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }) {
         }}
       >
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <Logo />
+          <Logo sx={{ width: 200,}}  />
 
-          {isDesktop && !isCollapse && (
+          {/* {isDesktop && !isCollapse && (
             <CollapseButton onToggleCollapse={onToggleCollapse} collapseClick={collapseClick} />
-          )}
+          )} */}
         </Stack>
 
         <NavbarAccount isCollapse={isCollapse}  />

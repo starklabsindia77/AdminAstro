@@ -41,6 +41,7 @@ export default function NavSectionVertical({ navConfig, isCollapse = false, ...o
               ...(isCollapse && {
                 opacity: 0,
               }),
+              color:'common.white'
             }}
           >
             {translate(group.subheader)}

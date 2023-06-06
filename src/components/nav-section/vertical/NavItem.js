@@ -81,7 +81,7 @@ export function NavItemRoot({ item, isCollapse, open = false, active, onOpen }) 
 
   if (children) {
     return (
-      <ListItem onClick={onOpen} activeRoot={active} disabled={disabled} roles={roles}>
+      <ListItem onClick={onOpen} activeRoot={active} disabled={disabled} roles={roles} >
         {renderContent}
       </ListItem>
     );
@@ -126,6 +126,7 @@ export function NavItemSub({ item, open = false, active = false, onOpen }) {
       <ListItemText
         disableTypography
         primary={translate(title)}
+        
         secondary={
           <Tooltip title={translate(caption) || ''} arrow>
             <Typography

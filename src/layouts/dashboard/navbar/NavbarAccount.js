@@ -40,6 +40,7 @@ export default function NavbarAccount({ isCollapse }) {
             bgcolor: 'transparent',
           }),
           marginTop: '50px',
+          bgcolor: 'common.white',
         }}
       >
         <MyAvatar />

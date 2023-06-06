@@ -48,6 +48,8 @@ const SectionStyle = styled(Card)(({ theme }) => ({
   flexDirection: 'column',
   justifyContent: 'center',
   margin: theme.spacing(2, 0, 2, 2),
+  backgroundColor: '#2b302d', 
+  color:'#fff',
 }));
 
 const ContentStyle = styled('div')(({ theme }) => ({
@@ -73,15 +75,7 @@ export default function Login() {
     <Page title="Login">
       <RootStyle>
         <HeaderStyle>
-          <Logo />
-          {/* {smUp && (
-            <Typography variant="body2" sx={{ mt: { md: -2 } }}>
-              Don’t have an account? {''}
-              <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
-                Get started
-              </Link>
-            </Typography>
-          )} */}
+          <Logo sx={{ width: 300, }}  />
         </HeaderStyle>
 
         {mdUp && (
