@@ -46,7 +46,7 @@ const ContentStyle = styled((props) => <Stack spacing={5} {...props} />)(({ them
 }));
 
 const HeroOverlayStyle = styled(m.img)({
-  zIndex: 9,
+  zIndex: 7,
   width: '100%',
   height: '100%',
   objectFit: 'cover',
@@ -62,9 +62,9 @@ const HeroImgStyle = styled(m.img)(({ theme }) => ({
   margin: 'auto',
   position: 'absolute',
   [theme.breakpoints.up('lg')]: {
-    right: '8%',
+    right: '5%',
     width: 'auto',
-    height: '48vh',
+    height: '100vh',
   },
 }));
 
@@ -74,11 +74,12 @@ export default function HomeHero() {
   return (
     <MotionContainer>
       <RootStyle >
-        {/* <HeroOverlayStyle alt="overlay" src="/assets/overlay.svg" variants={varFade().inLeft} /> */}
+        <HeroOverlayStyle alt="overlay" src="/assets/overlay.svg" variants={varFade().inLeft} />
 
         <HeroImgStyle
           alt="hero"
-          src='/assets/hero_image.png'
+          src='/assets/hero.svg'
+          
           variants={varFade().inUp}
         />
 
