@@ -22,15 +22,15 @@ const LINKS = [
   {
     headline: 'Legal',
     children: [
-      { name: 'Terms and Condition', href: '#' },
-      { name: 'Privacy Policy', href: '#' },
+      { name: 'Terms and Condition', href: '/terms' },
+      { name: 'Privacy Policy', href: '/policy' },
     ],
   },
   {
     headline: 'Contact',
     children: [
-      { name: 'support@minimals.cc', href: '#' },
-      { name: 'Los Angeles, 359  Hidden Valley Road', href: '#' },
+      { name: 'astroscore1@gmail.com', href: '#' },
+      { name: '532, ICPL, Evergreen Towers, Sector 125, Mohali', href: '#' },
     ],
   },
 ];

@@ -65,10 +65,12 @@ export default function MainHeader() {
         disableGutters
         sx={{
           ...(isOffset && {
-            backgroundColor :'#2b302d',
+            
             // ...cssStyles(theme).bgBlur(),
             height: { md: HEADER.MAIN_DESKTOP_HEIGHT - 16 },
           }),
+
+          backgroundColor :'#2b302d',
         }}
       >
         <Container

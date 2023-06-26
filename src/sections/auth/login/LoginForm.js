@@ -60,6 +60,7 @@ export default function LoginForm() {
     try {
       await login(data.email, data.password);
     } catch (error) {
+      console.log("error ", error);
       console.error(error);
 
       reset();

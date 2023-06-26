@@ -9,25 +9,25 @@ import { TextAnimate, MotionContainer, varFade } from '../../components/animate'
 
 const CONTACTS = [
   {
-    country: 'Bali',
-    address: '508 Bridle Avenue Newnan, GA 30263',
-    phoneNumber: '(239) 555-0108',
+    country: 'India',
+    address: '532, ICPL, Evergreen Towers, Sector 125, Mohali, Rupnagar, Punjab -140301',
+    phoneNumber: '+91 9816627678',
   },
-  {
-    country: 'London',
-    address: '508 Bridle Avenue Newnan, GA 30263',
-    phoneNumber: '(319) 555-0115',
-  },
-  {
-    country: 'Prague',
-    address: '508 Bridle Avenue Newnan, GA 30263',
-    phoneNumber: '(252) 555-0126',
-  },
-  {
-    country: 'Moscow',
-    address: '508 Bridle Avenue Newnan, GA 30263',
-    phoneNumber: '(307) 555-0133',
-  },
+  // {
+  //   country: 'London',
+  //   address: '508 Bridle Avenue Newnan, GA 30263',
+  //   phoneNumber: '(319) 555-0115',
+  // },
+  // {
+  //   country: 'Prague',
+  //   address: '508 Bridle Avenue Newnan, GA 30263',
+  //   phoneNumber: '(252) 555-0126',
+  // },
+  // {
+  //   country: 'Moscow',
+  //   address: '508 Bridle Avenue Newnan, GA 30263',
+  //   phoneNumber: '(307) 555-0133',
+  // },
 ];
 
 const RootStyle = styled('div')(({ theme }) => ({
@@ -68,14 +68,14 @@ export default function ContactHero() {
 
           <Grid container spacing={5} sx={{ mt: 5, color: 'common.white' }}>
             {CONTACTS.map((contact) => (
-              <Grid key={contact.country} item xs={12} sm={6} md={3} lg={2} sx={{ pr: { md: 5 } }}>
+              <Grid key={contact.country} item xs={12} sm={6} md={6} lg={6} sx={{ pr: { md: 5 } }}>
                 <m.div variants={varFade().in}>
-                  <Typography variant="h6" paragraph>
+                  <Typography variant="h6" paragraph sx={{fontSize: 20}}>
                     {contact.country}
                   </Typography>
                 </m.div>
                 <m.div variants={varFade().inRight}>
-                  <Typography variant="body2">
+                  <Typography variant="body2" sx={{fontSize: 20}}>
                     {contact.address}
                     <br /> {contact.phoneNumber}
                   </Typography>

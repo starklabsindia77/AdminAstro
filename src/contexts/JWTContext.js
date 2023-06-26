@@ -119,6 +119,7 @@ function AuthProvider({ children }) {
       email,
       password,
     });
+    console.log("res", response);
     const { accessToken, user } = response.data;
 
     const role = localStorage.setItem('role', user.role);
