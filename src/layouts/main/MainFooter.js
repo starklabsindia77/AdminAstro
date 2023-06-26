@@ -14,9 +14,9 @@ const LINKS = [
   {
     headline: 'Pages',
     children: [
-      { name: 'About us', href: PATH_PAGE.about },
-      { name: 'Contact us', href: PATH_PAGE.contact },
-      { name: 'FAQs', href: PATH_PAGE.faqs },
+      { name: 'About us', href: "#" },
+      { name: 'Contact us', href: "#" },
+      { name: 'FAQs', href: "#" },
     ],
   },
   {
