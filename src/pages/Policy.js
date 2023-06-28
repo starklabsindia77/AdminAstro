@@ -5,7 +5,7 @@ import { Divider } from '@mui/material';
 import Page from '../components/Page';
 import {  AboutWhat, AboutTeam, AboutVision, AboutTestimonials } from '../sections/about';
 
-import { PolicyHero } from '../sections/policy';
+import { PolicyHero, PolicyWhat } from '../sections/policy';
 
 // ----------------------------------------------------------------------
 
@@ -24,15 +24,15 @@ export default function Policy() {
       <RootStyle>
         <PolicyHero />
 
-        <AboutWhat />
+        <PolicyWhat />
 
-        <AboutVision />
+        {/* <AboutVision />
 
         <Divider orientation="vertical" sx={{ my: 10, mx: 'auto', width: 2, height: 40 }} />
 
         <AboutTeam />
 
-        <AboutTestimonials />
+        <AboutTestimonials /> */}
       </RootStyle>
     </Page>
   );
