@@ -117,13 +117,13 @@ export const _notifications = [...Array(5)].map((_, index) => ({
 
 export const _mapContact = [
   {
-    latlng: [33, 65],
-    address: _mock.address.fullAddress(1),
-    phoneNumber: _mock.phoneNumber(1),
+    latlng: [30.7046, 76.7179],
+    address: _mock.address.fullAddress(0),
+    phoneNumber: _mock.phoneNumber(0),
   },
-  {
-    latlng: [-12.5, 18.5],
-    address: _mock.address.fullAddress(2),
-    phoneNumber: _mock.phoneNumber(2),
-  },
+  // {
+  //   latlng: [-12.5, 18.5],
+  //   address: _mock.address.fullAddress(2),
+  //   phoneNumber: _mock.phoneNumber(2),
+  // },
 ];

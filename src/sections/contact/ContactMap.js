@@ -37,9 +37,9 @@ export default function ContactMap({ contacts }) {
   const [tooltip, setTooltip] = useState(null);
 
   const [viewport, setViewport] = useState({
-    latitude: 12,
-    longitude: 42,
-    zoom: 2,
+    latitude: 30.7046,
+    longitude: 76.7179,
+    zoom: 4,
   });
 
   return (
