@@ -10,7 +10,8 @@ import { PATH_DASHBOARD } from './routes/paths';
 // ----------------------------------------------------------------------export const HOST_API = "http://localhost:3001/api/admin"; 
 // export const HOST_API = "https://astroapi.onrender.com/api/admin"; 
 // export const HOST_API = "http://15.207.204.173:3001/api/api/admin"; 
-export const HOST_API = "http://52.66.111.34:3001/api/admin";
+// export const HOST_API = "http://52.66.111.34:3001/api/admin";
+export const HOST_API = "arn:aws:lambda:ap-south-1:847092605256:function:backend/api/admin";
 
 
 export const FIREBASE_API = {
