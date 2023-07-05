@@ -194,9 +194,14 @@ export default function Router() {
         { element: <HomePage />, index: true },
         { path: 'about-us', element: <About /> },
         { path: 'policy', element: <Policy /> },
-        { path: 'terms', element: <Terms /> },
+        { path: '#blog', component: <HomeBlog /> },
         { path: 'contact-us', element: <Contact /> },
         { path: 'faqs', element: <Faqs /> },
+        // { path: 'about-us', element: <About /> },
+        // { path: 'policy', element: <Policy /> },
+        // { path: 'terms', element: <Terms /> },
+        // { path: 'contact-us', element: <Contact /> },
+        // { path: 'faqs', element: <Faqs /> },
       ],
     },
     // { path: '/', element: <Navigate to="/auth/login" replace /> },
@@ -278,6 +283,7 @@ const PermissionDenied = Loadable(lazy(() => import('../pages/dashboard/Permissi
 // MAIN
 const HomePage = Loadable(lazy(() => import('../pages/Home')));
 const About = Loadable(lazy(() => import('../pages/About')));
+const HomeBlog = Loadable(lazy(() => import('../sections/home')));
 const Policy = Loadable(lazy(() => import('../pages/Policy')));
 const Terms = Loadable(lazy(() => import('../pages/Terms')));
 const Contact = Loadable(lazy(() => import('../pages/Contact')));

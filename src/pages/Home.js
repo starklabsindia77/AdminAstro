@@ -45,7 +45,7 @@ export default function HomePage() {
         </div>
 
 
-        {/* <HomeHugePackElements /> */}
+        
         <div id="aboutus">
           <AboutWhat />
         </div>
@@ -54,12 +54,7 @@ export default function HomePage() {
           <HomeDarkMode />
         </div>
 
-        {/* <HomeColorPresets /> */}
-
-
-        {/* <HomeCleanInterfaces />
-
-        <HomePricingPlans /> */}
+        
         <div id="blog">
           <HomeBlog />
         </div>
@@ -79,9 +74,7 @@ export default function HomePage() {
           </Grid>
         </Container>
 
-        {/* <HomeLookingFor />
-
-        <HomeAdvertisement /> */}
+        
       </ContentStyle>
     </Page>
   );

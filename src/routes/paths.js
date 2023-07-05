@@ -28,6 +28,7 @@ export const PATH_PAGE = {
   terms: '/terms',
   policy:'/policy',
   about: '/about-us',
+  blog: '/#blog',
   contact: '/contact-us',
   faqs: '/faqs',
   page403: '/403',

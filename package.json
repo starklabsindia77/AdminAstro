@@ -71,6 +71,7 @@
     "date-fns": "^2.28.0",
     "dayjs": "^1.11.7",
     "deck.gl": "^8.7.5",
+    "emailjs": "^4.0.2",
     "emoji-mart": "^3.0.0",
     "firebase": "^9.6.10",
     "framer-motion": "^6.2.9",
