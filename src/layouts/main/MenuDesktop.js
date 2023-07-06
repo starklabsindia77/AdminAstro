@@ -13,7 +13,7 @@ import Iconify from '../../components/Iconify';
 
 const LinkStyle = styled(Link)(({ theme }) => ({
   ...theme.typography.subtitle2,
-  color: theme.palette.text.primary,
+  color: 'common.white',
   marginRight: theme.spacing(5),
   transition: theme.transitions.create('opacity', {
     duration: theme.transitions.duration.shorter,
@@ -28,7 +28,7 @@ const ListItemStyle = styled(ListItem)(({ theme }) => ({
   ...theme.typography.body2,
   padding: 0,
   marginTop: theme.spacing(3),
-  color: theme.palette.text.secondary,
+  color: 'common.white',
   transition: theme.transitions.create('color'),
   '&:hover': {
     color: theme.palette.text.primary,
@@ -134,7 +134,7 @@ function MenuDesktopItem({ item, isHome, isOpen, isOffset, onOpen, onClose }) {
             cursor: 'pointer',
             alignItems: 'center',
             ...(isHome && { color: 'common.white' }),
-            ...(isOffset && { color: 'text.primary' }),
+            ...(isOffset && { color: 'common.white' }),
             ...(isOpen && { opacity: 0.48 }),
           }}
         >
@@ -246,7 +246,7 @@ function MenuDesktopItem({ item, isHome, isOpen, isOffset, onOpen, onClose }) {
         rel="noopener"
         sx={{
           ...(isHome && { color: 'common.white' }),
-          ...(isOffset && { color: 'text.primary' }),
+          ...(isOffset && { color: 'common.white' }),
         }}
       >
         {title}
@@ -261,7 +261,7 @@ function MenuDesktopItem({ item, isHome, isOpen, isOffset, onOpen, onClose }) {
       end={path === '/'}
       sx={{
         ...(isHome && { color: 'common.white' }),
-        ...(isOffset && { color: 'text.primary' }),
+        ...(isOffset && { color: 'common.white'  }),
         '&.active': {
           color: 'primary.main',
         },

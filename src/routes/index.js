@@ -192,11 +192,13 @@ export default function Router() {
       element: <MainLayout />,
       children: [
         { element: <HomePage />, index: true },
-        { path: 'about-us', element: <About /> },
+        { path: 'about-us', element: <AboutUs /> },
         { path: 'policy', element: <Policy /> },
+        { path: 'terms', element: <Terms /> },
         { path: '#blog', component: <HomeBlog /> },
         { path: 'contact-us', element: <Contact /> },
         { path: 'faqs', element: <Faqs /> },
+        { path: 'howitworks', element: <What /> },
         // { path: 'about-us', element: <About /> },
         // { path: 'policy', element: <Policy /> },
         // { path: 'terms', element: <Terms /> },
@@ -283,6 +285,8 @@ const PermissionDenied = Loadable(lazy(() => import('../pages/dashboard/Permissi
 // MAIN
 const HomePage = Loadable(lazy(() => import('../pages/Home')));
 const About = Loadable(lazy(() => import('../pages/About')));
+const What = Loadable(lazy(() => import('../pages/WhatWeDo')));
+const AboutUs = Loadable(lazy(() => import('../pages/AboutUs')));
 const HomeBlog = Loadable(lazy(() => import('../sections/home')));
 const Policy = Loadable(lazy(() => import('../pages/Policy')));
 const Terms = Loadable(lazy(() => import('../pages/Terms')));

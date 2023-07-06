@@ -14,9 +14,9 @@ const LINKS = [
   {
     headline: 'Pages',
     children: [
-      { name: 'About us', href: "#" },
-      { name: 'Contact us', href: "#" },
-      { name: 'FAQs', href: "#" },
+      { name: 'About us', href: "/about-us" },
+      { name: 'Contact us', href: "/contact-us" },
+      { name: 'FAQs', href: "/faqs" },
     ],
   },
   {

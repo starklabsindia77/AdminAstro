@@ -19,37 +19,37 @@ const menuConfig = [
   {
     title: 'Home',
     icon: <Iconify icon={'eva:home-fill'} {...ICON_SIZE} />,
-    path: '#home',
+    path: '/',
     
   },
   {
     title: 'What We Do',
     icon: <Iconify icon={'eva:book-open-fill'} {...ICON_SIZE} />,
-    path: '#howitworks',
+    path: '/howitworks',
     
   },
   {
     title: 'About Us',
     icon: <Iconify icon={'eva:book-open-fill'} {...ICON_SIZE} />,
-    path: '#aboutus',
+    path: '/about-us',
     
   },
   {
     title: 'FAQ',
     icon: <Iconify icon={'eva:book-open-fill'} {...ICON_SIZE} />,
-    path: '#faq',
+    path: '/faqs',
     
   },
-  {
-    title: 'Blog',
-    icon: <Iconify icon={'eva:book-open-fill'} {...ICON_SIZE} />,
-    path: '#blog',
+  // {
+  //   title: 'Blog',
+  //   icon: <Iconify icon={'eva:book-open-fill'} {...ICON_SIZE} />,
+  //   path: '/',
     
-  },
+  // },
   {
     title: 'Contact',
     icon: <Iconify icon={'eva:book-open-fill'} {...ICON_SIZE} />,
-    path: '#contact',
+    path: '/contact-us',
     
   },
 ];

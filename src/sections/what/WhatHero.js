@@ -31,16 +31,16 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function AboutHero() {
+export default function WhatHero() {
   return (
     <RootStyle>
       <Container component={MotionContainer} sx={{ position: 'relative', height: '100%' }}>
         <ContentStyle>
-          <TextAnimate text="About" sx={{ color: 'primary.main' }} variants={varFade().inRight} />
+          <TextAnimate text="What" sx={{ color: 'primary.main' }} variants={varFade().inRight} />
           {/* <br /> */}
           <Box sx={{ display: 'inline-flex', color: 'common.white' }}>
-            <TextAnimate text="Us" sx={{ mr: 2, ml: 2  }} />
-            {/* <TextAnimate text="are?" /> */}
+            <TextAnimate text="We" sx={{ mr: 2, ml: 2 }} />
+            <TextAnimate text="Do" />
           </Box>
 
           {/* <m.div variants={varFade().inRight}>
