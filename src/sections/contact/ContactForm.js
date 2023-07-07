@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button, TextField, Typography, Stack } from '@mui/material';
 import { m } from 'framer-motion';
 import { MotionViewport, varFade } from '../../components/animate';
+import { HOST_API } from '../../config';
 
 
 export default function ContactForm() {
@@ -16,9 +17,10 @@ export default function ContactForm() {
   };
 
   const sendEmail = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
+    console.log("email", form);
     try{
-      fetch('http://localhost:3000/send-email', { // replace with your server's address
+      fetch(`${HOST_API}/send-email`, { // replace with your server's address
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -70,7 +72,7 @@ export default function ContactForm() {
       </Stack>
 
       <m.div variants={varFade().inUp}>
-        <Button type="submit" size="large" variant="contained">
+        <Button type="submit" size="large" variant="contained" onClick={(e) => { sendEmail()} }>
           Submit Now
         </Button>
       </m.div>
