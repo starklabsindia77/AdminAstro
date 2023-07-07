@@ -135,21 +135,22 @@ export default function Schedule() {
   };
 
   const handleDeleteRow = async(id) => {
-    // const deleteRow = tableData?.filter((row) => row.id !== id);
-    // const accessToken = localStorage.getItem('accessToken');
-    //     if (accessToken && isValidToken(accessToken)) {
-    //       setSession(accessToken);
-    //       const response = await axios.delete(`/sessions/${id}`);
-    //       console.log("delete", response);
-    //       const { data } = response.data;
-    //       // setTableData(user);
-    //     }
-    // setSelected([]);
-    // setTableData(deleteRow);
+    
+    const deleteRow = tableData?.filter((row) => row.app_id !== id);
+    const accessToken = localStorage.getItem('accessToken');
+        if (accessToken && isValidToken(accessToken)) {
+          setSession(accessToken);
+          const response = await axios.delete(`/appointment/${id}`);
+          console.log("delete", response);
+          
+          // setTableData(user);
+        }
+    setSelected([]);
+    setTableData(deleteRow);
   };
 
   const handleDeleteRows = (selected) => {
-    const deleteRows = tableData?.filter((row) => !selected.includes(row.id));
+    const deleteRows = tableData?.filter((row) => !selected.includes(row.app_id));
     setSelected([]);
     setTableData(deleteRows);
   };
@@ -231,7 +232,7 @@ export default function Schedule() {
                   onSelectAllRows={(checked) =>
                     onSelectAllRows(
                       checked,
-                      tableData?.map((row) => row.id)
+                      tableData?.map((row) => row.app_id)
                     )
                   }
                   actions={
@@ -255,7 +256,7 @@ export default function Schedule() {
                   onSelectAllRows={(checked) =>
                     onSelectAllRows(
                       checked,
-                      tableData?.map((row) => row.id)
+                      tableData?.map((row) => row.app_id)
                     )
                   }
                 />
@@ -263,12 +264,12 @@ export default function Schedule() {
                 <TableBody>
                   {dataFiltered?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                     <ScheduleTableRow
-                      key={row.id}
+                      key={row.app_id}
                       row={row}
-                      selected={selected.includes(row.id)}
-                      onSelectRow={() => onSelectRow(row.id)}
-                      onDeleteRow={() => handleDeleteRow(row.id)}
-                      onEditRow={() => handleEditRow(row.id)}
+                      selected={selected.includes(row.app_id)}
+                      onSelectRow={() => onSelectRow(row.app_id)}
+                      onDeleteRow={() => handleDeleteRow(row.app_id)}
+                      onEditRow={() => handleEditRow(row.app_id)}
                     />
                   ))}
 

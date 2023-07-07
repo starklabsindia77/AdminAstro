@@ -3,12 +3,7 @@ import React, { useState } from 'react';
 import { Button, TextField, Typography, Stack } from '@mui/material';
 import { m } from 'framer-motion';
 import { MotionViewport, varFade } from '../../components/animate';
-// const client = new SMTPClient({
-// 	user: 'astroscore1@gmail.com',
-// 	password: 'Baba@1234',
-// 	host: 'smtp.your-email.com',
-// 	ssl: true,
-// });
+
 
 export default function ContactForm() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
@@ -23,18 +18,24 @@ export default function ContactForm() {
   const sendEmail = (e) => {
     e.preventDefault();
     try{
-      // client.send(
-      //   {
-      //     text: form.message,
-      //     from: form.name + ` <${from.email}>`,
-      //     to: 'astroscore1@gmail.com',
-      //     //cc: 'else <else@your-email.com>',
-      //     subject: from.subject,
-      //   },
-      //   (err, message) => {
-      //     console.log(err || message);
-      //   }
-      // );
+      fetch('http://localhost:3000/send-email', { // replace with your server's address
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(form)
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'Email sent') {
+          console.log("Email sent successfully");
+        } else {
+          console.log("Failed to send the email");
+        }
+      })
+      .catch(error => {
+        console.log("email error", error);
+      });
 
     }catch(error){
       console.log("email error", error);

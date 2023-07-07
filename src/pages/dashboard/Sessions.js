@@ -149,7 +149,7 @@ export default function Sessions() {
   };
 
   const handleDeleteRow = async(id) => {
-    const deleteRow = tableData?.filter((row) => row.id !== id);
+    const deleteRow = tableData?.filter((row) => row.sid !== id);
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken && isValidToken(accessToken)) {
       setSession(accessToken);
@@ -163,7 +163,7 @@ export default function Sessions() {
   };
 
   const handleDeleteRows = (selected) => {
-    const deleteRows = tableData?.filter((row) => !selected.includes(row.id));
+    const deleteRows = tableData?.filter((row) => !selected.includes(row.sid));
     setSelected([]);
     setTableData(deleteRows);
   };
@@ -243,7 +243,7 @@ export default function Sessions() {
                   onSelectAllRows={(checked) =>
                     onSelectAllRows(
                       checked,
-                      tableData?.map((row) => row.id)
+                      tableData?.map((row) => row.sid)
                     )
                   }
                   actions={
@@ -267,7 +267,7 @@ export default function Sessions() {
                   onSelectAllRows={(checked) =>
                     onSelectAllRows(
                       checked,
-                      tableData?.map((row) => row.id)
+                      tableData?.map((row) => row.sid)
                     )
                   }
                 />
@@ -275,12 +275,12 @@ export default function Sessions() {
                 <TableBody>
                   {dataFiltered?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                     <SessionsTableRow
-                      key={row.id}
+                      key={row.sid}
                       row={row}
-                      selected={selected.includes(row.id)}
-                      onSelectRow={() => onSelectRow(row.id)}
-                      onDeleteRow={() => handleDeleteRow(row.id)}
-                      onEditRow={() => handleEditRow(row.id)}
+                      selected={selected.includes(row.sid)}
+                      onSelectRow={() => onSelectRow(row.sid)}
+                      onDeleteRow={() => handleDeleteRow(row.sid)}
+                      onEditRow={() => handleEditRow(row.sid)}
                     />
                   ))}
 

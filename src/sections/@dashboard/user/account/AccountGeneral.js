@@ -4,10 +4,10 @@ import * as Yup from 'yup';
 import { useSnackbar } from 'notistack';
 import { useCallback, useEffect, useState } from 'react';
 // form
-import { useForm } from 'react-hook-form';
+import { useForm, Controller, useFormContext } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
-import { Box, Grid, Card, Stack, Typography } from '@mui/material';
+import { Box, Grid, Card, Stack, Typography, TextField   } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // hooks
 import useAuth from '../../../../hooks/useAuth';
@@ -23,8 +23,8 @@ import { isValidToken, setSession } from '../../../../utils/jwt';
 // ----------------------------------------------------------------------
 
 export default function AccountGeneral({ user }) {
-  const { enqueueSnackbar } = useSnackbar();
-  // const { user } = useAuth();
+  const { enqueueSnackbar } = useSnackbar(); 
+  
   const [defaultValues, setdefaultValues] = useState()
 
   useEffect(() => {
@@ -40,33 +40,16 @@ export default function AccountGeneral({ user }) {
       zipCode: user?.zipCode || '',
       bio: user?.bio || '',
       skill: user?.skill || '',
-      isPublic: user?.isPublic || false,
+      isPublic: user?.isPublic  || true,
     })
   }, [user.expertId])
+
+  console.log("defaultValues", defaultValues)
+
   
+ 
 
-  const UpdateUserSchema = Yup.object().shape({
-    displayName: Yup.string().required('Name is required'),
-  });
-  console.log("values", defaultValues);
-
-  // const defaultValues = {
-  //   displayName: user?.displayName || '',
-  //   email: user?.email || '',
-  //   photoURL: user?.photoURL || '',
-  //   mobileNo: user?.mobileNo || '',
-  //   country: user?.country || '',
-  //   address: user?.address || '',
-  //   state: user?.state || '',
-  //   city: user?.city || '',
-  //   zipCode: user?.zipCode || '',
-  //   bio: user?.bio || '',
-  //   skill: user?.skill || '',
-  //   isPublic: user?.isPublic || false,
-  // };
-
-  const methods = useForm({
-    resolver: yupResolver(UpdateUserSchema),
+  const methods = useForm({    
     defaultValues,
   });
 
@@ -106,6 +89,8 @@ export default function AccountGeneral({ user }) {
     [setValue]
   );
 
+  // const { control } = useFormContext();
+
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3}>
@@ -134,7 +119,11 @@ export default function AccountGeneral({ user }) {
               }
             />
 
-            <RHFSwitch name="isPublic" labelPlacement="start" label="Public Profile" sx={{ mt: 5 }} />
+            <RHFSwitch 
+              name="isPublic" 
+              labelPlacement="start" 
+              value={defaultValues?.isPublic}             
+              label="Public Profile" sx={{ mt: 5 }} />
           </Card>
         </Grid>
 
@@ -148,25 +137,51 @@ export default function AccountGeneral({ user }) {
                 gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
               }}
             >
-              <RHFTextField name="displayName" label="Name" value={defaultValues?.displayName}/>
+              <TextField
+                name="displayName"
+                label="Name"
+                value={defaultValues?.displayName}
+                onChange={e => setValue("displayName", e.target.value)} 
+              />
               <RHFTextField name="email" label="Email Address" value={defaultValues?.email} />
 
               <RHFTextField name="mobileNo" label="Phone Number" value={defaultValues?.mobileNo} />
               <RHFTextField name="address" label="Address" value={defaultValues?.address}/>
 
-              <RHFSelect name="country" label="Country" placeholder="Country">
+              {/* <RHFSelect name="country" label="Country" placeholder="Country">
                 <option value="" />
                 {countries.map((option) => (
                   <option key={option.code} value={option.label}>
                     {option.label}
                   </option>
                 ))}
-              </RHFSelect>
+              </RHFSelect> */}
 
-              <RHFTextField name="state" label="State/Region" />
+              <Controller
+                name="country"
+                // control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Country"
+                    select
+                    fullWidth
+                    SelectProps={{ native: true }}
+                  >
+                    <option value="" />
+                    {countries.map((option) => (
+                      <option key={option.code} value={option.label}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </TextField>
+                )}
+              />
 
-              <RHFTextField name="city" label="City" />
-              <RHFTextField name="zipCode" label="Zip/Code" />
+              <RHFTextField name="state" label="State/Region" value={defaultValues?.state}/>
+
+              <RHFTextField name="city" label="City" value={defaultValues?.city} />
+              <RHFTextField name="zipCode" label="Zip/Code" value={defaultValues?.zipCode} />
             </Box>
 
             <Stack spacing={3} alignItems="flex-end" sx={{ mt: 3 }}>

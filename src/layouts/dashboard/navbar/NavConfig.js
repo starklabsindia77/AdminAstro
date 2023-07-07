@@ -79,11 +79,11 @@ const ICONS = {
           icon: <Iconify icon={'carbon:event-schedule'} width={20} height={20} />,
          
         },
-        {
-          title: 'Setting',
-          path: PATH_DASHBOARD.user.account,
-          icon: <Iconify icon={'ep:setting'} width={20} height={20} />,          
-        },
+        // {
+        //   title: 'Setting',
+        //   path: PATH_DASHBOARD.user.account,
+        //   icon: <Iconify icon={'ep:setting'} width={20} height={20} />,          
+        // },
   
         // INVOICE
         // {

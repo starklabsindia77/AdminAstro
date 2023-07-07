@@ -51,8 +51,8 @@ export default function UserAccount() {
 
   useEffect(async () => {
     const accessToken = localStorage.getItem('accessToken');
-    console.log("test Effect",user)
-    if (accessToken && isValidToken(accessToken) && user.role !== 'Admin') {
+    // console.log("test Effect",user, && user.role !== 'Admin', user.role === 'Admin' ? user :)
+    if (accessToken && isValidToken(accessToken) ) {
       setSession(accessToken);
       const response = await axios.get(`/expert/${user.id}`);
       console.log("res1", response);
@@ -65,7 +65,7 @@ export default function UserAccount() {
       {
         value: 'general',
         icon: <Iconify icon={'ic:round-account-box'} width={20} height={20} />,
-        component: <AccountGeneral user={user.role === 'Admin' ? user : currentExpert} />,
+        component: <AccountGeneral user={ currentExpert} />,
       },
       {
         value: 'change_password',

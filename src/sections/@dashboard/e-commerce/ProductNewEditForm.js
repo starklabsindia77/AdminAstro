@@ -72,7 +72,7 @@ export default function ProductNewEditForm({ isEdit, currentProduct }) {
   const { enqueueSnackbar } = useSnackbar();
 
   const NewProductSchema = Yup.object().shape({
-    name: Yup.string().required('Name is required'),
+    title: Yup.string().required('Name is required'),
     description: Yup.string().required('Description is required'),
     images: Yup.array().min(1, 'Images is required'),
     price: Yup.number().moreThan(0, 'Price should not be $0.00'),
@@ -80,7 +80,7 @@ export default function ProductNewEditForm({ isEdit, currentProduct }) {
 
   const defaultValues = useMemo(
     () => ({
-      name: currentProduct?.name || '',
+      title: currentProduct?.title || '',
       description: currentProduct?.description || '',
       images: currentProduct?.images || [],
       code: currentProduct?.code || '',
@@ -168,7 +168,7 @@ export default function ProductNewEditForm({ isEdit, currentProduct }) {
         <Grid item xs={12} md={8}>
           <Card sx={{ p: 3 }}>
             <Stack spacing={3}>
-              <RHFTextField name="name" label="Product Name" />
+              <RHFTextField name="title" label="Product Name" />
 
               <div>
                 <LabelStyle>Description</LabelStyle>
@@ -200,50 +200,8 @@ export default function ProductNewEditForm({ isEdit, currentProduct }) {
               <Stack spacing={3} mt={2}>
                 <RHFTextField name="code" label="Product Code" />
 
-                <RHFTextField name="sku" label="Product SKU" />
-
-                <div>
-                  <LabelStyle>Gender</LabelStyle>
-                  <RHFRadioGroup
-                    name="gender"
-                    options={GENDER_OPTION}
-                    sx={{
-                      '& .MuiFormControlLabel-root': { mr: 4 },
-                    }}
-                  />
-                </div>
-
-                <RHFSelect name="category" label="Category">
-                  {CATEGORY_OPTION.map((category) => (
-                    <optgroup key={category.group} label={category.group}>
-                      {category.classify.map((classify) => (
-                        <option key={classify} value={classify}>
-                          {classify}
-                        </option>
-                      ))}
-                    </optgroup>
-                  ))}
-                </RHFSelect>
-
-                <Controller
-                  name="tags"
-                  control={control}
-                  render={({ field }) => (
-                    <Autocomplete
-                      {...field}
-                      multiple
-                      freeSolo
-                      onChange={(event, newValue) => field.onChange(newValue)}
-                      options={TAGS_OPTION.map((option) => option)}
-                      renderTags={(value, getTagProps) =>
-                        value.map((option, index) => (
-                          <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
-                        ))
-                      }
-                      renderInput={(params) => <TextField label="Tags" {...params} />}
-                    />
-                  )}
-                />
+                <RHFTextField name="sku" label="Product SKU" />              
+                               
               </Stack>
             </Card>
 
