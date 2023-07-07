@@ -1,7 +1,7 @@
 {
-  "name": "@minimal/minimal-kit-react",
-  "author": "minimals.cc",
-  "version": "3.4.0",
+  "name": "astroscore",
+  "author": "starklabs.in",
+  "version": "1.0.1",
   "description": "Javascript Version",
   "private": true,
   "scripts": {
