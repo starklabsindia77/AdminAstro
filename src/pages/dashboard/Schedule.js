@@ -3,6 +3,7 @@
 import { paramCase } from 'change-case';
 import { useState, useEffect } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 // @mui
 import {
   Box,
@@ -41,6 +42,7 @@ import axios from '../../utils/axios';
 import useAuth from '../../hooks/useAuth';
 import { isValidToken, setSession } from '../../utils/jwt';
 
+
 // ----------------------------------------------------------------------
 
 // const TABLE_HEAD = [
@@ -77,6 +79,7 @@ export default function Schedule() {
 
   const { themeStretch } = useSettings();
   const { user } = useAuth();
+  const { enqueueSnackbar } = useSnackbar();
 
   const navigate = useNavigate();
 
@@ -142,6 +145,13 @@ export default function Schedule() {
           setSession(accessToken);
           const response = await axios.delete(`/appointment/${id}`);
           console.log("delete", response);
+          if(response.status === 200){
+            enqueueSnackbar('Deleted Succeesfully' );
+          }else{
+            enqueueSnackbar('issue in deleting', { variant: 'error' } );
+          }
+
+          
           
           // setTableData(user);
         }
@@ -149,11 +159,37 @@ export default function Schedule() {
     setTableData(deleteRow);
   };
 
-  const handleDeleteRows = (selected) => {
-    const deleteRows = tableData?.filter((row) => !selected.includes(row.app_id));
-    setSelected([]);
-    setTableData(deleteRows);
+  const handleDeleteRows = async (selected) => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken && isValidToken(accessToken)) {
+      setSession(accessToken);
+      
+      const deleteRows = tableData?.filter((row) => {
+        if (selected.includes(row.app_id)) {
+          // await cannot be used directly within filter function, so we separate the deletion into another function
+          const deleteRow = async (rowId) => {
+            try {
+              const response = await axios.delete(`/appointment/${rowId}`);              
+              enqueueSnackbar('Deleted Successfully');
+            } catch (error) {
+              console.log("Error deleting row", error);
+              enqueueSnackbar('Deletion Failed', { variant: 'error' });
+            }
+          }
+          deleteRow(row.app_id);
+          return false;
+        }
+        return true;
+      });
+  
+      setSelected([]);
+      setTableData(deleteRows);
+    } else {
+      console.log("Invalid or absent access token");
+      enqueueSnackbar('Invalid or absent access token', { variant: 'error' });
+    }
   };
+  
 
   const handleEditRow = (id) => {
     navigate(PATH_DASHBOARD.user.edit(id));
