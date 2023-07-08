@@ -40,11 +40,11 @@ const BlogCard = styled(Card)(({ theme }) => ({
 export default function HomeBlog() {
     
 
-    const blogOne = { title: "The Cosmic Dance: An Introduction to Astrology", date: "06 Jun 2023", 
+    const blogOne = { title: "AI is Revolutionizing Vedic Astrology", date: "06 Jun 2023", 
     imageUrl: "https://w7.pngwing.com/pngs/425/631/png-transparent-aries-astrological-sign-astrology-horoscope-zodiac-signs-logo-pisces-sagittarius-thumbnail.png", 
     avatarUrl: "https://api-prod-minimal-v5.vercel.app/assets/images/avatar/avatar_1.jpg" };
-    const blogTwo = { title: "The Numbers Game: Unveiling the Magic of Numerology", date: "05 Jun 2023", imageUrl: "https://w0.peakpx.com/wallpaper/949/659/HD-wallpaper-astrology-astrologer-numerology-predictions-onlinepuja-thumbnail.jpg", avatarUrl: "https://api-prod-minimal-v5.vercel.app/assets/images/avatar/avatar_1.jpg" };
-    const blogThree = { title: "Palmistry: Decoding Life's Secrets in the Palm of Your Hand", date: "01 June 2023", imageUrl: "https://w7.pngwing.com/pngs/134/793/png-transparent-the-reading-of-hands-palmistry-astrology-divination-palm-reading-hand-human-horoscope-thumbnail.png", avatarUrl: "https://api-prod-minimal-v5.vercel.app/assets/images/avatar/avatar_1.jpg" };
+    const blogTwo = { title: "Modern Astrology and The Intricacies of Celestial Influence", date: "05 Jun 2023", imageUrl: "https://w0.peakpx.com/wallpaper/949/659/HD-wallpaper-astrology-astrologer-numerology-predictions-onlinepuja-thumbnail.jpg", avatarUrl: "https://api-prod-minimal-v5.vercel.app/assets/images/avatar/avatar_1.jpg" };
+    const blogThree = { title: "Accurate Birth Chart Generation", date: "01 June 2023", imageUrl: "https://w7.pngwing.com/pngs/134/793/png-transparent-the-reading-of-hands-palmistry-astrology-divination-palm-reading-hand-human-horoscope-thumbnail.png", avatarUrl: "https://api-prod-minimal-v5.vercel.app/assets/images/avatar/avatar_1.jpg" };
 
 
     return (
