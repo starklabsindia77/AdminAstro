@@ -11,6 +11,9 @@ import { styled } from '@mui/material/styles';
 import { Grid, Card, Chip, Stack, Button, TextField, Typography, Autocomplete } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
+import useAuth from '../../../hooks/useAuth';
+import axios from '../../../utils/axios';
+import { isValidToken, setSession } from '../../../utils/jwt';
 // components
 import { RHFSwitch, RHFEditor, FormProvider, RHFTextField, RHFUploadSingleFile } from '../../../components/hook-form';
 //
@@ -45,8 +48,10 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
 export default function BlogNewPostForm() {
   const navigate = useNavigate();
 
-  const [open, setOpen] = useState(false);
+  const { user } = useAuth();
 
+  const [open, setOpen] = useState(false);
+  const [uploadImage, setUploadImage] = useState()
   const { enqueueSnackbar } = useSnackbar();
 
   const handleOpenPreview = () => {
@@ -95,15 +100,23 @@ export default function BlogNewPostForm() {
 
   const onSubmit = async (data) => {
     try {
-
       console.log("data", data);
-    const dataStr = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(data))}`;
-    const downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute("href",     dataStr);
-    downloadAnchorNode.setAttribute("download", "singleposts.json");
-    document.body.appendChild(downloadAnchorNode); // required for firefox
-    downloadAnchorNode.click();
-    downloadAnchorNode.remove();
+      data.image = uploadImage;
+      data.author = {
+        name: user?.displayName,
+        avatarUrl: user?.photoURL
+      }
+      const accessToken = localStorage.getItem('accessToken');
+      if (accessToken && isValidToken(accessToken)) {
+        setSession(accessToken);        
+        const response2 = await axios.post('/blogs', data);  
+        if(response2.status === 201){
+          reset();
+          handleClosePreview();
+          enqueueSnackbar('Post success!');
+          navigate(PATH_DASHBOARD.blog.posts);
+        }     
+      }
       // await new Promise((resolve) => setTimeout(resolve, 500));
       // reset();
       // handleClosePreview();
@@ -117,6 +130,12 @@ export default function BlogNewPostForm() {
   const handleDrop = useCallback(
     (acceptedFiles) => {
       const file = acceptedFiles[0];
+      const reader = new FileReader();  
+      reader.onload = () => {
+        const base64String = reader.result.split(',')[1];        
+        setUploadImage(base64String);
+      };      
+      reader.readAsDataURL(file); 
 
       if (file) {
         setValue(

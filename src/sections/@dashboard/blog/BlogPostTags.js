@@ -13,7 +13,8 @@ BlogPostTags.propTypes = {
 };
 
 export default function BlogPostTags({ post }) {
-  const { favorite, tags, favoritePerson } = post;
+  const { favorite, favoritePerson } = post;
+  const tags = JSON.parse(post.tags);
 
   return (
     <Box sx={{ py: 3 }}>

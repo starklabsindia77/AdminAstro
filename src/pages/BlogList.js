@@ -64,16 +64,14 @@ export default function BlogList() {
 
     const getAllPosts = useCallback(async () => {
         try {
-            // const response = await axios.get('/api/blog/posts/all');
-            const response = blog
-
-            if (isMountedRef.current) {
-                setPosts(response);
-            }
+          const response = await axios.get('/blog/posts/all');      
+          if (isMountedRef.current) {
+            setPosts(response.data.posts);
+          }
         } catch (error) {
-            console.error(error);
+          console.error(error);
         }
-    }, [isMountedRef]);
+      }, [isMountedRef]);
 
     useEffect(() => {
         getAllPosts();

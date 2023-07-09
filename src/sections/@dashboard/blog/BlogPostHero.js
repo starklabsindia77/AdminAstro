@@ -81,7 +81,9 @@ BlogPostHero.propTypes = {
 };
 
 export default function BlogPostHero({ post }) {
-  const { cover, title, author, createdAt } = post;
+  const { cover, title, createdAt } = post;
+
+  const author = JSON.parse(post.author);
 
   const isDesktop = useResponsive('up', 'sm');
 

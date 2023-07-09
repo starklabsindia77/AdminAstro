@@ -126,19 +126,13 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
   const handleDrop = useCallback(
     (acceptedFiles) => {
       
-      const file = acceptedFiles[0];
-      
-      const reader = new FileReader();
-  
+      const file = acceptedFiles[0];      
+      const reader = new FileReader();  
       reader.onload = () => {
-        const base64String = reader.result.split(',')[1];
-        // console.log(base64String);
+        const base64String = reader.result.split(',')[1];        
         setUploadImage(base64String);
-        // Do something with the Base64 string
-      };
-      
-      reader.readAsDataURL(file);
-      
+      };      
+      reader.readAsDataURL(file);     
 
       if (file) {
         setValue(
@@ -148,11 +142,7 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
           })
         );
       }
-      // if (file) {
-      //   setValue(
-      //     'avatarUrl', file
-      //   );
-      // }
+     
     },
     [setValue]
   );

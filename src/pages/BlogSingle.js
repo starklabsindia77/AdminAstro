@@ -55,10 +55,10 @@ export default function BlogSingle() {
 
   const getPost = useCallback(async () => {
     try {
-      const filteredPost = allPosts.filter(post => post.id.toLowerCase() === title.toLowerCase());
+      const response = await axios.get(`/blog/post/${title}`);
 
       if (isMountedRef.current) {
-        setPost(filteredPost[0]);
+        setPost(response.data.post);
       }
     } catch (error) {
       console.error(error);
@@ -68,10 +68,10 @@ export default function BlogSingle() {
 
   const getRecentPosts = useCallback(async () => {
     try {
-      const filteredPost = allPosts.filter((post) => post.id !== title);
+      const response = await axios.get(`/blog/posts/recent/${title}`);
 
       if (isMountedRef.current) {
-        setRecentPosts(filteredPost);
+        setRecentPosts(response.data.recentPosts);
       }
     } catch (error) {
       console.error(error);
@@ -107,7 +107,7 @@ export default function BlogSingle() {
                   {post.description}
                 </Typography>
 
-                <Markdown children={post.body} />
+                <Markdown children={post.content} />
 
                 <Box sx={{ my: 5 }}>
                   <Divider />

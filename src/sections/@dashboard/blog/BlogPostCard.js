@@ -5,7 +5,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import { Box, Link, Card, Avatar, Typography, CardContent, Stack } from '@mui/material';
 // routes
-import { PATH_PAGE } from '../../../routes/paths';
+import { PATH_DASHBOARD } from '../../../routes/paths';
 // hooks
 import useResponsive from '../../../hooks/useResponsive';
 // utils
@@ -39,8 +39,9 @@ BlogPostCard.propTypes = {
 export default function BlogPostCard({ post, index }) {
   const isDesktop = useResponsive('up', 'md');
 
-  const { id, cover, title, view, comment, share, author, createdAt } = post;
-
+  const { id, guid, cover, title, view, comment, share, createdAt } = post;
+  const author = JSON.parse(post.author);
+  
   const latestPost = index === 0 || index === 1 || index === 2;
 
   if (isDesktop && latestPost) {
@@ -58,7 +59,7 @@ export default function BlogPostCard({ post, index }) {
             position: 'absolute',
           }}
         />
-        <PostContent id={id} title={title} view={view} comment={comment} share={share} createdAt={createdAt} index={index} />
+        <PostContent id={id} guid={guid} title={title} view={view} comment={comment} share={share} createdAt={createdAt} index={index} />
         <OverlayStyle />
         <Image alt="cover" src={cover} sx={{ height: 360 }} />
       </Card>
@@ -94,7 +95,7 @@ export default function BlogPostCard({ post, index }) {
         <Image alt="cover" src={cover} ratio="4/3" />
       </Box>
 
-      <PostContent id={id} title={title} view={view} comment={comment} share={share} createdAt={createdAt} />
+      <PostContent id={id} guid={guid} title={title} view={view} comment={comment} share={share} createdAt={createdAt} />
     </Card>
   );
 }
@@ -104,17 +105,18 @@ export default function BlogPostCard({ post, index }) {
 PostContent.propTypes = {
   comment: PropTypes.number,
   createdAt: PropTypes.string,
-  id: PropTypes.string,
+  id: PropTypes.number,
+  guid: PropTypes.string,
   index: PropTypes.number,
   share: PropTypes.number,
   title: PropTypes.string,
   view: PropTypes.number,
 };
 
-export function PostContent({ id, title, view, comment, share, createdAt, index }) {
+export function PostContent({ id, guid, title, view, comment, share, createdAt, index }) {
   const isDesktop = useResponsive('up', 'md');
 
-  const linkTo = PATH_PAGE.blog.view(paramCase(id));
+  const linkTo = PATH_DASHBOARD.blog.view(paramCase(guid));
 
   const latestPostLarge = index === 0;
   const latestPostSmall = index === 1 || index === 2;

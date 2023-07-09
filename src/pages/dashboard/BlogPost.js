@@ -41,9 +41,7 @@ export default function BlogPost() {
 
   const getPost = useCallback(async () => {
     try {
-      const response = await axios.get('/api/blog/post', {
-        params: { title },
-      });
+      const response = await axios.get(`/blog/post/${title}`);
 
       if (isMountedRef.current) {
         setPost(response.data.post);
@@ -56,9 +54,7 @@ export default function BlogPost() {
 
   const getRecentPosts = useCallback(async () => {
     try {
-      const response = await axios.get('/api/blog/posts/recent', {
-        params: { title },
-      });
+      const response = await axios.get(`/blog/posts/recent/${title}`);
 
       if (isMountedRef.current) {
         setRecentPosts(response.data.recentPosts);
@@ -94,7 +90,7 @@ export default function BlogPost() {
                 {post.description}
               </Typography>
 
-              <Markdown children={post.body} />
+              <Markdown children={post.content} />
 
               <Box sx={{ my: 5 }}>
                 <Divider />
@@ -102,7 +98,7 @@ export default function BlogPost() {
                 <Divider />
               </Box>
 
-              <Box sx={{ display: 'flex', mb: 2 }}>
+              {/* <Box sx={{ display: 'flex', mb: 2 }}>
                 <Typography variant="h4">Comments</Typography>
                 <Typography variant="subtitle2" sx={{ color: 'text.disabled' }}>
                   ({post.comments.length})
@@ -115,7 +111,7 @@ export default function BlogPost() {
                 <Pagination count={8} color="primary" />
               </Box>
 
-              <BlogPostCommentForm />
+              <BlogPostCommentForm /> */}
             </Box>
           </Card>
         )}
