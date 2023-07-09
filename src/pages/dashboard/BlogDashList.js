@@ -3,7 +3,7 @@
 /* eslint-disable no-undef */
 import { paramCase } from 'change-case';
 import orderBy from 'lodash/orderBy';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 // @mui
 import {
@@ -19,6 +19,7 @@ import {
   TableContainer,
   TablePagination,
   FormControlLabel,
+  Stack,
 } from '@mui/material';
 // redux
 
@@ -47,15 +48,16 @@ import {
   TableSelectedActions,
 } from '../../components/table';
 // sections
-import { ProductTableRow, ProductTableToolbar } from '../../sections/@dashboard/e-commerce/product-list';
+import { BlogTableRow } from '../../sections/@dashboard/blog/blog-list';
+import {  BlogPostsSort, BlogPostsSearch } from '../../sections/@dashboard/blog';
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'title', label: 'Product', align: 'left' }, 
+  { id: 'title', label: 'Title', align: 'left' }, 
   { id: 'created_at', label: 'Create at', align: 'left' },
-  { id: 'star', label: 'Star', align: 'center', width: 180 },
-  { id: 'price', label: 'Price', align: 'right' },  
+  { id: 'author', label: 'Author', align: 'left', width: 250 },
+  { id: 'isPublish', label: 'Publish', align: 'left' },  
   { id: '' },
 ];
 
@@ -115,17 +117,19 @@ export default function BlogDashList() {
 
   const isMountedRef = useIsMountedRef();
 
-  const [posts, setPosts] = useState([]);
+
+  const [tableData, setTableData] = useState([]);
 
   const [filters, setFilters] = useState('latest');
+  const [filterName, setFilterName] = useState('');
 
-  const sortedPosts = applySort(posts, filters);
+  const sortedPosts = applySort(tableData, filters);
 
   const getAllPosts = useCallback(async () => {
     try {
       const response = await axios.get('/blog/posts/all');      
       if (isMountedRef.current) {
-        setPosts(response.data.posts);
+        setTableData(response.data.posts);
       }
     } catch (error) {
       console.error(error);
@@ -148,11 +152,11 @@ export default function BlogDashList() {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken && isValidToken(accessToken)) {
       setSession(accessToken);
-      const response = await axios.delete(`/products/${id}`);
+      const response = await axios.delete(`/blogs/${id}`);
       if(response.status === 200){
         enqueueSnackbar('Deleted succesfully');
       }
-      const { data } = response.data;
+      // const { data } = response.data;
       // setTableData(user);
     }
     setSelected([]);
@@ -165,11 +169,11 @@ export default function BlogDashList() {
       const accessToken = localStorage.getItem('accessToken');
       if (accessToken && isValidToken(accessToken)) {
         setSession(accessToken);
-        const response = await axios.delete(`/products/${row}`);
+        const response = await axios.delete(`/blogs/${row}`);
         if(response.status === 200){
           enqueueSnackbar('Deleted succesfully');
         }
-        const { data } = response.data;
+        // const { data } = response.data;
       }
     })
     // 
@@ -178,7 +182,7 @@ export default function BlogDashList() {
   };
 
   const handleEditRow = (id) => {
-    navigate(PATH_DASHBOARD.eCommerce.edit(paramCase(id)));
+    // navigate(PATH_DASHBOARD.eCommerce.edit(paramCase(id)));
   };
 
   const dataFiltered = applySortFilter({
@@ -187,12 +191,18 @@ export default function BlogDashList() {
     filterName,
   });
 
+  const handleChangeSort = (value) => {
+    if (value) {
+      setFilters(value);
+    }
+  };
+
   const denseHeight = dense ? 60 : 80;
 
-  const isNotFound = (!dataFiltered.length && !!filterName) || (!isLoading && !dataFiltered.length);
+  const isNotFound = (!dataFiltered.length && !!filterName) ;
 
   return (
-    <Page title="Ecommerce: Product List">
+    <Page title="Blog List">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="Blog List"
@@ -214,7 +224,10 @@ export default function BlogDashList() {
         />
 
         <Card>
-          <ProductTableToolbar filterName={filterName} onFilterName={handleFilterName} />
+        <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
+          <BlogPostsSearch />
+          <BlogPostsSort query={filters} options={SORT_OPTIONS} onSort={handleChangeSort} />
+        </Stack>
 
           <Scrollbar>
             <TableContainer sx={{ minWidth: 960, position: 'relative' }}>
@@ -256,11 +269,10 @@ export default function BlogDashList() {
                 />
 
                 <TableBody>
-                  {(isLoading ? [...Array(rowsPerPage)] : dataFiltered)
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  {dataFiltered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row, index) =>
                       row ? (
-                        <ProductTableRow
+                        <BlogTableRow
                           key={row.id}
                           row={row}
                           selected={selected.includes(row.id)}

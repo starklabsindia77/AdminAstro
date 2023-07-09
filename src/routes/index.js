@@ -248,7 +248,7 @@ const InvoiceCreate = Loadable(lazy(() => import('../pages/dashboard/InvoiceCrea
 const InvoiceEdit = Loadable(lazy(() => import('../pages/dashboard/InvoiceEdit')));
 
 // BLOG
-const BlogPosts = Loadable(lazy(() => import('../pages/dashboard/BlogPosts')));
+const BlogPosts = Loadable(lazy(() => import('../pages/dashboard/BlogDashList')));
 const BlogPost = Loadable(lazy(() => import('../pages/dashboard/BlogPost')));
 const BlogNewPost = Loadable(lazy(() => import('../pages/dashboard/BlogNewPost')));
 

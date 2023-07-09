@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-undef */
-import React, {useState}  from 'react';
+import React, {useState, useEffect, useCallback}  from 'react';
 import orderBy from 'lodash/orderBy';
 import { Avatar, Typography, Container, Card, CardContent, CardHeader, Grid, Box, Link } from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
@@ -12,7 +12,9 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import CommentIcon from '@material-ui/icons/Comment';
 import ShareIcon from '@material-ui/icons/Share';
 import ImageIcon from '@material-ui/icons/Image';
+import useIsMountedRef from '../../hooks/useIsMountedRef';
 import { SkeletonPostItem } from '../../components/skeleton';
+import axios from '../../utils/axios';
 
 import { MotionViewport, varFade } from '../../components/animate';
 import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../blogs';
@@ -44,10 +46,26 @@ const applySort = (posts, sortBy) => {
 
 
 export default function HomeBlog() {
-    const [posts, setPosts] = useState(blog);
+    const [posts, setPosts] = useState([]);
     const [filters, setFilters] = useState('latest');
+    const isMountedRef = useIsMountedRef();
 
     const sortedPosts = applySort(posts, filters);
+
+    const getAllPosts = useCallback(async () => {
+        try {
+          const response = await axios.get('/blog/posts/all');      
+          if (isMountedRef.current) {
+            setPosts(response.data.posts);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }, [isMountedRef]);
+    
+      useEffect(() => {
+        getAllPosts();
+      }, [getAllPosts]);
 
     // const blogOne = { title: "AI is Revolutionizing Vedic Astrology", date: "06 Jun 2023", 
     // imageUrl: "https://res.cloudinary.com/dsty70mlq/image/upload/f_auto,q_auto/astro_lzhidu", 
