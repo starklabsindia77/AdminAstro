@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 // form
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -22,6 +22,9 @@ import {
   RHFRadioGroup,
   RHFUploadMultiFile,
 } from '../../../components/hook-form';
+import axios from '../../../utils/axios';
+
+import { isValidToken, setSession } from '../../../utils/jwt';
 
 // ----------------------------------------------------------------------
 
@@ -68,7 +71,7 @@ ProductNewEditForm.propTypes = {
 
 export default function ProductNewEditForm({ isEdit, currentProduct }) {
   const navigate = useNavigate();
-
+  const uploadImage = useRef([]);
   const { enqueueSnackbar } = useSnackbar();
 
   const NewProductSchema = Yup.object().shape({
@@ -82,6 +85,7 @@ export default function ProductNewEditForm({ isEdit, currentProduct }) {
     () => ({
       title: currentProduct?.title || '',
       description: currentProduct?.description || '',
+      productImages: currentProduct?.productImages || [],
       images: currentProduct?.images || [],
       code: currentProduct?.code || '',
       sku: currentProduct?.sku || '',
@@ -124,21 +128,60 @@ export default function ProductNewEditForm({ isEdit, currentProduct }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, currentProduct]);
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      reset();
+      
+      if (data.images.length === uploadImage.current.length) {
+        data.productImages = uploadImage.current;
+      } else {
+        data.productImages = uploadImage.current.filter((upload) =>
+          data.images.some(
+            (image) => upload.file.name === image.name && upload.file.size === image.size
+          )
+        );
+        if (data.productImages.length > data.images.length) {
+          data.productImages = data.productImages.slice(0, data.images.length);
+        }
+      }
+
+      console.log("data", data);
+      data.id = currentProduct?.id;
+      
+      const accessToken = localStorage.getItem('accessToken');
+      if (accessToken && isValidToken(accessToken)) {
+        setSession(accessToken);        
+        const response2 = await axios.post('/products', data);      
+      }
       enqueueSnackbar(!isEdit ? 'Create success!' : 'Update success!');
       navigate(PATH_DASHBOARD.eCommerce.list);
     } catch (error) {
       console.error(error);
     }
   };
+  
 
   const handleDrop = useCallback(
     (acceptedFiles) => {
-      const images = values.images || [];
-
+      const images = values.images || [];        
+      acceptedFiles.forEach(async (file) => {
+        const fileData = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+      
+          reader.onload = () => resolve(
+            { 
+              file, 
+              base64String: reader.result.split(',')[1] 
+            }
+          );
+          reader.onerror = reject;
+      
+          reader.readAsDataURL(file);
+        });       
+        
+        uploadImage.current = [...uploadImage.current, ...[fileData]];
+      });
+     
+      
       setValue('images', [
         ...images,
         ...acceptedFiles.map((file) =>
@@ -146,21 +189,22 @@ export default function ProductNewEditForm({ isEdit, currentProduct }) {
             preview: URL.createObjectURL(file),
           })
         ),
-      ]);
+      ]);     
     },
-    [setValue, values.images]
+    [setValue, values.images, uploadImage.current]
   );
 
   const handleRemoveAll = () => {
-    setValue('images', []);
+    setValue('images', []);    
+    uploadImage.current = [];
   };
 
   const handleRemove = (file) => {
     const filteredItems = values.images?.filter((_file) => _file !== file);
     setValue('images', filteredItems);
+    uploadImage.current = uploadImage.current.filter(image => image.file !== file);   
   };
 
-  console.log("value", values);
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -225,7 +269,7 @@ export default function ProductNewEditForm({ isEdit, currentProduct }) {
                   label="Sale Price"
                   placeholder="0.00"
                   value={getValues('priceSale') === 0 ? '' : getValues('priceSale')}
-                  onChange={(event) => setValue('price', Number(event.target.value))}
+                  onChange={(event) => setValue('priceSale', Number(event.target.value))}
                   InputLabelProps={{ shrink: true }}
                   InputProps={{
                     startAdornment: <InputAdornment position="start">$</InputAdornment>,

@@ -30,8 +30,11 @@ export default function ProductTableRow({ row, selected, onEditRow, onSelectRow,
   const theme = useTheme();
 
   const { title, icon, created_at, star, price } = row;
+  const iconImage = JSON.parse(row.icon);
 
   const [openMenu, setOpenMenuActions] = useState(null);
+  const [ image, setImage ] = useState(iconImage[0]);
+  
 
   const handleOpenMenu = (event) => {
     setOpenMenuActions(event.currentTarget);
@@ -40,6 +43,7 @@ export default function ProductTableRow({ row, selected, onEditRow, onSelectRow,
   const handleCloseMenu = () => {
     setOpenMenuActions(null);
   };
+  
 
   return (
     <TableRow hover selected={selected}>
@@ -48,7 +52,7 @@ export default function ProductTableRow({ row, selected, onEditRow, onSelectRow,
       </TableCell>
 
       <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
-        <Image disabledEffect alt={title} src={icon} sx={{ borderRadius: 1.5, width: 48, height: 48, mr: 2 }} />
+        <Image disabledEffect alt={title} src={image} sx={{ borderRadius: 1.5, width: 48, height: 48, mr: 2 }} />
         <Typography variant="subtitle2" noWrap>
           {title}
         </Typography>

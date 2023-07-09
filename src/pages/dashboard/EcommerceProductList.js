@@ -129,6 +129,9 @@ export default function EcommerceProductList() {
       if (accessToken && isValidToken(accessToken)) {
         setSession(accessToken);
         const response = await axios.delete(`/products/${row}`);
+        if(response.status === 200){
+          enqueueSnackbar('Deleted succesfully');
+        }
         const { data } = response.data;
       }
     })
