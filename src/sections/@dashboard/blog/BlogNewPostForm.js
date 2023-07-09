@@ -93,13 +93,22 @@ export default function BlogNewPostForm() {
 
   const values = watch();
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      reset();
-      handleClosePreview();
-      enqueueSnackbar('Post success!');
-      navigate(PATH_DASHBOARD.blog.posts);
+
+      console.log("data", data);
+    const dataStr = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(data))}`;
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href",     dataStr);
+    downloadAnchorNode.setAttribute("download", "singleposts.json");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+      // await new Promise((resolve) => setTimeout(resolve, 500));
+      // reset();
+      // handleClosePreview();
+      // enqueueSnackbar('Post success!');
+      // navigate(PATH_DASHBOARD.blog.posts);
     } catch (error) {
       console.error(error);
     }

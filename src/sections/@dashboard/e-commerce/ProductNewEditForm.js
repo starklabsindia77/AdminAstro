@@ -144,7 +144,7 @@ export default function ProductNewEditForm({ isEdit, currentProduct }) {
         }
       }
 
-      console.log("data", data);
+      
       data.id = currentProduct?.id;
       
       const accessToken = localStorage.getItem('accessToken');

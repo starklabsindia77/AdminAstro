@@ -18,7 +18,7 @@ export default function BlogPostRecent({ posts }) {
       </Typography>
 
       <Grid container spacing={3}>
-        {posts.slice(0, 8).map((post) => (
+        {posts.map((post) => (
           <Grid key={post.id} item xs={12} sm={6} md={3}>
             <BlogPostCard post={post} />
           </Grid>

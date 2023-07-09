@@ -40,12 +40,12 @@ const menuConfig = [
     path: '/faqs',
     
   },
-  // {
-  //   title: 'Blog',
-  //   icon: <Iconify icon={'eva:book-open-fill'} {...ICON_SIZE} />,
-  //   path: '/',
+  {
+    title: 'Blog',
+    icon: <Iconify icon={'eva:book-open-fill'} {...ICON_SIZE} />,
+    path: '/blog',
     
-  // },
+  },
   {
     title: 'Contact',
     icon: <Iconify icon={'eva:book-open-fill'} {...ICON_SIZE} />,

@@ -195,7 +195,14 @@ export default function Router() {
         { path: 'about-us', element: <AboutUs /> },
         { path: 'policy', element: <Policy /> },
         { path: 'terms', element: <Terms /> },
-        { path: '#blog', component: <HomeBlog /> },
+        {
+          path: 'blog',
+          children: [
+            { element: <Navigate to="/blog/posts" replace />, index: true },
+            { path: 'posts', element: <BlogList /> },
+            { path: 'post/:title', element: <BlogSingles /> },
+          ],
+        },
         { path: 'contact-us', element: <Contact /> },
         { path: 'faqs', element: <Faqs /> },
         { path: 'howitworks', element: <What /> },
@@ -288,6 +295,8 @@ const About = Loadable(lazy(() => import('../pages/About')));
 const What = Loadable(lazy(() => import('../pages/WhatWeDo')));
 const AboutUs = Loadable(lazy(() => import('../pages/AboutUs')));
 const HomeBlog = Loadable(lazy(() => import('../sections/home')));
+const BlogList = Loadable(lazy(() => import('../pages/BlogList')));
+const BlogSingles = Loadable(lazy(() => import('../pages/BlogSingle')));
 const Policy = Loadable(lazy(() => import('../pages/Policy')));
 const Terms = Loadable(lazy(() => import('../pages/Terms')));
 const Contact = Loadable(lazy(() => import('../pages/Contact')));

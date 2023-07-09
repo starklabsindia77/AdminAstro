@@ -5,18 +5,18 @@ import { Link as RouterLink } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import { Box, Link, Card, Avatar, Typography, CardContent, Stack } from '@mui/material';
 // routes
-import { PATH_PAGE } from '../../../routes/paths';
+import { PATH_PAGE } from '../../routes/paths';
 // hooks
-import useResponsive from '../../../hooks/useResponsive';
+import useResponsive from '../../hooks/useResponsive';
 // utils
-import { fDate } from '../../../utils/formatTime';
-import { fShortenNumber } from '../../../utils/formatNumber';
+import { fDate } from '../../utils/formatTime';
+import { fShortenNumber } from '../../utils/formatNumber';
 // components
-import Image from '../../../components/Image';
-import Iconify from '../../../components/Iconify';
-import TextMaxLine from '../../../components/TextMaxLine';
-import TextIconLabel from '../../../components/TextIconLabel';
-import SvgIconStyle from '../../../components/SvgIconStyle';
+import Image from '../../components/Image';
+import Iconify from '../../components/Iconify';
+import TextMaxLine from '../../components/TextMaxLine';
+import TextIconLabel from '../../components/TextIconLabel';
+import SvgIconStyle from '../../components/SvgIconStyle';
 
 // ----------------------------------------------------------------------
 
@@ -103,8 +103,8 @@ export default function BlogPostCard({ post, index }) {
 
 PostContent.propTypes = {
   comment: PropTypes.number,
-  createdAt: PropTypes.string,
   id: PropTypes.string,
+  createdAt: PropTypes.string,
   index: PropTypes.number,
   share: PropTypes.number,
   title: PropTypes.string,

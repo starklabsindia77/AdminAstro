@@ -6,6 +6,7 @@ function path(root, sublink) {
 
 const ROOTS_AUTH = '/auth';
 const ROOTS_DASHBOARD = '/dashboard';
+const ROOTS_MAIN = '/';
 
 // ----------------------------------------------------------------------
 
@@ -21,6 +22,7 @@ export const PATH_AUTH = {
 };
 
 export const PATH_PAGE = {
+  root: ROOTS_MAIN,
   comingSoon: '/coming-soon',
   maintenance: '/maintenance',
   pricing: '/pricing',
@@ -28,7 +30,12 @@ export const PATH_PAGE = {
   terms: '/terms',
   policy:'/policy',
   about: '/about-us',
-  blog: '/#blog',
+  blog: {
+    root: path(ROOTS_MAIN, 'blog'),
+    posts: path(ROOTS_MAIN, 'blog/posts'),
+    view: (title) => path(ROOTS_MAIN, `blog/post/${title}`),
+    
+  },  
   contact: '/contact-us',
   faqs: '/faqs',
   page403: '/403',
