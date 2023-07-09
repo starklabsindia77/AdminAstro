@@ -22,19 +22,66 @@ import BlogNewPostPreview from './BlogNewPostPreview';
 // ----------------------------------------------------------------------
 
 const TAGS_OPTION = [
-  'Toy Story 3',
-  'Logan',
-  'Full Metal Jacket',
-  'Dangal',
-  'The Sting',
-  '2001: A Space Odyssey',
-  "Singin' in the Rain",
-  'Toy Story',
-  'Bicycle Thieves',
-  'The Kid',
-  'Inglourious Basterds',
-  'Snatch',
-  '3 Idiots',
+  "Astrology",
+  "Numerology",
+  "Zodiac",
+  "Horoscope",
+  "Tarot",
+  "Palmistry",
+  "NatalChart",
+  "AstrologicalSigns",
+  "PlanetaryAspects",
+  "Psychic",
+  "Divination",
+  "Spirituality",
+  "Mysticism",
+  "Occult",
+  "Metaphysical",
+  "CosmicEnergy",
+  "AstrologyHouses",
+  "AstrologyTransits",
+  "AstrologyCompatibility",
+  "NumerologyChart",
+  "LifePathNumber",
+  "AstrologyForecast",
+  "AstrologySymbols",
+  "NumerologyReading",
+  "TarotReading",
+  "Esotericism",
+  "Paranormal",
+  "AstrologyPlanets",
+  "AstrologyAspects",
+  "NumerologyNumbers",
+  "CrystalHealing",
+"RuneReading",
+"TeaLeafReading",
+"AuraReading",
+"Chakras",
+"Reiki",
+"Meditation",
+"SpiritGuides",
+"Channeling",
+"PastLifeRegression",
+"KarmicAstrology",
+"VedicAstrology",
+"ChineseAstrology",
+"MayanAstrology",
+"DreamInterpretation",
+"AstrologyBirthChart",
+"Synastry",
+"NumerologyLifePath",
+"NumerologyMasterNumbers",
+"MoonSigns",
+"AscendantSigns",
+"SunSigns",
+"AstrologyElements",
+"NumerologyCompatibility",
+"Clairvoyance",
+"EnergyHealing",
+"Intuition",
+"LawOfAttraction",
+"QuantumPhysics",
+"SacredGeometry",
 ];
 
 const LabelStyle = styled(Typography)(({ theme }) => ({
@@ -108,14 +155,14 @@ export default function BlogNewPostForm() {
       }
       const accessToken = localStorage.getItem('accessToken');
       if (accessToken && isValidToken(accessToken)) {
-        setSession(accessToken);        
-        const response2 = await axios.post('/blogs', data);  
-        if(response2.status === 201){
+        setSession(accessToken);
+        const response2 = await axios.post('/blogs', data);
+        if (response2.status === 201) {
           reset();
           handleClosePreview();
           enqueueSnackbar('Post success!');
           navigate(PATH_DASHBOARD.blog.posts);
-        }     
+        }
       }
       // await new Promise((resolve) => setTimeout(resolve, 500));
       // reset();
@@ -130,12 +177,12 @@ export default function BlogNewPostForm() {
   const handleDrop = useCallback(
     (acceptedFiles) => {
       const file = acceptedFiles[0];
-      const reader = new FileReader();  
+      const reader = new FileReader();
       reader.onload = () => {
-        const base64String = reader.result.split(',')[1];        
+        const base64String = reader.result.split(',')[1];
         setUploadImage(base64String);
-      };      
-      reader.readAsDataURL(file); 
+      };
+      reader.readAsDataURL(file);
 
       if (file) {
         setValue(
