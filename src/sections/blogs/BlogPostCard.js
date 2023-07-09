@@ -122,7 +122,7 @@ export function PostContent({ id, guid, title, view, comment, share, createdAt, 
   const latestPostSmall = index === 1 || index === 2;
 
   const POST_INFO = [
-    { number: comment, icon: 'eva:message-circle-fill' },
+    // { number: comment, icon: 'eva:message-circle-fill' },
     { number: view, icon: 'eva:eye-fill' },
     { number: share, icon: 'eva:share-fill' },
   ];
