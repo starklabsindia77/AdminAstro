@@ -181,8 +181,8 @@ export default function BlogDashList() {
     setTableData(deleteRows);
   };
 
-  const handleEditRow = (id) => {
-    // navigate(PATH_DASHBOARD.eCommerce.edit(paramCase(id)));
+  const handleEditRow = (guid) => {    
+    navigate(PATH_DASHBOARD.blog.edit(paramCase(guid)));
   };
 
   const dataFiltered = applySortFilter({
@@ -278,7 +278,7 @@ export default function BlogDashList() {
                           selected={selected.includes(row.id)}
                           onSelectRow={() => onSelectRow(row.id)}
                           onDeleteRow={() => handleDeleteRow(row.id)}
-                          onEditRow={() => handleEditRow(row.id)}
+                          onEditRow={() => handleEditRow(row.guid)}
                         />
                       ) : (
                         !isNotFound && <TableSkeleton key={index} sx={{ height: denseHeight }} />

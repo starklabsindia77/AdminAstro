@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useMemo, useEffect} from 'react';
+import PropTypes from 'prop-types';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 // form
@@ -90,9 +91,14 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(1),
 }));
 
+BlogNewPostForm.propTypes = {
+  isEdit: PropTypes.bool,
+  currentBlog: PropTypes.object,
+};
+
 // ----------------------------------------------------------------------
 
-export default function BlogNewPostForm() {
+export default function BlogNewPostForm({ isEdit, currentBlog }) {
   const navigate = useNavigate();
 
   const { user } = useAuth();
@@ -116,18 +122,24 @@ export default function BlogNewPostForm() {
     cover: Yup.mixed().required('Cover is required'),
   });
 
-  const defaultValues = {
-    title: '',
-    description: '',
-    content: '',
-    cover: null,
-    tags: ['Logan'],
-    publish: true,
-    comments: true,
-    metaTitle: '',
-    metaDescription: '',
-    metaKeywords: ['Logan'],
-  };
+  const defaultValues = useMemo(
+    () => ({
+      title: currentBlog?.title || '',
+      description: currentBlog?.description || '',
+      content: currentBlog?.content || '',
+      cover: currentBlog?.cover ||  null,
+      tags: currentBlog?.tags ? JSON.parse(currentBlog.tags) : ['Astrology'] || ['Astrology'],
+      publish: currentBlog?.publish === 1 ? true : false || true,
+      comments: currentBlog?.comments === 1 ? true : false || true,
+      metaTitle: currentBlog?.metaTitle || '',
+      metaDescription: currentBlog?.metaDescription || '',
+      metaKeywords:  currentBlog?.metaKeywords ? JSON.parse(currentBlog.metaKeywords) : ['Astrology'] || ['Astrology'],
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [currentBlog]
+  );
+
+  
 
   const methods = useForm({
     resolver: yupResolver(NewBlogSchema),
@@ -145,9 +157,19 @@ export default function BlogNewPostForm() {
 
   const values = watch();
 
+  useEffect(() => {
+    if (isEdit && currentBlog) {
+      reset(defaultValues);
+    }
+    if (!isEdit) {
+      reset(defaultValues);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isEdit, currentBlog]);
+
   const onSubmit = async (data) => {
     try {
-      console.log("data", data);
+      
       data.image = uploadImage;
       data.author = {
         name: user?.displayName,
@@ -156,19 +178,24 @@ export default function BlogNewPostForm() {
       const accessToken = localStorage.getItem('accessToken');
       if (accessToken && isValidToken(accessToken)) {
         setSession(accessToken);
-        const response2 = await axios.post('/blogs', data);
-        if (response2.status === 201) {
-          reset();
-          handleClosePreview();
-          enqueueSnackbar('Post success!');
-          navigate(PATH_DASHBOARD.blog.posts);
+        if(isEdit){
+          const response = await axios.put(`/blogs/${currentBlog?.guid}`, data);
+          if (response.status === 200) {
+            reset();
+            handleClosePreview();
+            enqueueSnackbar('Updated successfully!');
+            navigate(PATH_DASHBOARD.blog.posts);
+          }
+        }else{
+          const response2 = await axios.post('/blogs', data);
+          if (response2.status === 201) {
+            reset();
+            handleClosePreview();
+            enqueueSnackbar('Post success!');
+            navigate(PATH_DASHBOARD.blog.posts);
+          }
         }
-      }
-      // await new Promise((resolve) => setTimeout(resolve, 500));
-      // reset();
-      // handleClosePreview();
-      // enqueueSnackbar('Post success!');
-      // navigate(PATH_DASHBOARD.blog.posts);
+      }      
     } catch (error) {
       console.error(error);
     }

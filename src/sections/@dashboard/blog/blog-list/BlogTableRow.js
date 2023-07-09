@@ -94,7 +94,7 @@ export default function BlogTableRow({ row, selected, onEditRow, onSelectRow, on
                 <Iconify icon={'eva:trash-2-outline'} />
                 Delete
               </MenuItem>
-              {/* <MenuItem
+              <MenuItem
                 onClick={() => {
                   onEditRow();
                   handleCloseMenu();
@@ -102,7 +102,7 @@ export default function BlogTableRow({ row, selected, onEditRow, onSelectRow, on
               >
                 <Iconify icon={'eva:edit-fill'} />
                 Edit
-              </MenuItem> */}
+              </MenuItem>
             </>
           }
         />

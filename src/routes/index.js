@@ -146,7 +146,7 @@ export default function Router() {
           children: [
             { element: <Navigate to="/dashboard/blog/posts" replace />, index: true },
             { path: 'posts', element: <BlogPosts /> },
-            { path: 'post/:title', element: <BlogPost /> },
+            { path: 'post/:title/edit', element: <BlogPost /> },
             { path: 'new', element: <BlogNewPost /> },
           ],
         },
@@ -249,7 +249,7 @@ const InvoiceEdit = Loadable(lazy(() => import('../pages/dashboard/InvoiceEdit')
 
 // BLOG
 const BlogPosts = Loadable(lazy(() => import('../pages/dashboard/BlogDashList')));
-const BlogPost = Loadable(lazy(() => import('../pages/dashboard/BlogPost')));
+const BlogPost = Loadable(lazy(() => import('../pages/dashboard/BlogEditPost')));
 const BlogNewPost = Loadable(lazy(() => import('../pages/dashboard/BlogNewPost')));
 
 // USER
