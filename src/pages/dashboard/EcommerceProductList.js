@@ -35,6 +35,7 @@ import Scrollbar from '../../components/Scrollbar';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import useAuth from '../../hooks/useAuth';
 import axios from '../../utils/axios';
+import { isValidToken, setSession } from '../../utils/jwt';
 import {
   TableNoData,
   TableSkeleton,
@@ -115,6 +116,9 @@ export default function EcommerceProductList() {
     if (accessToken && isValidToken(accessToken)) {
       setSession(accessToken);
       const response = await axios.delete(`/products/${id}`);
+      if(response.status === 200){
+        enqueueSnackbar('Deleted succesfully');
+      }
       const { data } = response.data;
       // setTableData(user);
     }
