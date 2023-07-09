@@ -41,9 +41,9 @@ export default function HomeBlog() {
     
 
     const blogOne = { title: "AI is Revolutionizing Vedic Astrology", date: "06 Jun 2023", 
-    imageUrl: "https://w7.pngwing.com/pngs/425/631/png-transparent-aries-astrological-sign-astrology-horoscope-zodiac-signs-logo-pisces-sagittarius-thumbnail.png", 
+    imageUrl: "https://res.cloudinary.com/dsty70mlq/image/upload/f_auto,q_auto/astro_lzhidu", 
     avatarUrl: "https://api-prod-minimal-v5.vercel.app/assets/images/avatar/avatar_1.jpg" };
-    const blogTwo = { title: "Modern Astrology and The Intricacies of Celestial Influence", date: "05 Jun 2023", imageUrl: "https://w0.peakpx.com/wallpaper/949/659/HD-wallpaper-astrology-astrologer-numerology-predictions-onlinepuja-thumbnail.jpg", avatarUrl: "https://api-prod-minimal-v5.vercel.app/assets/images/avatar/avatar_1.jpg" };
+    const blogTwo = { title: "Modern Astrology and The Intricacies of Celestial Influence", date: "05 Jun 2023", imageUrl: "https://res.cloudinary.com/dsty70mlq/image/upload/f_auto,q_auto/astro1_tbkw1e", avatarUrl: "https://api-prod-minimal-v5.vercel.app/assets/images/avatar/avatar_1.jpg" };
     const blogThree = { title: "Accurate Birth Chart Generation", date: "01 June 2023", imageUrl: "https://w7.pngwing.com/pngs/134/793/png-transparent-the-reading-of-hands-palmistry-astrology-divination-palm-reading-hand-human-horoscope-thumbnail.png", avatarUrl: "https://api-prod-minimal-v5.vercel.app/assets/images/avatar/avatar_1.jpg" };
 
 
