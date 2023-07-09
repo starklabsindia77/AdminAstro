@@ -23,7 +23,7 @@ import {
   BlogPostRecent,
   BlogPostCommentList,
   BlogPostCommentForm,
-} from '../sections/blog';
+} from '../sections/blogs';
 
 import blog from '../data/blogs.json';
 
