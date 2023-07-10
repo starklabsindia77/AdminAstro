@@ -78,7 +78,7 @@ export default function HomeHero() {
 
         <HeroImgStyle
           alt="hero"
-          src='/assets/hero.svg'
+          src='/assets/view.svg'
           
           variants={varFade().inUp}
         />
