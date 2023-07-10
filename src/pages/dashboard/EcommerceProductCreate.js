@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { paramCase } from 'change-case';
 import { useParams, useLocation } from 'react-router-dom';
 // @mui
@@ -14,6 +14,8 @@ import useSettings from '../../hooks/useSettings';
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import ProductNewEditForm from '../../sections/@dashboard/e-commerce/ProductNewEditForm';
+import axios from '../../utils/axios';
+import { isValidToken, setSession } from '../../utils/jwt';
 
 // ----------------------------------------------------------------------
 
@@ -22,9 +24,21 @@ export default function EcommerceProductCreate() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const { name } = useParams();
-  const { products } = useSelector((state) => state.product);
+  // const { products } = useSelector((state) => state.product);
+  const [ currentProduct, setCurrentProduct ] = useState({});
+
   const isEdit = pathname.includes('edit');
-  const currentProduct = products.find((product) => paramCase(product.title) === name);
+  useEffect(async () => {
+    const accessToken = localStorage.getItem('accessToken');
+
+        if (accessToken && isValidToken(accessToken) && isEdit) {
+          setSession(accessToken);
+          const response = await axios.get(`/products/${name}`); 
+          console.log("response ", response)
+          const { product } = response.data;
+          setCurrentProduct(product);
+        }
+  }, [name])
 
   useEffect(() => {
     dispatch(getProducts());

@@ -29,11 +29,11 @@ ProductTableRow.propTypes = {
 export default function ProductTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
   const theme = useTheme();
 
-  const { title, icon, created_at, star, price } = row;
-  const iconImage = JSON.parse(row.icon);
+  const { title, icon, created_at, cover, star, price } = row;
+ 
 
   const [openMenu, setOpenMenuActions] = useState(null);
-  const [ image, setImage ] = useState(iconImage[0]);
+  
   
 
   const handleOpenMenu = (event) => {
@@ -52,7 +52,7 @@ export default function ProductTableRow({ row, selected, onEditRow, onSelectRow,
       </TableCell>
 
       <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
-        <Image disabledEffect alt={title} src={image} sx={{ borderRadius: 1.5, width: 48, height: 48, mr: 2 }} />
+        <Image disabledEffect alt={title} src={cover} sx={{ borderRadius: 1.5, width: 48, height: 48, mr: 2 }} />
         <Typography variant="subtitle2" noWrap>
           {title}
         </Typography>

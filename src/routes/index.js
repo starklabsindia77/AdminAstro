@@ -74,13 +74,13 @@ export default function Router() {
         {
           path: 'e-commerce',
           children: [
-            { element: <Navigate to="/dashboard/e-commerce/shop" replace />, index: true },
-            { path: 'shop', element: <EcommerceShop /> },
+            { element: <Navigate to="/dashboard/e-commerce/list" replace />, index: true },
+            // { path: 'shop', element: <EcommerceShop /> },
             { path: 'product/:name', element: <EcommerceProductDetails /> },
             { path: 'list', element: <EcommerceProductList /> },
             { path: 'product/new', element: <EcommerceProductCreate /> },
             { path: 'product/:name/edit', element: <EcommerceProductCreate /> },
-            { path: 'checkout', element: <EcommerceCheckout /> },
+            // { path: 'checkout', element: <EcommerceCheckout /> },
           ],
         },
         {

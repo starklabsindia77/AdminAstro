@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 // form
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -20,6 +20,7 @@ import {
   RHFEditor,
   RHFTextField,
   RHFRadioGroup,
+  RHFUploadSingleProductFile,
   RHFUploadMultiFile,
 } from '../../../components/hook-form';
 import axios from '../../../utils/axios';
@@ -41,19 +42,66 @@ const CATEGORY_OPTION = [
 ];
 
 const TAGS_OPTION = [
-  'Toy Story 3',
-  'Logan',
-  'Full Metal Jacket',
-  'Dangal',
-  'The Sting',
-  '2001: A Space Odyssey',
-  "Singin' in the Rain",
-  'Toy Story',
-  'Bicycle Thieves',
-  'The Kid',
-  'Inglourious Basterds',
-  'Snatch',
-  '3 Idiots',
+  "Astrology",
+  "Numerology",
+  "Zodiac",
+  "Horoscope",
+  "Tarot",
+  "Palmistry",
+  "NatalChart",
+  "AstrologicalSigns",
+  "PlanetaryAspects",
+  "Psychic",
+  "Divination",
+  "Spirituality",
+  "Mysticism",
+  "Occult",
+  "Metaphysical",
+  "CosmicEnergy",
+  "AstrologyHouses",
+  "AstrologyTransits",
+  "AstrologyCompatibility",
+  "NumerologyChart",
+  "LifePathNumber",
+  "AstrologyForecast",
+  "AstrologySymbols",
+  "NumerologyReading",
+  "TarotReading",
+  "Esotericism",
+  "Paranormal",
+  "AstrologyPlanets",
+  "AstrologyAspects",
+  "NumerologyNumbers",
+  "CrystalHealing",
+"RuneReading",
+"TeaLeafReading",
+"AuraReading",
+"Chakras",
+"Reiki",
+"Meditation",
+"SpiritGuides",
+"Channeling",
+"PastLifeRegression",
+"KarmicAstrology",
+"VedicAstrology",
+"ChineseAstrology",
+"MayanAstrology",
+"DreamInterpretation",
+"AstrologyBirthChart",
+"Synastry",
+"NumerologyLifePath",
+"NumerologyMasterNumbers",
+"MoonSigns",
+"AscendantSigns",
+"SunSigns",
+"AstrologyElements",
+"NumerologyCompatibility",
+"Clairvoyance",
+"EnergyHealing",
+"Intuition",
+"LawOfAttraction",
+"QuantumPhysics",
+"SacredGeometry",
 ];
 
 const LabelStyle = styled(Typography)(({ theme }) => ({
@@ -72,21 +120,32 @@ ProductNewEditForm.propTypes = {
 export default function ProductNewEditForm({ isEdit, currentProduct }) {
   const navigate = useNavigate();
   const uploadImage = useRef([]);
+  const [uploadCoverImage, setUploadCoverImage] = useState()
   const { enqueueSnackbar } = useSnackbar();
 
   const NewProductSchema = Yup.object().shape({
     title: Yup.string().required('Name is required'),
     description: Yup.string().required('Description is required'),
-    images: Yup.array().min(1, 'Images is required'),
+    cover: Yup.mixed().required('Cover is required'),
     price: Yup.number().moreThan(0, 'Price should not be $0.00'),
   });
+
+  function isJSON(str) {
+    try {
+      JSON.parse(str);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
 
   const defaultValues = useMemo(
     () => ({
       title: currentProduct?.title || '',
       description: currentProduct?.description || '',
       productImages: currentProduct?.productImages || [],
-      images: currentProduct?.images || [],
+      cover: currentProduct?.cover ||  null,
+      images: isJSON(currentProduct?.images) ? JSON.parse(currentProduct?.images) : [] || [],
       code: currentProduct?.code || '',
       sku: currentProduct?.sku || '',
       price: currentProduct?.price || 0,
@@ -128,6 +187,35 @@ export default function ProductNewEditForm({ isEdit, currentProduct }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, currentProduct]);
 
+  const handleCreate = async (data) => {
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      if (accessToken && isValidToken(accessToken)) {
+        setSession(accessToken);        
+        const response2 = await axios.post('/products', data);      
+      }
+      enqueueSnackbar('Create success!');
+      navigate(PATH_DASHBOARD.eCommerce.list);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+  const handleEdit = async (data) => {
+    try {
+      data.id = currentProduct?.id;
+      const accessToken = localStorage.getItem('accessToken');
+      if (accessToken && isValidToken(accessToken)) {
+        setSession(accessToken);        
+        const response = await axios.put(`/products/${currentProduct?.id}`, data);      
+      }      
+      enqueueSnackbar('Update success!');
+      navigate(PATH_DASHBOARD.eCommerce.list);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const onSubmit = async (data) => {
     try {
       
@@ -142,18 +230,14 @@ export default function ProductNewEditForm({ isEdit, currentProduct }) {
         if (data.productImages.length > data.images.length) {
           data.productImages = data.productImages.slice(0, data.images.length);
         }
+      }      
+      data.coverImage = uploadCoverImage;
+      if (isEdit) {
+        handleEdit(data);
+      } else {
+        handleCreate(data);
       }
-
       
-      data.id = currentProduct?.id;
-      
-      const accessToken = localStorage.getItem('accessToken');
-      if (accessToken && isValidToken(accessToken)) {
-        setSession(accessToken);        
-        const response2 = await axios.post('/products', data);      
-      }
-      enqueueSnackbar(!isEdit ? 'Create success!' : 'Update success!');
-      navigate(PATH_DASHBOARD.eCommerce.list);
     } catch (error) {
       console.error(error);
     }
@@ -205,6 +289,28 @@ export default function ProductNewEditForm({ isEdit, currentProduct }) {
     uploadImage.current = uploadImage.current.filter(image => image.file !== file);   
   };
 
+  const handleSingleDrop = useCallback(
+    (acceptedFiles) => {
+      const file = acceptedFiles[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64String = reader.result.split(',')[1];
+        setUploadCoverImage(base64String);
+      };
+      reader.readAsDataURL(file);
+
+      if (file) {
+        setValue(
+          'cover',
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        );
+      }
+    },
+    [setValue]
+  );
+
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -220,7 +326,7 @@ export default function ProductNewEditForm({ isEdit, currentProduct }) {
               </div>
 
               <div>
-                <LabelStyle>Images</LabelStyle>
+                <LabelStyle>Additional Images</LabelStyle>
                 <RHFUploadMultiFile
                   showPreview
                   name="images"
@@ -238,6 +344,15 @@ export default function ProductNewEditForm({ isEdit, currentProduct }) {
 
         <Grid item xs={12} md={4}>
           <Stack spacing={3}>
+            <Card sx={{ p: 3 }}>
+              <Stack spacing={3} mb={2}>
+                <div>
+                  <LabelStyle>Cover</LabelStyle>
+                  <RHFUploadSingleProductFile name="cover" accept="image/*" maxSize={3145728} onDrop={handleSingleDrop} />
+                </div>
+              </Stack>              
+            </Card>
+
             <Card sx={{ p: 3 }}>
               <RHFSwitch name="inStock" label="In stock" />
 
@@ -280,6 +395,8 @@ export default function ProductNewEditForm({ isEdit, currentProduct }) {
 
               <RHFSwitch name="taxes" label="Price includes taxes" />
             </Card>
+
+            
 
             <LoadingButton type="submit" variant="contained" size="large" loading={isSubmitting}>
               {!isEdit ? 'Create Product' : 'Save Changes'}

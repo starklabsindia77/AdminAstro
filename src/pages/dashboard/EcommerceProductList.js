@@ -145,7 +145,8 @@ export default function EcommerceProductList() {
   };
 
   const handleEditRow = (id) => {
-    navigate(PATH_DASHBOARD.eCommerce.edit(paramCase(id)));
+    console.log("edit", id);
+    navigate(PATH_DASHBOARD.eCommerce.edit(paramCase(String(id))));
   };
 
   const dataFiltered = applySortFilter({
