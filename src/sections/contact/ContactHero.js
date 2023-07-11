@@ -10,7 +10,7 @@ import { TextAnimate, MotionContainer, varFade } from '../../components/animate'
 const CONTACTS = [
   {
     country: 'India',
-    address: '532, ICPL, Evergreen Towers, Sector 125, Mohali, Rupnagar, Punjab -140301',
+    address: 'astroscore pvt ltd 532, ICPL, Evergreen Towers, Sector 125, Mohali, Rupnagar, Punjab -140301',
     phoneNumber: '+91 7807344554',
   },
   // {

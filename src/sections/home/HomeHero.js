@@ -35,7 +35,7 @@ const ContentStyle = styled((props) => <Stack spacing={5} {...props} />)(({ them
   zIndex: 10,
   maxWidth: 520,
   margin: 'auto',
-  textAlign: 'center',
+  textAlign: 'left',
   position: 'relative',
   paddingTop: theme.spacing(15),
   paddingBottom: theme.spacing(15),

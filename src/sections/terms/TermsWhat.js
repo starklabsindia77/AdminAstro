@@ -17,7 +17,7 @@ const RootStyle = styled('div')(({ theme }) => ({
 const TERMS_AND_CONDITIONS = [
   {
     title: 'TERMS AND CONDITIONS OF USAGE',
-    text: 'These terms and conditions of Use (hereinafter referred as “Terms of Usage”) describe and govern the User’s use of the content and services offered by CODEYETI SOFTWARE SOLUTIONS PVT. LTD. SERVICES through www.astroscore.ai (hereinafter referred as “We” “Astroscore” “us” “our” “astroscore application” “Website”).',
+    text: 'These terms and conditions of Use (hereinafter referred as “Terms of Usage”) describe and govern the User’s use of the content and services offered by ASTROSCORE PVT. LTD. SERVICES through www.astroscore.ai (hereinafter referred as “We” “Astroscore” “us” “our” “astroscore application” “Website”).',
   },
   {
     title: 'UPDATION',
