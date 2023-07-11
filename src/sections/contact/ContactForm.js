@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import { SMTPClient } from 'emailjs';
 import { Button, TextField, Typography, Stack } from '@mui/material';
 import { m } from 'framer-motion';
 import { MotionViewport, varFade } from '../../components/animate';

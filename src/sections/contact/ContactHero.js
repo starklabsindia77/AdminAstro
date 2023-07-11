@@ -9,8 +9,9 @@ import { TextAnimate, MotionContainer, varFade } from '../../components/animate'
 
 const CONTACTS = [
   {
+    company: 'ASTROSCORE PVT LTD',
     country: 'India',
-    address: 'astroscore pvt ltd 532, ICPL, Evergreen Towers, Sector 125, Mohali, Rupnagar, Punjab -140301',
+    address: '532, ICPL, Evergreen Towers, Sector 125, Mohali, Rupnagar, Punjab -140301',
     phoneNumber: '+91 7807344554',
   },
   // {
@@ -71,12 +72,15 @@ export default function ContactHero() {
               <Grid key={contact.country} item xs={12} sm={6} md={6} lg={6} sx={{ pr: { md: 5 } }}>
                 <m.div variants={varFade().in}>
                   <Typography variant="h6" paragraph sx={{fontSize: 20}}>
-                    {contact.country}
+                    {contact.company}
                   </Typography>
+                  {/* <Typography variant="h6" paragraph sx={{fontSize: 20}}>
+                    {contact.country}
+                  </Typography> */}
                 </m.div>
                 <m.div variants={varFade().inRight}>
                   <Typography variant="body2" sx={{fontSize: 20}}>
-                    {contact.address}
+                    {contact.address}   {contact.country}
                     <br /> {contact.phoneNumber}
                   </Typography>
                 </m.div>
