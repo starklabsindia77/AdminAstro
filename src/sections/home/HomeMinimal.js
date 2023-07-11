@@ -133,7 +133,7 @@ export default function HomeMinimal() {
                 <Typography variant="h5" paragraph sx={{color: 'primary.main'}}>
                   {card.title}
                 </Typography>
-                <Typography sx={{ color: isLight ? 'text.secondary' : 'common.white', textAlign: 'left',fontSize: '13px', mb: 5, }}>{card.description}</Typography>
+                <Typography sx={{ color: isLight ? 'text.secondary' : 'common.white', textAlign: 'justify',  textJustify: 'inter-word', fontSize: '13px', mb: 5, }}>{card.description}</Typography>
               </CardStyle>
             </m.div>
           ))}

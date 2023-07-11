@@ -33,12 +33,27 @@ const HeaderStyle = styled('header')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   position: 'absolute',
-  padding: theme.spacing(3),
+  padding: theme.spacing(3),  
   justifyContent: 'space-between',
   [theme.breakpoints.up('md')]: {
     alignItems: 'flex-start',
-    padding: theme.spacing(7, 5, 0, 7),
+    padding: theme.spacing(7, 5, 0, 7),    
   },
+  
+}));
+
+const SmallHeaderStyle = styled('header')(({ theme }) => ({
+  top: 0,
+  zIndex: 9,
+  lineHeight: 0,
+  width: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  position: 'absolute',
+  padding: theme.spacing(3),  
+  justifyContent: 'space-between',  
+  backgroundColor: '#2b302d',
+  
 }));
 
 const SectionStyle = styled(Card)(({ theme }) => ({
@@ -74,9 +89,18 @@ export default function Login() {
   return (
     <Page title="Login">
       <RootStyle>
+      {mdUp && (
         <HeaderStyle>
           <Logo sx={{ width: 300, }}  />
         </HeaderStyle>
+      )}
+
+      {!smUp && (
+        <SmallHeaderStyle>
+          <Logo sx={{ width: 300, }}  />
+        </SmallHeaderStyle>
+      )}
+        
 
         {mdUp && (
           <SectionStyle>

@@ -94,6 +94,7 @@ export default function AboutWhat() {
               <Typography
                 sx={{
                   color: (theme) => (theme.palette.mode === 'light' ? 'text.secondary' : 'common.white'),
+                  textAlign: 'justify',  textJustify: 'inter-word',
                 }}
               >
                 Welcome to "AstroScore", a unique platform designed to unlock the mysteries of 
@@ -107,6 +108,7 @@ export default function AboutWhat() {
               <Typography
                 sx={{
                   color: (theme) => (theme.palette.mode === 'light' ? 'text.secondary' : 'common.white'),
+                  textAlign: 'justify',  textJustify: 'inter-word',
                 }}
               >
                 "AstroScore" is more than just an astrology app. 
@@ -122,6 +124,7 @@ export default function AboutWhat() {
               <Typography
                 sx={{
                   color: (theme) => (theme.palette.mode === 'light' ? 'text.secondary' : 'common.white'),
+                  textAlign: 'justify',  textJustify: 'inter-word',
                 }}
               >
                Join us on this journey of cosmic exploration and self-discovery. 

@@ -57,7 +57,7 @@ export default function FaqsList() {
             <Typography variant="subtitle1">{accordion.heading}</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>{accordion.detail}</Typography>
+            <Typography >{accordion.detail}</Typography>
           </AccordionDetails>
         </Accordion>
       ))}
