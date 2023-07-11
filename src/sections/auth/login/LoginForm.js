@@ -30,17 +30,17 @@ export default function LoginForm() {
     password: Yup.string().required('Password is required'),
   });
 
+  const defaultValues = {
+    email: '',
+    password: '',
+    remember: false,
+  };
+
   // const defaultValues = {
-  //   email: 'demo@minimals.cc',
-  //   password: 'demo1234',
+  //   email: 'yatish@gmail.com',
+  //   password: 'Baba1234',
   //   remember: true,
   // };
-
-  const defaultValues = {
-    email: 'yatish@gmail.com',
-    password: 'Baba1234',
-    remember: true,
-  };
 
 
 
