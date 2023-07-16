@@ -5,6 +5,8 @@ import { styled } from '@mui/material/styles';
 import { Button, Box, Link, Container, Typography, Stack } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
+
+import useResponsive from '../../hooks/useResponsive';
 // components
 import Image from '../../components/Image';
 import Iconify from '../../components/Iconify';
@@ -16,10 +18,8 @@ import { MotionContainer, varFade } from '../../components/animate';
 const RootStyle = styled(m.div)(({ theme }) => ({
   position: 'relative',
   backgroundSize: 'cover',
-  backgroundPosition: 'center',
-  // backgroundColor: theme.palette.grey[400],
-  backgroundColor: '#2b302d',  
-  // backgroundImage: 'url(https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/v1080-156e-kw39n34x.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=e16e1d0b247df83932030b38b7f89445)',
+  backgroundPosition: 'center',  
+  backgroundColor: '#2b302d',    
   [theme.breakpoints.up('md')]: {
     top: 0,
     left: 0,
@@ -71,17 +71,22 @@ const HeroImgStyle = styled(m.img)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function HomeHero() {
+
+  const mdUp = useResponsive('up', 'md');
+
   return (
     <MotionContainer>
       <RootStyle >
         <HeroOverlayStyle alt="overlay" src="/assets/overlay.svg" variants={varFade().inLeft} />
 
-        <HeroImgStyle
-          alt="hero"
-          src='/assets/view.svg'
-          
-          variants={varFade().inUp}
-        />
+        {mdUp && ( 
+          <HeroImgStyle
+            alt="hero"
+            src='/assets/view.svg'
+            
+            variants={varFade().inUp}
+          />
+        )}
 
         <Container>
           <ContentStyle>
@@ -98,67 +103,7 @@ export default function HomeHero() {
               <Typography sx={{ color: 'common.white' }}>
               Unearth Your Astral Blueprint: Personalized Horoscopes, Zodiac Insights, and Spiritual Guidance from the Cosmos.
               </Typography>
-            </m.div>
-
-            {/* <Stack spacing={2.5} alignItems="center" direction={{ xs: 'column', md: 'row' }}>
-              <m.div variants={varFade().inRight}>
-                <TextIconLabel
-                  icon={
-                    <Image
-                      alt="sketch icon"
-                      src="https://minimal-assets-api-dev.vercel.app/assets/images/home/ic_sketch_small.svg"
-                      sx={{ width: 20, height: 20, mr: 1 }}
-                    />
-                  }
-                  value={
-                    <Link
-                      href="https://www.sketch.com/s/76388a4d-d6e5-4b7f-8770-e5446bfa1268"
-                      target="_blank"
-                      rel="noopener"
-                      color="common.white"
-                      sx={{ typography: 'body2' }}
-                    >
-                      Preview Sketch
-                    </Link>
-                  }
-                />
-              </m.div>
-
-              <m.div variants={varFade().inRight}>
-                <TextIconLabel
-                  icon={
-                    <Image
-                      alt="sketch icon"
-                      src="https://minimal-assets-api-dev.vercel.app/assets/images/home/ic_figma_small.svg"
-                      sx={{ width: 20, height: 20, mr: 1 }}
-                    />
-                  }
-                  value={
-                    <Link
-                      href="https://www.figma.com/file/x7earqGD0VGFjFdk5v2DgZ/%5BPreview%5D-Minimal-Web?node-id=866%3A55474"
-                      target="_blank"
-                      rel="noopener"
-                      color="common.white"
-                      sx={{ typography: 'body2' }}
-                    >
-                      Preview Figma
-                    </Link>
-                  }
-                />
-              </m.div>
-            </Stack> */}
-
-            {/* <m.div variants={varFade().inRight}>
-              <Button
-                size="large"
-                variant="contained"
-                component={RouterLink}
-                to={PATH_DASHBOARD.root}
-                startIcon={<Iconify icon={'eva:flash-fill'} width={20} height={20} />}
-              >
-                Live Preview
-              </Button>
-            </m.div> */}
+            </m.div>           
 
             <Stack spacing={2.5}>
               <m.div variants={varFade().inRight}>
@@ -168,14 +113,6 @@ export default function HomeHero() {
               </m.div>
 
               <Stack direction="row" spacing={1.5} justifyContent={{ xs: 'center', md: 'flex-start' }}>
-                {/* {['ic_sketch', 'ic_figma', 'ic_js', 'ic_ts', 'ic_nextjs'].map((resource) => (
-                  <m.img
-                    key={resource}
-                    variants={varFade().inRight}
-                    src={`https://minimal-assets-api-dev.vercel.app/assets/images/home/${resource}.svg`}
-                  />
-                ))} */}
-
                   <m.img
                     key={"ios"}
                     variants={varFade().inRight}
