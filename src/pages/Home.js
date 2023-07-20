@@ -34,7 +34,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 export default function HomePage() {
   return (
-    <Page title="AstroScore">
+    <Page title="Astro Score">
       <div id="home">
         <HomeHero />
       </div>

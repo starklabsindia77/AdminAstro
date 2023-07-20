@@ -86,7 +86,7 @@ export default function AboutWhat() {
           <Grid item xs={12} md={6} lg={5}>
             <m.div variants={varFade().inRight}>
               <Typography variant="h3" sx={{ mb: 3 }}>
-                What is AstroScore?
+                What is Astro Score?
               </Typography>
             </m.div>
 
@@ -97,7 +97,7 @@ export default function AboutWhat() {
                   textAlign: 'justify',  textJustify: 'inter-word',
                 }}
               >
-                Welcome to "AstroScore", a unique platform designed to unlock the mysteries of 
+                Welcome to "Astro Score", a unique platform designed to unlock the mysteries of 
                 the universe and guide you on a journey of self-discovery. 
                 Our mission is to offer you a deeper understanding of your life's purpose, potential, 
                 and destiny using the wisdom of astrology.
@@ -111,7 +111,7 @@ export default function AboutWhat() {
                   textAlign: 'justify',  textJustify: 'inter-word',
                 }}
               >
-                "AstroScore" is more than just an astrology app. 
+                "Astro Score" is more than just an astrology app. 
                 It's your key to understanding the energies of the universe and how they're intertwined with your life. 
                 We believe in the power of the cosmos to help shape our lives and guide our decisions. 
                 Through personalized readings and insightful content, 
@@ -128,15 +128,15 @@ export default function AboutWhat() {
                 }}
               >
                Join us on this journey of cosmic exploration and self-discovery. 
-               As you navigate the path of life, "AstroScore" will be right there with you, 
+               As you navigate the path of life, "Astro Score" will be right there with you, 
                providing celestial wisdom and guidance at every turn. 
                Whether you're an astrology novice or an astro-enthusiast, 
-               we believe "AstroScore" has something unique to offer you.
+               we believe "Astro Score" has something unique to offer you.
               </Typography>
             </m.div>
 
             <Typography component="span" variant="h5" sx={{ color: 'primary.main', paddingTop : 20 }}>
-            Discover your cosmic connections with "AstroScore". Embark on your astral journey today.
+            Discover your cosmic connections with "Astro Score". Embark on your astral journey today.
             </Typography>
 
             {/* <Box sx={{ my: 5 }}>

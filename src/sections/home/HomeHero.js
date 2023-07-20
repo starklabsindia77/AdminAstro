@@ -53,8 +53,7 @@ const HeroOverlayStyle = styled(m.img)({
   position: 'absolute',
 });
 
-const HeroImgStyle = styled(m.img)(({ theme }) => ({
-  top: 0,
+const HeroImgStyle = styled(m.img)(({ theme }) => ({ 
   right: 0,
   bottom: 0,
   zIndex: 8,
@@ -62,7 +61,14 @@ const HeroImgStyle = styled(m.img)(({ theme }) => ({
   margin: 'auto',
   position: 'absolute',
   [theme.breakpoints.up('lg')]: {
+    top: 0,
     right: '5%',
+    width: 'auto',
+    height: '100vh',
+  },
+  [theme.breakpoints.up('sm')]: {
+    top: '250px',    
+    left: '50px',
     width: 'auto',
     height: '100vh',
   },
@@ -79,14 +85,14 @@ export default function HomeHero() {
       <RootStyle >
         <HeroOverlayStyle alt="overlay" src="/assets/overlay.svg" variants={varFade().inLeft} />
 
-        {mdUp && ( 
+         
           <HeroImgStyle
             alt="hero"
             src='/assets/view.svg'
             
             variants={varFade().inUp}
           />
-        )}
+        
 
         <Container>
           <ContentStyle>
@@ -112,7 +118,7 @@ export default function HomeHero() {
                 </Typography>
               </m.div>
 
-              <Stack direction="row" spacing={1.5} justifyContent={{ xs: 'center', md: 'flex-start' }}>
+              <Stack direction="row" spacing={1.5} justifyContent={{ xs: 'flex-start', md: 'flex-start' }}>
                   <m.img
                     key={"ios"}
                     variants={varFade().inRight}
