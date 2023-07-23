@@ -13,6 +13,7 @@ import useAuth from '../../../../hooks/useAuth';
 import { fData } from '../../../../utils/formatNumber';
 // _mock
 import { countries } from '../../../../_mock';
+import axios from '../../../../utils/axios';
 // components
 import { FormProvider, RHFSwitch, RHFSelect, RHFTextField, RHFUploadAvatar } from '../../../../components/hook-form';
 
@@ -30,14 +31,17 @@ export default function AccountGeneral() {
   const defaultValues = {
     displayName: user?.displayName || '',
     email: user?.email || '',
+    firstName: user?.firstName || '',
+    lastName: user?.lastName || '',
     photoURL: user?.photoURL || '',
-    phoneNumber: user?.phoneNumber || '',
+    mobileNo: user?.mobileNo || '',
     country: user?.country || '',
     address: user?.address || '',
     state: user?.state || '',
     city: user?.city || '',
-    zipCode: user?.zipCode || '',
-    about: user?.about || '',
+    zipCode: user?.zipCode || '',    
+    skill: user?.skill || '',
+    bio: user?.bio || '',
     isPublic: user?.isPublic || false,
   };
 
@@ -52,10 +56,14 @@ export default function AccountGeneral() {
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      enqueueSnackbar('Update success!');
+      if(user.role !== 'Admin') {
+        await axios.put(`/expertUpdate/${user?.id}`, data);
+        enqueueSnackbar('Update success!');
+      }
+      // await new Promise((resolve) => setTimeout(resolve, 500));
+      
     } catch (error) {
       console.error(error);
     }
@@ -118,10 +126,11 @@ export default function AccountGeneral() {
                 gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
               }}
             >
-              <RHFTextField name="displayName" label="Name" />
-              <RHFTextField name="email" label="Email Address" />
-
-              <RHFTextField name="phoneNumber" label="Phone Number" />
+              <RHFTextField name="firstName" label="First Name" />
+              <RHFTextField name="lastName" label="Last Name" />
+              <RHFTextField name="displayName" label="Full Name" />
+              <RHFTextField name="email" label="Email Address" />              
+              <RHFTextField name="mobileNo" label="Phone Number" />
               <RHFTextField name="address" label="Address" />
 
               <RHFSelect name="country" label="Country" placeholder="Country">
@@ -139,8 +148,9 @@ export default function AccountGeneral() {
               <RHFTextField name="zipCode" label="Zip/Code" />
             </Box>
 
-            <Stack spacing={3} alignItems="flex-end" sx={{ mt: 3 }}>
-              <RHFTextField name="about" multiline rows={4} label="About" />
+            <Stack spacing={3} alignItems="flex-end" sx={{ mt: 3 }}>              
+              <RHFTextField name="skill" multiline rows={4} label="Skill" />
+              <RHFTextField name="bio" multiline rows={4} label="Bio" />
 
               <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
                 Save Changes

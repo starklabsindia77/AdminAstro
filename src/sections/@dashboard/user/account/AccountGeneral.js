@@ -22,34 +22,34 @@ import { isValidToken, setSession } from '../../../../utils/jwt';
 
 // ----------------------------------------------------------------------
 
-export default function AccountGeneral({ user }) {
-  const { enqueueSnackbar } = useSnackbar(); 
-  
-  const [defaultValues, setdefaultValues] = useState()
+export default function AccountGeneral() {
+  const { enqueueSnackbar } = useSnackbar();
 
-  useEffect(() => {
-    setdefaultValues({
-      displayName: user?.displayName || '',
-      email: user?.email || '',
-      photoURL: user?.photoURL || '',
-      mobileNo: user?.mobileNo || '',
-      country: user?.country || '',
-      address: user?.address || '',
-      state: user?.state || '',
-      city: user?.city || '',
-      zipCode: user?.zipCode || '',
-      bio: user?.bio || '',
-      skill: user?.skill || '',
-      isPublic: user?.isPublic  || true,
-    })
-  }, [user.expertId])
+  const { user } = useAuth();
 
-  console.log("defaultValues", defaultValues)
+  const UpdateUserSchema = Yup.object().shape({
+    displayName: Yup.string().required('Name is required'),
+  });
 
-  
- 
+  const defaultValues = {
+    displayName: user?.displayName || '',
+    email: user?.email || '',
+    firstName: user?.firstName || '',
+    lastName: user?.lastName || '',
+    photoURL: user?.photoURL || '',
+    mobileNo: user?.mobileNo || '',
+    country: user?.country || '',
+    address: user?.address || '',
+    state: user?.state || '',
+    city: user?.city || '',
+    zipCode: user?.zipCode || '',    
+    skill: user?.skill || '',
+    bio: user?.bio || '',
+    isPublic: user?.isPublic || false,
+  };
 
-  const methods = useForm({    
+  const methods = useForm({
+    resolver: yupResolver(UpdateUserSchema),
     defaultValues,
   });
 
@@ -59,18 +59,14 @@ export default function AccountGeneral({ user }) {
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = async (data) => {
-    console.log("update Data", data);
-    // try {
-    //   if(user.role !== 'Admin') {
-    //     await axios.put(`/expertUpdate/${user?.expertId}`, data);
-    //     enqueueSnackbar('Update success!');
-    //   }
-    //   // await new Promise((resolve) => setTimeout(resolve, 500));
+  const onSubmit = async (data) => {    
+    try {
+      await axios.put(`/adminupdate/${user?.id}`, data);
+      enqueueSnackbar('Update success!');
       
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleDrop = useCallback(
@@ -89,14 +85,11 @@ export default function AccountGeneral({ user }) {
     [setValue]
   );
 
-  // const { control } = useFormContext();
-
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={4}>
           <Card sx={{ py: 10, px: 3, textAlign: 'center' }}>
-            {/* <h1>{defaultValues?.email}</h1> */}
             <RHFUploadAvatar
               name="photoURL"
               accept="image/*"
@@ -119,11 +112,7 @@ export default function AccountGeneral({ user }) {
               }
             />
 
-            <RHFSwitch 
-              name="isPublic" 
-              labelPlacement="start" 
-              value={defaultValues?.isPublic}             
-              label="Public Profile" sx={{ mt: 5 }} />
+            <RHFSwitch name="isPublic" labelPlacement="start" label="Public Profile" sx={{ mt: 5 }} />
           </Card>
         </Grid>
 
@@ -137,60 +126,29 @@ export default function AccountGeneral({ user }) {
                 gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
               }}
             >
-              <TextField
-                name="displayName"
-                label="Name"
-                value={defaultValues?.displayName}
-                onChange={e => setValue("displayName", e.target.value)} 
-              />
-              <RHFTextField name="email" label="Email Address" value={defaultValues?.email} />
+              <RHFTextField name="firstName" label="First Name" />
+              <RHFTextField name="lastName" label="Last Name" />
+              <RHFTextField name="displayName" label="Full Name" />
+              <RHFTextField name="email" label="Email Address" />              
+              <RHFTextField name="mobileNo" label="Phone Number" />
+              <RHFTextField name="address" label="Address" />
 
-              <RHFTextField name="mobileNo" label="Phone Number" value={defaultValues?.mobileNo} />
-              <RHFTextField name="address" label="Address" value={defaultValues?.address}/>
-
-              {/* <RHFSelect name="country" label="Country" placeholder="Country">
+              <RHFSelect name="country" label="Country" placeholder="Country">
                 <option value="" />
                 {countries.map((option) => (
                   <option key={option.code} value={option.label}>
                     {option.label}
                   </option>
                 ))}
-              </RHFSelect> */}
+              </RHFSelect>
 
-              <Controller
-                name="country"
-                // control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label="Country"
-                    select
-                    fullWidth
-                    SelectProps={{ native: true }}
-                  >
-                    <option value="" />
-                    {countries.map((option) => (
-                      <option key={option.code} value={option.label}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </TextField>
-                )}
-              />
+              <RHFTextField name="state" label="State/Region" />
 
-              <RHFTextField name="state" label="State/Region" value={defaultValues?.state}/>
-
-              <RHFTextField name="city" label="City" value={defaultValues?.city} />
-              <RHFTextField name="zipCode" label="Zip/Code" value={defaultValues?.zipCode} />
+              <RHFTextField name="city" label="City" />
+              <RHFTextField name="zipCode" label="Zip/Code" />
             </Box>
 
-            <Stack spacing={3} alignItems="flex-end" sx={{ mt: 3 }}>
-                {user.role !== "Admin" ? (
-                  <>
-                    <RHFTextField name="skill" multiline rows={4} label="Skill" />
-                    <RHFTextField name="bio" multiline rows={4} label="Bio" />
-                  </>
-                ) : null}
+            <Stack spacing={3} alignItems="flex-end" sx={{ mt: 3 }}>            
               <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
                 Save Changes
               </LoadingButton>

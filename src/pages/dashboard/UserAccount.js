@@ -31,64 +31,8 @@ import axios from '../../utils/axios';
 // ----------------------------------------------------------------------
 
 export default function UserAccount() {
+  
   const { themeStretch } = useSettings();
-
-  const { user } = useAuth();
-
-  const [ currentExpert, setCurrentExpert ] = useState({});
-  const [ userInfoTab, setUserInfoTab ] = useState([
-    {
-      value: 'general',
-      icon: <Iconify icon={'ic:round-account-box'} width={20} height={20} />,
-      component: <AccountGeneral user={user.role === 'Admin' ? user : currentExpert} />,
-    },
-    {
-      value: 'change_password',
-      icon: <Iconify icon={'ic:round-vpn-key'} width={20} height={20} />,
-      component: <AccountChangePassword />,
-    },
-  ]);
-
-  useEffect(async () => {
-    const accessToken = localStorage.getItem('accessToken');
-    // console.log("test Effect",user, && user.role !== 'Admin', user.role === 'Admin' ? user :)
-    if (accessToken && isValidToken(accessToken) ) {
-      setSession(accessToken);
-      const response = await axios.get(`/expert/${user.id}`);
-      console.log("res1", response);
-      setCurrentExpert(response.data.user);
-    }
-  }, [user.id])
-
-  useEffect(() => {
-    setUserInfoTab([
-      {
-        value: 'general',
-        icon: <Iconify icon={'ic:round-account-box'} width={20} height={20} />,
-        component: <AccountGeneral user={ currentExpert} />,
-      },
-      {
-        value: 'change_password',
-        icon: <Iconify icon={'ic:round-vpn-key'} width={20} height={20} />,
-        component: <AccountChangePassword />,
-      },
-    ])
-  }, [currentExpert]);
-
-  // const currentExpert = async () => {
-  //   const accessToken = localStorage.getItem('accessToken');
-  //   console.log("test Effect",user)
-  //   if (accessToken && isValidToken(accessToken) && user.role !== 'Admin') {
-  //     // console.log("test Effect 12",accessToken);
-  //     setSession(accessToken);
-  //     const response = await axios.get(`/expert/${user.id}`);
-  //     console.log("test Effect 3");
-  //     // const { user } = response.data;
-  //     console.log("res1", response);
-  //     // console.log("res", user);
-  //     return response.data.user;
-  //   }
-  // }
 
   const { currentTab, onChangeTab } = useTabs('general');
 
@@ -96,8 +40,8 @@ export default function UserAccount() {
     {
       value: 'general',
       icon: <Iconify icon={'ic:round-account-box'} width={20} height={20} />,
-      component: <AccountGeneral user={user.role === 'Admin' ? user : currentExpert} />,
-    },
+      component: <AccountGeneral />,
+    },   
     {
       value: 'change_password',
       icon: <Iconify icon={'ic:round-vpn-key'} width={20} height={20} />,
@@ -106,13 +50,13 @@ export default function UserAccount() {
   ];
 
   return (
-    <Page title="User: Account Settings">
+    <Page title="Admin: Account Settings">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="Account"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'User', href: PATH_DASHBOARD.user.root },
+            { name: 'Admin', href: PATH_DASHBOARD.user.root },
             { name: 'Account Settings' },
           ]}
         />
@@ -124,14 +68,14 @@ export default function UserAccount() {
           value={currentTab}
           onChange={onChangeTab}
         >
-          {userInfoTab.map((tab) => (
+          {ACCOUNT_TABS.map((tab) => (
             <Tab disableRipple key={tab.value} label={capitalCase(tab.value)} icon={tab.icon} value={tab.value} />
           ))}
         </Tabs>
 
         <Box sx={{ mb: 5 }} />
 
-        {userInfoTab.map((tab) => {
+        {ACCOUNT_TABS.map((tab) => {
           const isMatched = tab.value === currentTab;
           return isMatched && <Box key={tab.value}>{tab.component}</Box>;
         })}

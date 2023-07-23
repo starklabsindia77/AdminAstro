@@ -45,15 +45,6 @@ import { isValidToken, setSession } from '../../utils/jwt';
 
 // ----------------------------------------------------------------------
 
-// const TABLE_HEAD = [
-//   { id: 'name', label: 'Name', align: 'left' },
-//   { id: 'date', label: 'Date', align: 'left' },
-//   { id: 'startTime', label: 'Start Time', align: 'left' },
-//   { id: 'endTime', label: 'End Time', align: 'left' },
-//   { id: 'status', label: 'Status', align: 'left' },
-//   // { id: 'status', label: 'Status', align: 'left' },
-//   { id: '' },
-// ];
 
 // ----------------------------------------------------------------------
 
@@ -112,13 +103,13 @@ export default function Schedule() {
       )
     }
     const accessToken = localStorage.getItem('accessToken');
-        if (accessToken && isValidToken(accessToken)) {
-          setSession(accessToken);
-          const response = await axios.get('/appointment');
-          const { data } = response.data;
-          // console.log("appointment data", data);
-          setTableData(data);
-        }
+    if (accessToken && isValidToken(accessToken)) {
+      setSession(accessToken);
+      const response = await axios.get('/appointment');
+      const { data } = response.data;
+      // console.log("appointment data", data);
+      setTableData(data);
+    }
   }, [user])
   
 

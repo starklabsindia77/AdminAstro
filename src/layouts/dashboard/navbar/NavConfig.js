@@ -70,12 +70,7 @@ const ICONS = {
         {
           title: 'blog',
           path: PATH_DASHBOARD.blog.root,
-          icon: ICONS.blog,
-          // children: [
-          //   { title: 'posts', path: PATH_DASHBOARD.blog.posts },
-          //   { title: 'post', path: PATH_DASHBOARD.blog.demoView },
-          //   { title: 'create', path: PATH_DASHBOARD.blog.new },
-          // ],
+          icon: ICONS.blog,         
         },
         {
           title: 'Sessions',
@@ -90,11 +85,11 @@ const ICONS = {
           icon: <Iconify icon={'carbon:event-schedule'} width={20} height={20} />,
          
         },
-        // {
-        //   title: 'Setting',
-        //   path: PATH_DASHBOARD.user.account,
-        //   icon: <Iconify icon={'ep:setting'} width={20} height={20} />,          
-        // },
+        {
+          title: 'Setting',
+          path: PATH_DASHBOARD.user.account,
+          icon: <Iconify icon={'ep:setting'} width={20} height={20} />,          
+        },
   
         // INVOICE
         // {
@@ -234,7 +229,7 @@ const ICONS = {
         // E-COMMERCE
         {
           title: 'Setting',
-          path: PATH_DASHBOARD.user.account,
+          path: PATH_DASHBOARD.expert.account,
           icon: <Iconify icon={'ep:setting'} width={20} height={20} />,          
         },
   
