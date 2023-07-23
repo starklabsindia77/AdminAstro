@@ -1,5 +1,5 @@
 import sumBy from 'lodash/sumBy';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
 import { useTheme } from '@mui/material/styles';
@@ -39,6 +39,9 @@ import { TableNoData, TableEmptyRows, TableHeadCustom, TableSelectedActions } fr
 // sections
 import OrderAnalytic from '../../sections/@dashboard/order/OrderAnalytic';
 import { OrderTableRow, OrderTableToolbar } from '../../sections/@dashboard/order/list';
+import axios from '../../utils/axios';
+import { isValidToken, setSession } from '../../utils/jwt';
+
 
 // ----------------------------------------------------------------------
 
@@ -100,6 +103,17 @@ export default function OrderList() {
   const [filterEndDate, setFilterEndDate] = useState(null);
 
   const { currentTab: filterStatus, onChangeTab: onFilterStatus } = useTabs('all');
+
+  useEffect(async () => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken && isValidToken(accessToken)) {
+      setSession(accessToken);
+      const response = await axios.get('/orders');
+      const { data } = response.data;
+      console.log("order data", data);
+      setTableData(data);
+    }
+  }, [])
 
   const handleFilterName = (filterName) => {
     setFilterName(filterName);

@@ -26,8 +26,10 @@ OrderTableRow.propTypes = {
 
 export default function OrderTableRow({ row, selected, onSelectRow, onViewRow, onEditRow, onDeleteRow }) {
   const theme = useTheme();
-
+  
   const { sent, orderNumber, createDate, dueDate, status, orderTo, totalPrice } = row;
+  
+  // const { shipping_fee, gst, trans_id, order_id, cart_info, sub_total, createDate, status, orderTo, total, shipping_info } = row;
 
   const [openMenu, setOpenMenuActions] = useState(null);
 
