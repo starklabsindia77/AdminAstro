@@ -34,7 +34,7 @@ const cn = {
   profile: `轮廓`,
   account: `帐户`,
   product: `产品`,
-  invoice: `发票`,
+  order: `发票`,
   details: `细节`,
   checkout: `退房`,
   calendar: `日历`,

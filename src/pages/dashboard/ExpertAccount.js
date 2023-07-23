@@ -7,7 +7,7 @@ import { PATH_DASHBOARD } from '../../routes/paths';
 import useTabs from '../../hooks/useTabs';
 import useSettings from '../../hooks/useSettings';
 // _mock_
-import {_expertPayment, _expertAddressBook, _expertInvoices, _expertAbout} from '../../_mock';
+import {_expertPayment, _expertAddressBook, _expertOrders, _expertAbout} from '../../_mock';
 // components
 import Page from '../../components/Page';
 import Iconify from '../../components/Iconify';
@@ -37,7 +37,7 @@ export default function ExpertAccount() {
     {
       value: 'billing',
       icon: <Iconify icon={'ic:round-receipt'} width={20} height={20} />,
-      component: <AccountBilling cards={_expertPayment} addressBook={_expertAddressBook} invoices={_expertInvoices} />,
+      component: <AccountBilling cards={_expertPayment} addressBook={_expertAddressBook} orders={_expertOrders} />,
     },    
     {
       value: 'change_password',

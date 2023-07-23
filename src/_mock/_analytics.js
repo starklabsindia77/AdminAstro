@@ -17,7 +17,7 @@ export const _analyticOrderTimeline = [...Array(5)].map((_, index) => ({
   id: _mock.id(index),
   title: [
     '1983, orders, $4220',
-    '12 Invoices have been paid',
+    '12 Orders have been paid',
     'Order #37745 from September',
     'New order placed #XF-2356',
     'New order placed #XF-2346',

@@ -11,22 +11,22 @@ import { Card, Stack } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 // mock
-import { _invoiceAddressFrom } from '../../../../_mock';
+import { _orderAddressFrom } from '../../../../_mock';
 // components
 import { FormProvider } from '../../../../components/hook-form';
 //
-import InvoiceNewEditDetails from './InvoiceNewEditDetails';
-import InvoiceNewEditAddress from './InvoiceNewEditAddress';
-import InvoiceNewEditStatusDate from './InvoiceNewEditStatusDate';
+import OrderNewEditDetails from './OrderNewEditDetails';
+import OrderNewEditAddress from './OrderNewEditAddress';
+import OrderNewEditStatusDate from './OrderNewEditStatusDate';
 
 // ----------------------------------------------------------------------
 
-InvoiceNewEditForm.propTypes = {
+OrderNewEditForm.propTypes = {
   isEdit: PropTypes.bool,
-  currentInvoice: PropTypes.object,
+  currentOrder: PropTypes.object,
 };
 
-export default function InvoiceNewEditForm({ isEdit, currentInvoice }) {
+export default function OrderNewEditForm({ isEdit, currentOrder }) {
   const navigate = useNavigate();
 
   const [loadingSave, setLoadingSave] = useState(false);
@@ -36,23 +36,23 @@ export default function InvoiceNewEditForm({ isEdit, currentInvoice }) {
   const NewUserSchema = Yup.object().shape({
     createDate: Yup.string().nullable().required('Create date is required'),
     dueDate: Yup.string().nullable().required('Due date is required'),
-    invoiceTo: Yup.mixed().nullable().required('Invoice to is required'),
+    orderTo: Yup.mixed().nullable().required('Order to is required'),
   });
 
   const defaultValues = useMemo(
     () => ({
-      invoiceNumber: currentInvoice?.invoiceNumber || '17099',
-      createDate: currentInvoice?.createDate || null,
-      dueDate: currentInvoice?.dueDate || null,
-      taxes: currentInvoice?.taxes || '',
-      status: currentInvoice?.status || 'draft',
-      discount: currentInvoice?.discount || '',
-      invoiceFrom: currentInvoice?.invoiceFrom || _invoiceAddressFrom[0],
-      invoiceTo: currentInvoice?.invoiceTo || null,
-      items: currentInvoice?.items || [{ title: '', description: '', service: '', quantity: 0, price: 0, total: 0 }],
+      orderNumber: currentOrder?.orderNumber || '17099',
+      createDate: currentOrder?.createDate || null,
+      dueDate: currentOrder?.dueDate || null,
+      taxes: currentOrder?.taxes || '',
+      status: currentOrder?.status || 'draft',
+      discount: currentOrder?.discount || '',
+      orderFrom: currentOrder?.orderFrom || _orderAddressFrom[0],
+      orderTo: currentOrder?.orderTo || null,
+      items: currentOrder?.items || [{ title: '', description: '', service: '', quantity: 0, price: 0, total: 0 }],
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [currentInvoice]
+    [currentOrder]
   );
 
   const methods = useForm({
@@ -70,16 +70,16 @@ export default function InvoiceNewEditForm({ isEdit, currentInvoice }) {
   const values = watch();
 
   useEffect(() => {
-    if (isEdit && currentInvoice) {
+    if (isEdit && currentOrder) {
       reset(defaultValues);
     }
     if (!isEdit) {
       reset(defaultValues);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isEdit, currentInvoice]);
+  }, [isEdit, currentOrder]);
 
-  const newInvoice = {
+  const newOrder = {
     ...values,
     items: values.items.map((item) => ({
       ...item,
@@ -94,8 +94,8 @@ export default function InvoiceNewEditForm({ isEdit, currentInvoice }) {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
       setLoadingSave(true);
-      navigate(PATH_DASHBOARD.invoice.list);
-      console.log(JSON.stringify(newInvoice, null, 2));
+      navigate(PATH_DASHBOARD.order.list);
+      console.log(JSON.stringify(newOrder, null, 2));
     } catch (error) {
       console.error(error);
     }
@@ -108,8 +108,8 @@ export default function InvoiceNewEditForm({ isEdit, currentInvoice }) {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
       setLoadingSend(false);
-      navigate(PATH_DASHBOARD.invoice.list);
-      console.log(JSON.stringify(newInvoice, null, 2));
+      navigate(PATH_DASHBOARD.order.list);
+      console.log(JSON.stringify(newOrder, null, 2));
     } catch (error) {
       console.error(error);
     }
@@ -118,9 +118,9 @@ export default function InvoiceNewEditForm({ isEdit, currentInvoice }) {
   return (
     <FormProvider methods={methods}>
       <Card>
-        <InvoiceNewEditAddress />
-        <InvoiceNewEditStatusDate />
-        <InvoiceNewEditDetails />
+        <OrderNewEditAddress />
+        <OrderNewEditStatusDate />
+        <OrderNewEditDetails />
       </Card>
 
       <Stack justifyContent="flex-end" direction="row" spacing={2} sx={{ mt: 3 }}>

@@ -7,7 +7,7 @@ import Scrollbar from '../../../../components/Scrollbar';
 
 // ----------------------------------------------------------------------
 
-InvoiceAddressListDialog.propTypes = {
+OrderAddressListDialog.propTypes = {
   addressOptions: PropTypes.array,
   onClose: PropTypes.func,
   onSelect: PropTypes.func,
@@ -15,7 +15,7 @@ InvoiceAddressListDialog.propTypes = {
   selected: PropTypes.func,
 };
 
-export default function InvoiceAddressListDialog({ open, selected, onClose, onSelect, addressOptions }) {
+export default function OrderAddressListDialog({ open, selected, onClose, onSelect, addressOptions }) {
   const handleSelect = (address) => {
     onSelect(address);
     onClose();

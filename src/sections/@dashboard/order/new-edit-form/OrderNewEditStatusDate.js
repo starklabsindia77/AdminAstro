@@ -12,14 +12,14 @@ const STATUS_OPTIONS = ['paid', 'unpaid', 'overdue', 'draft'];
 
 // ----------------------------------------------------------------------
 
-export default function InvoiceNewEditStatusDate() {
+export default function OrderNewEditStatusDate() {
   const { control, watch } = useFormContext();
 
   const values = watch();
 
   return (
     <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }} sx={{ p: 3, bgcolor: 'background.neutral' }}>
-      <RHFTextField disabled name="invoiceNumber" label="Invoice number" value={`INV-${values.invoiceNumber}`} />
+      <RHFTextField disabled name="orderNumber" label="Order number" value={`INV-${values.orderNumber}`} />
 
       <RHFSelect
         fullWidth

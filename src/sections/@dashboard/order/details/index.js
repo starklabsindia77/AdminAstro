@@ -22,7 +22,7 @@ import Label from '../../../../components/Label';
 import Image from '../../../../components/Image';
 import Scrollbar from '../../../../components/Scrollbar';
 //
-import InvoiceToolbar from './InvoiceToolbar';
+import OrderToolbar from './OrderToolbar';
 
 // ----------------------------------------------------------------------
 
@@ -35,14 +35,14 @@ const RowResultStyle = styled(TableRow)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-InvoiceDetails.propTypes = {
-  invoice: PropTypes.object.isRequired,
+OrderDetails.propTypes = {
+  order: PropTypes.object.isRequired,
 };
 
-export default function InvoiceDetails({ invoice }) {
+export default function OrderDetails({ order }) {
   const theme = useTheme();
 
-  if (!invoice) {
+  if (!order) {
     return null;
   }
 
@@ -52,17 +52,17 @@ export default function InvoiceDetails({ invoice }) {
     status,
     dueDate,
     discount,
-    invoiceTo,
+    orderTo,
     createDate,
     totalPrice,
-    invoiceFrom,
-    invoiceNumber,
+    orderFrom,
+    orderNumber,
     subTotalPrice,
-  } = invoice;
+  } = order;
 
   return (
     <>
-      <InvoiceToolbar invoice={invoice} />
+      <OrderToolbar order={order} />
 
       <Card sx={{ pt: 5, px: 5 }}>
         <Grid container>
@@ -85,26 +85,26 @@ export default function InvoiceDetails({ invoice }) {
                 {status}
               </Label>
 
-              <Typography variant="h6">{`INV-${invoiceNumber}`}</Typography>
+              <Typography variant="h6">{`INV-${orderNumber}`}</Typography>
             </Box>
           </Grid>
 
           <Grid item xs={12} sm={6} sx={{ mb: 5 }}>
             <Typography paragraph variant="overline" sx={{ color: 'text.disabled' }}>
-              Invoice from
+              Order from
             </Typography>
-            <Typography variant="body2">{invoiceFrom.name}</Typography>
-            <Typography variant="body2">{invoiceFrom.address}</Typography>
-            <Typography variant="body2">Phone: {invoiceFrom.phone}</Typography>
+            <Typography variant="body2">{orderFrom.name}</Typography>
+            <Typography variant="body2">{orderFrom.address}</Typography>
+            <Typography variant="body2">Phone: {orderFrom.phone}</Typography>
           </Grid>
 
           <Grid item xs={12} sm={6} sx={{ mb: 5 }}>
             <Typography paragraph variant="overline" sx={{ color: 'text.disabled' }}>
-              Invoice to
+              Order to
             </Typography>
-            <Typography variant="body2">{invoiceTo.name}</Typography>
-            <Typography variant="body2">{invoiceTo.address}</Typography>
-            <Typography variant="body2">Phone: {invoiceTo.phone}</Typography>
+            <Typography variant="body2">{orderTo.name}</Typography>
+            <Typography variant="body2">{orderTo.address}</Typography>
+            <Typography variant="body2">Phone: {orderTo.phone}</Typography>
           </Grid>
 
           <Grid item xs={12} sm={6} sx={{ mb: 5 }}>

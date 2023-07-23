@@ -34,7 +34,7 @@ const vn = {
   profile: `hồ sơ`,
   account: `tải khoản`,
   product: `sản phẩm`,
-  invoice: `hóa đơn`,
+  order: `hóa đơn`,
   details: `chi tiết`,
   checkout: `thanh toán`,
   calendar: `lịch`,

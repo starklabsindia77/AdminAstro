@@ -8,7 +8,7 @@ import Iconify from '../../../../components/Iconify';
 
 const INPUT_WIDTH = 160;
 
-InvoiceTableToolbar.propTypes = {
+OrderTableToolbar.propTypes = {
   filterName: PropTypes.string,
   filterService: PropTypes.string,
   filterEndDate: PropTypes.instanceOf(Date),
@@ -20,7 +20,7 @@ InvoiceTableToolbar.propTypes = {
   optionsService: PropTypes.arrayOf(PropTypes.string),
 };
 
-export default function InvoiceTableToolbar({
+export default function OrderTableToolbar({
   optionsService,
   filterStartDate,
   filterEndDate,
@@ -33,7 +33,7 @@ export default function InvoiceTableToolbar({
 }) {
   return (
     <Stack spacing={2} direction={{ xs: 'column', md: 'row' }} sx={{ py: 2.5, px: 3 }}>
-      <TextField
+      {/* <TextField
         fullWidth
         select
         label="Service type"
@@ -64,9 +64,9 @@ export default function InvoiceTableToolbar({
             {option}
           </MenuItem>
         ))}
-      </TextField>
+      </TextField> */}
 
-      <DatePicker
+      {/* <DatePicker
         label="Start date"
         value={filterStartDate}
         onChange={onFilterStartDate}
@@ -94,13 +94,13 @@ export default function InvoiceTableToolbar({
             }}
           />
         )}
-      />
+      /> */}
 
       <TextField
         fullWidth
         value={filterName}
         onChange={(event) => onFilterName(event.target.value)}
-        placeholder="Search client or invoice number..."
+        placeholder="Search client or order number..."
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">

@@ -4,28 +4,28 @@ import { Page, View, Text, Image, Document } from '@react-pdf/renderer';
 import { fCurrency } from '../../../../utils/formatNumber';
 import { fDate } from '../../../../utils/formatTime';
 //
-import styles from './InvoiceStyle';
+import styles from './OrderStyle';
 
 // ----------------------------------------------------------------------
 
-InvoicePDF.propTypes = {
-  invoice: PropTypes.object.isRequired,
+OrderPDF.propTypes = {
+  order: PropTypes.object.isRequired,
 };
 
-export default function InvoicePDF({ invoice }) {
+export default function OrderPDF({ order }) {
   const {
     items,
     taxes,
     status,
     dueDate,
     discount,
-    invoiceTo,
+    orderTo,
     createDate,
     totalPrice,
-    invoiceFrom,
-    invoiceNumber,
+    orderFrom,
+    orderNumber,
     subTotalPrice,
-  } = invoice;
+  } = order;
 
   return (
     <Document>
@@ -34,23 +34,23 @@ export default function InvoicePDF({ invoice }) {
           <Image source="/logo/logo_full.jpg" style={{ height: 32 }} />
           <View style={{ alignItems: 'flex-end', flexDirection: 'column' }}>
             <Text style={styles.h3}>{status}</Text>
-            <Text> {`INV-${invoiceNumber}`} </Text>
+            <Text> {`INV-${orderNumber}`} </Text>
           </View>
         </View>
 
         <View style={[styles.gridContainer, styles.mb40]}>
           <View style={styles.col6}>
-            <Text style={[styles.overline, styles.mb8]}>Invoice from</Text>
-            <Text style={styles.body1}>{invoiceFrom.name}</Text>
-            <Text style={styles.body1}>{invoiceFrom.address}</Text>
-            <Text style={styles.body1}>{invoiceFrom.phone}</Text>
+            <Text style={[styles.overline, styles.mb8]}>Order from</Text>
+            <Text style={styles.body1}>{orderFrom.name}</Text>
+            <Text style={styles.body1}>{orderFrom.address}</Text>
+            <Text style={styles.body1}>{orderFrom.phone}</Text>
           </View>
 
           <View style={styles.col6}>
-            <Text style={[styles.overline, styles.mb8]}>Invoice to</Text>
-            <Text style={styles.body1}>{invoiceTo.name}</Text>
-            <Text style={styles.body1}>{invoiceTo.address}</Text>
-            <Text style={styles.body1}>{invoiceTo.phone}</Text>
+            <Text style={[styles.overline, styles.mb8]}>Order to</Text>
+            <Text style={styles.body1}>{orderTo.name}</Text>
+            <Text style={styles.body1}>{orderTo.address}</Text>
+            <Text style={styles.body1}>{orderTo.phone}</Text>
           </View>
         </View>
 
@@ -65,7 +65,7 @@ export default function InvoicePDF({ invoice }) {
           </View>
         </View>
 
-        <Text style={[styles.overline, styles.mb8]}>Invoice Details</Text>
+        <Text style={[styles.overline, styles.mb8]}>Order Details</Text>
 
         <View style={styles.table}>
           <View style={styles.tableHeader}>

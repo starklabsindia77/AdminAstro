@@ -7,7 +7,7 @@ import { Container, Grid, Stack, Button } from '@mui/material';
 import useAuth from '../../hooks/useAuth';
 import useSettings from '../../hooks/useSettings';
 // _mock_
-import { _appFeatured, _appAuthors, _appInstalled, _appRelated, _appInvoices } from '../../_mock';
+import { _appFeatured, _appAuthors, _appInstalled, _appRelated  } from '../../_mock';
 // components
 import Page from '../../components/Page';
 import { isValidToken, setSession } from '../../utils/jwt';

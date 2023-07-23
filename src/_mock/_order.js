@@ -4,9 +4,9 @@ import { randomInArray, randomNumberRange } from './funcs';
 
 // ----------------------------------------------------------------------
 
-export const _invoices = [...Array(20)].map((_, index) => ({
+export const _orders = [...Array(20)].map((_, index) => ({
   id: _mock.id(index),
-  invoiceNumber: `${17048 + index}`,
+  orderNumber: `${17048 + index}`,
   taxes: 5,
   discount: 10,
   sent: randomNumberRange(1, 10),
@@ -15,7 +15,7 @@ export const _invoices = [...Array(20)].map((_, index) => ({
   createDate: add(new Date(), { days: index, hours: index }),
   dueDate: add(new Date(), { days: index + 15, hours: index }),
   status: randomInArray(['paid', 'unpaid', 'overdue', 'draft']),
-  invoiceFrom: {
+  orderFrom: {
     id: _mock.id(index),
     name: _mock.name.fullName(index),
     address: _mock.address.fullAddress(index),
@@ -23,7 +23,7 @@ export const _invoices = [...Array(20)].map((_, index) => ({
     email: _mock.email(index),
     phone: _mock.phoneNumber(index),
   },
-  invoiceTo: {
+  orderTo: {
     id: _mock.id(index + 1),
     name: _mock.name.fullName(index + 1),
     address: _mock.address.fullAddress(index + 1),
@@ -48,7 +48,7 @@ export const _invoices = [...Array(20)].map((_, index) => ({
   })),
 }));
 
-export const _invoiceAddressFrom = [...Array(5)].map((_, index) => ({
+export const _orderAddressFrom = [...Array(5)].map((_, index) => ({
   id: _mock.id(index),
   name: _mock.name.fullName(index),
   address: _mock.address.fullAddress(index),
@@ -57,7 +57,7 @@ export const _invoiceAddressFrom = [...Array(5)].map((_, index) => ({
   phone: _mock.phoneNumber(index),
 }));
 
-export const _invoiceAddressTo = [...Array(16)].map((_, index) => ({
+export const _orderAddressTo = [...Array(16)].map((_, index) => ({
   id: _mock.id(index + 1),
   name: _mock.name.fullName(index + 1),
   address: _mock.address.fullAddress(index + 1),

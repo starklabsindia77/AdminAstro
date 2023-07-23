@@ -18,7 +18,7 @@ const SERVICE_OPTIONS = [
   'front end development',
 ];
 
-export default function InvoiceNewEditDetails() {
+export default function OrderNewEditDetails() {
   const { control, setValue, watch } = useFormContext();
 
   const { fields, append, remove } = useFieldArray({

@@ -20,7 +20,7 @@ const ICONS = {
   kanban: getIcon('ic_kanban'),
   banking: getIcon('ic_banking'),
   booking: getIcon('ic_booking'),
-  invoice: getIcon('ic_invoice'),
+  order: getIcon('ic_invoice'),
   calendar: getIcon('ic_calendar'),
   ecommerce: getIcon('ic_ecommerce'),
   analytics: getIcon('ic_analytics'),
@@ -66,6 +66,18 @@ const ICONS = {
           path: PATH_DASHBOARD.eCommerce.list,
           icon: ICONS.ecommerce,
         },
+        // Order
+        {
+          title: 'Order',
+          path: PATH_DASHBOARD.order.root,
+          icon: ICONS.order,
+          // children: [
+          //   { title: 'list', path: PATH_DASHBOARD.order.list },
+          //   { title: 'details', path: PATH_DASHBOARD.order.demoView },
+          //   { title: 'create', path: PATH_DASHBOARD.order.new },
+          //   { title: 'edit', path: PATH_DASHBOARD.order.demoEdit },
+          // ],
+        },
         // BLOG
         {
           title: 'blog',
@@ -91,41 +103,10 @@ const ICONS = {
           icon: <Iconify icon={'ep:setting'} width={20} height={20} />,          
         },
   
-        // INVOICE
-        // {
-        //   title: 'Transactions',
-        //   path: PATH_DASHBOARD.invoice.root,
-        //   icon: ICONS.invoice,
-        //   // children: [
-        //   //   { title: 'list', path: PATH_DASHBOARD.invoice.list },
-        //   //   { title: 'details', path: PATH_DASHBOARD.invoice.demoView },
-        //   //   { title: 'create', path: PATH_DASHBOARD.invoice.new },
-        //   //   { title: 'edit', path: PATH_DASHBOARD.invoice.demoEdit },
-        //   // ],
-        // },
-        // {
-        //   title: 'Appointments',
-        //   path: PATH_DASHBOARD.calendar,
-        //   icon: ICONS.calendar,
-        //   // children: [
-        //   //   { title: 'list', path: PATH_DASHBOARD.invoice.list },
-        //   //   { title: 'details', path: PATH_DASHBOARD.invoice.demoView },
-        //   //   { title: 'create', path: PATH_DASHBOARD.invoice.new },
-        //   //   { title: 'edit', path: PATH_DASHBOARD.invoice.demoEdit },
-        //   // ],
-        // },
+        
+        
   
-        // BLOG
-        // {
-        //   title: 'blog',
-        //   path: PATH_DASHBOARD.blog.root,
-        //   icon: ICONS.blog,
-        //   children: [
-        //     { title: 'posts', path: PATH_DASHBOARD.blog.posts },
-        //     { title: 'post', path: PATH_DASHBOARD.blog.demoView },
-        //     { title: 'create', path: PATH_DASHBOARD.blog.new },
-        //   ],
-        // },
+       
       ],
     },
   

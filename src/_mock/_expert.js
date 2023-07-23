@@ -111,7 +111,7 @@ export const _expertAddressBook = [...Array(4)].map((_, index) => ({
   zipCode: '85807',
 }));
 
-export const _expertInvoices = [...Array(10)].map((_, index) => ({
+export const _expertOrders = [...Array(10)].map((_, index) => ({
   id: _mock.id(index),
   createdAt: _mock.time(index),
   price: _mock.number.price(index),

@@ -34,7 +34,7 @@ const fr = {
   profile: `profil`,
   account: `compte`,
   product: `produit`,
-  invoice: `facture`,
+  order: `facture`,
   details: `détail`,
   checkout: `vérifier`,
   calendar: `calendrier`,

@@ -7,15 +7,15 @@ import { Stack, Divider, Typography, Button } from '@mui/material';
 import useResponsive from '../../../../hooks/useResponsive';
 import useToggle from '../../../../hooks/useToggle';
 // _mock
-import { _invoiceAddressFrom, _invoiceAddressTo } from '../../../../_mock';
+import { _orderAddressFrom, _orderAddressTo } from '../../../../_mock';
 // components
 import Iconify from '../../../../components/Iconify';
 //
-import InvoiceAddressListDialog from './InvoiceAddressListDialog';
+import OrderAddressListDialog from './OrderAddressListDialog';
 
 // ----------------------------------------------------------------------
 
-export default function InvoiceNewEditAddress() {
+export default function OrderNewEditAddress() {
   const {
     watch,
     setValue,
@@ -30,7 +30,7 @@ export default function InvoiceNewEditAddress() {
 
   const { toggle: openTo, onOpen: onOpenTo, onClose: onCloseTo } = useToggle();
 
-  const { invoiceFrom, invoiceTo } = values;
+  const { orderFrom, orderTo } = values;
 
   return (
     <Stack
@@ -49,16 +49,16 @@ export default function InvoiceNewEditAddress() {
             Change
           </Button>
 
-          <InvoiceAddressListDialog
+          <OrderAddressListDialog
             open={openFrom}
             onClose={onCloseFrom}
-            selected={(selectedId) => invoiceFrom?.id === selectedId}
-            onSelect={(address) => setValue('invoiceFrom', address)}
-            addressOptions={_invoiceAddressFrom}
+            selected={(selectedId) => orderFrom?.id === selectedId}
+            onSelect={(address) => setValue('orderFrom', address)}
+            addressOptions={_orderAddressFrom}
           />
         </Stack>
 
-        <AddressInfo name={invoiceFrom.name} address={invoiceFrom.address} phone={invoiceFrom.phone} />
+        <AddressInfo name={orderFrom.name} address={orderFrom.address} phone={orderFrom.phone} />
       </Stack>
 
       <Stack sx={{ width: 1 }}>
@@ -69,26 +69,26 @@ export default function InvoiceNewEditAddress() {
 
           <Button
             size="small"
-            startIcon={<Iconify icon={invoiceTo ? 'eva:edit-fill' : 'eva:plus-fill'} />}
+            startIcon={<Iconify icon={orderTo ? 'eva:edit-fill' : 'eva:plus-fill'} />}
             onClick={onOpenTo}
           >
-            {invoiceTo ? 'Change' : 'Add'}
+            {orderTo ? 'Change' : 'Add'}
           </Button>
 
-          <InvoiceAddressListDialog
+          <OrderAddressListDialog
             open={openTo}
             onClose={onCloseTo}
-            selected={(selectedId) => invoiceTo?.id === selectedId}
-            onSelect={(address) => setValue('invoiceTo', address)}
-            addressOptions={_invoiceAddressTo}
+            selected={(selectedId) => orderTo?.id === selectedId}
+            onSelect={(address) => setValue('orderTo', address)}
+            addressOptions={_orderAddressTo}
           />
         </Stack>
 
-        {invoiceTo ? (
-          <AddressInfo name={invoiceTo.name} address={invoiceTo.address} phone={invoiceTo.phone} />
+        {orderTo ? (
+          <AddressInfo name={orderTo.name} address={orderTo.address} phone={orderTo.phone} />
         ) : (
           <Typography typography="caption" sx={{ color: 'error.main' }}>
-            {errors.invoiceTo ? errors.invoiceTo.message : null}
+            {errors.orderTo ? errors.orderTo.message : null}
           </Typography>
         )}
       </Stack>

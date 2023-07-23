@@ -10,21 +10,21 @@ import { PATH_DASHBOARD } from '../../../../routes/paths';
 // components
 import Iconify from '../../../../components/Iconify';
 //
-import InvoicePDF from './InvoicePDF';
+import OrderPDF from './OrderPDF';
 
 // ----------------------------------------------------------------------
 
-InvoiceToolbar.propTypes = {
-  invoice: PropTypes.object.isRequired,
+OrderToolbar.propTypes = {
+  order: PropTypes.object.isRequired,
 };
 
-export default function InvoiceToolbar({ invoice }) {
+export default function OrderToolbar({ order }) {
   const navigate = useNavigate();
 
   const { toggle: open, onOpen, onClose } = useToggle();
 
   const handleEdit = () => {
-    navigate(PATH_DASHBOARD.invoice.edit(invoice.id));
+    navigate(PATH_DASHBOARD.order.edit(order.id));
   };
 
   return (
@@ -50,8 +50,8 @@ export default function InvoiceToolbar({ invoice }) {
           </Tooltip>
 
           <PDFDownloadLink
-            document={<InvoicePDF invoice={invoice} />}
-            fileName={invoice.invoiceNumber}
+            document={<OrderPDF order={order} />}
+            fileName={order.orderNumber}
             style={{ textDecoration: 'none' }}
           >
             {({ loading }) => (
@@ -109,7 +109,7 @@ export default function InvoiceToolbar({ invoice }) {
           </DialogActions>
           <Box sx={{ flexGrow: 1, height: '100%', overflow: 'hidden' }}>
             <PDFViewer width="100%" height="100%" style={{ border: 'none' }}>
-              <InvoicePDF invoice={invoice} />
+              <OrderPDF order={order} />
             </PDFViewer>
           </Box>
         </Box>

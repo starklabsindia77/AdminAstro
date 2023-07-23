@@ -34,7 +34,7 @@ const ar = {
   profile: `الملف الشخصي`,
   account: `الحساب`,
   product: `المنتوج`,
-  invoice: `فاتورة`,
+  order: `فاتورة`,
   details: `تفاصيل`,
   checkout: `الدفع`,
   calendar: `التقويم`,

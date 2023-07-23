@@ -1,33 +1,44 @@
+import { useParams } from 'react-router-dom';
 // @mui
 import { Container } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
+// _mock_
+import { _orders } from '../../_mock';
 // hooks
 import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
-import InvoiceNewEditForm from '../../sections/@dashboard/invoice/new-edit-form';
+// import Order from '../../sections/@dashboard/order/details';
+import Order from  '../../sections/@dashboard/order/details'
 
 // ----------------------------------------------------------------------
 
-export default function InvoiceCreate() {
+export default function OrderDetails() {
   const { themeStretch } = useSettings();
 
+  const { id } = useParams();
+
+  const order = _orders.find((order) => order.id === id);
+
   return (
-    <Page title="Invoices: Create a new invoice">
+    <Page title="Order: View">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="Create a new invoice"
+          heading="Order Details"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'Invoices', href: PATH_DASHBOARD.invoice.list },
-            { name: 'New invoice' },
+            {
+              name: 'Orders',
+              href: PATH_DASHBOARD.order.root,
+            },
+            { name: `INV-${order?.orderNumber}` || '' },
           ]}
         />
 
-        <InvoiceNewEditForm />
+        <Order order={order} />
       </Container>
     </Page>
   );

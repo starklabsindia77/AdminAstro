@@ -34,7 +34,7 @@ const en = {
   profile: `profile`,
   account: `account`,
   product: `product`,
-  invoice: `invoice`,
+  order: `order`,
   details: `details`,
   checkout: `checkout`,
   calendar: `calendar`,

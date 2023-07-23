@@ -28,7 +28,7 @@ import useTabs from '../../hooks/useTabs';
 import useSettings from '../../hooks/useSettings';
 import useTable, { getComparator, emptyRows } from '../../hooks/useTable';
 // _mock_
-import { _invoices } from '../../_mock';
+import { _orders } from '../../_mock';
 // components
 import Page from '../../components/Page';
 import Label from '../../components/Label';
@@ -37,8 +37,8 @@ import Scrollbar from '../../components/Scrollbar';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import { TableNoData, TableEmptyRows, TableHeadCustom, TableSelectedActions } from '../../components/table';
 // sections
-import InvoiceAnalytic from '../../sections/@dashboard/invoice/InvoiceAnalytic';
-import { InvoiceTableRow, InvoiceTableToolbar } from '../../sections/@dashboard/invoice/list';
+import OrderAnalytic from '../../sections/@dashboard/order/OrderAnalytic';
+import { OrderTableRow, OrderTableToolbar } from '../../sections/@dashboard/order/list';
 
 // ----------------------------------------------------------------------
 
@@ -52,7 +52,7 @@ const SERVICE_OPTIONS = [
 ];
 
 const TABLE_HEAD = [
-  { id: 'invoiceNumber', label: 'Client', align: 'left' },
+  { id: 'orderNumber', label: 'Client', align: 'left' },
   { id: 'createDate', label: 'Create', align: 'left' },
   { id: 'dueDate', label: 'Due', align: 'left' },
   { id: 'price', label: 'Amount', align: 'center', width: 140 },
@@ -63,7 +63,7 @@ const TABLE_HEAD = [
 
 // ----------------------------------------------------------------------
 
-export default function InvoiceList() {
+export default function OrderList() {
   const theme = useTheme();
 
   const { themeStretch } = useSettings();
@@ -89,7 +89,7 @@ export default function InvoiceList() {
     onChangeRowsPerPage,
   } = useTable({ defaultOrderBy: 'createDate' });
 
-  const [tableData, setTableData] = useState(_invoices);
+  const [tableData, setTableData] = useState(_orders);
 
   const [filterName, setFilterName] = useState('');
 
@@ -123,11 +123,11 @@ export default function InvoiceList() {
   };
 
   const handleEditRow = (id) => {
-    navigate(PATH_DASHBOARD.invoice.edit(id));
+    navigate(PATH_DASHBOARD.order.edit(id));
   };
 
   const handleViewRow = (id) => {
-    navigate(PATH_DASHBOARD.invoice.view(id));
+    navigate(PATH_DASHBOARD.order.view(id));
   };
 
   const dataFiltered = applySortFilter({
@@ -161,32 +161,23 @@ export default function InvoiceList() {
 
   const TABS = [
     { value: 'all', label: 'All', color: 'info', count: tableData.length },
-    { value: 'paid', label: 'Paid', color: 'success', count: getLengthByStatus('paid') },
-    { value: 'unpaid', label: 'Unpaid', color: 'warning', count: getLengthByStatus('unpaid') },
-    { value: 'overdue', label: 'Overdue', color: 'error', count: getLengthByStatus('overdue') },
-    { value: 'draft', label: 'Draft', color: 'default', count: getLengthByStatus('draft') },
+    { value: 'delivered', label: 'Delivered', color: 'success', count: getLengthByStatus('paid') },
+    { value: 'inTransit', label: 'In Transit', color: 'warning', count: getLengthByStatus('unpaid') },
+    { value: 'newOrder', label: 'New Order', color: 'error', count: getLengthByStatus('overdue') },
+    
   ];
 
   return (
-    <Page title="Invoice: List">
+    <Page title="Order: List">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="Invoice List"
+          heading="Order List"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'Invoices', href: PATH_DASHBOARD.invoice.root },
+            { name: 'Orders', href: PATH_DASHBOARD.order.root },
             { name: 'List' },
           ]}
-          action={
-            <Button
-              variant="contained"
-              component={RouterLink}
-              to={PATH_DASHBOARD.invoice.new}
-              startIcon={<Iconify icon={'eva:plus-fill'} />}
-            >
-              New Invoice
-            </Button>
-          }
+          
         />
 
         <Card sx={{ mb: 5 }}>
@@ -196,7 +187,7 @@ export default function InvoiceList() {
               divider={<Divider orientation="vertical" flexItem sx={{ borderStyle: 'dashed' }} />}
               sx={{ py: 2 }}
             >
-              <InvoiceAnalytic
+              <OrderAnalytic
                 title="Total"
                 total={tableData.length}
                 percent={100}
@@ -204,38 +195,30 @@ export default function InvoiceList() {
                 icon="ic:round-receipt"
                 color={theme.palette.info.main}
               />
-              <InvoiceAnalytic
-                title="Paid"
+              <OrderAnalytic
+                title="Delivered"
                 total={getLengthByStatus('paid')}
                 percent={getPercentByStatus('paid')}
                 price={getTotalPriceByStatus('paid')}
                 icon="eva:checkmark-circle-2-fill"
                 color={theme.palette.success.main}
               />
-              <InvoiceAnalytic
-                title="Unpaid"
+              <OrderAnalytic
+                title="In Transit"
                 total={getLengthByStatus('unpaid')}
                 percent={getPercentByStatus('unpaid')}
                 price={getTotalPriceByStatus('unpaid')}
                 icon="eva:clock-fill"
                 color={theme.palette.warning.main}
               />
-              <InvoiceAnalytic
-                title="Overdue"
+              <OrderAnalytic
+                title="New Order"
                 total={getLengthByStatus('overdue')}
                 percent={getPercentByStatus('overdue')}
                 price={getTotalPriceByStatus('overdue')}
                 icon="eva:bell-fill"
                 color={theme.palette.error.main}
-              />
-              <InvoiceAnalytic
-                title="Draft"
-                total={getLengthByStatus('draft')}
-                percent={getPercentByStatus('draft')}
-                price={getTotalPriceByStatus('draft')}
-                icon="eva:file-fill"
-                color={theme.palette.text.secondary}
-              />
+              />             
             </Stack>
           </Scrollbar>
         </Card>
@@ -262,7 +245,7 @@ export default function InvoiceList() {
 
           <Divider />
 
-          <InvoiceTableToolbar
+          <OrderTableToolbar
             filterName={filterName}
             filterService={filterService}
             filterStartDate={filterStartDate}
@@ -339,7 +322,7 @@ export default function InvoiceList() {
 
                 <TableBody>
                   {dataFiltered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-                    <InvoiceTableRow
+                    <OrderTableRow
                       key={row.id}
                       row={row}
                       selected={selected.includes(row.id)}
@@ -405,8 +388,8 @@ function applySortFilter({
   if (filterName) {
     tableData = tableData.filter(
       (item) =>
-        item.invoiceNumber.toLowerCase().indexOf(filterName.toLowerCase()) !== -1 ||
-        item.invoiceTo.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1
+        item.orderNumber.toLowerCase().indexOf(filterName.toLowerCase()) !== -1 ||
+        item.orderTo.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1
     );
   }
 

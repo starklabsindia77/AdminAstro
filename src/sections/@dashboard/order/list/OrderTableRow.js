@@ -15,7 +15,7 @@ import { TableMoreMenu } from '../../../../components/table';
 
 // ----------------------------------------------------------------------
 
-InvoiceTableRow.propTypes = {
+OrderTableRow.propTypes = {
   row: PropTypes.object.isRequired,
   selected: PropTypes.bool,
   onSelectRow: PropTypes.func,
@@ -24,10 +24,10 @@ InvoiceTableRow.propTypes = {
   onDeleteRow: PropTypes.func,
 };
 
-export default function InvoiceTableRow({ row, selected, onSelectRow, onViewRow, onEditRow, onDeleteRow }) {
+export default function OrderTableRow({ row, selected, onSelectRow, onViewRow, onEditRow, onDeleteRow }) {
   const theme = useTheme();
 
-  const { sent, invoiceNumber, createDate, dueDate, status, invoiceTo, totalPrice } = row;
+  const { sent, orderNumber, createDate, dueDate, status, orderTo, totalPrice } = row;
 
   const [openMenu, setOpenMenuActions] = useState(null);
 
@@ -46,17 +46,17 @@ export default function InvoiceTableRow({ row, selected, onSelectRow, onViewRow,
       </TableCell>
 
       <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
-        <Avatar alt={invoiceTo.name} color={createAvatar(invoiceTo.name).color} sx={{ mr: 2 }}>
-          {createAvatar(invoiceTo.name).name}
+        <Avatar alt={orderTo.name} color={createAvatar(orderTo.name).color} sx={{ mr: 2 }}>
+          {createAvatar(orderTo.name).name}
         </Avatar>
 
         <Stack>
           <Typography variant="subtitle2" noWrap>
-            {invoiceTo.name}
+            {orderTo.name}
           </Typography>
 
           <Link noWrap variant="body2" onClick={onViewRow} sx={{ color: 'text.disabled', cursor: 'pointer' }}>
-            {`INV-${invoiceNumber}`}
+            {`INV-${orderNumber}`}
           </Link>
         </Stack>
       </TableCell>
