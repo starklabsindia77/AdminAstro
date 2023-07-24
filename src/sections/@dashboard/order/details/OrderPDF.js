@@ -14,18 +14,13 @@ OrderPDF.propTypes = {
 
 export default function OrderPDF({ order }) {
   const {
-    items,
-    taxes,
+    gst,
     status,
-    dueDate,
-    discount,
-    orderTo,
+    dueDate,    
     createDate,
-    totalPrice,
-    orderFrom,
-    orderNumber,
-    subTotalPrice,
+    total
   } = order;
+
 
   return (
     <Document>
@@ -34,24 +29,25 @@ export default function OrderPDF({ order }) {
           <Image source="/logo/logo_full.jpg" style={{ height: 32 }} />
           <View style={{ alignItems: 'flex-end', flexDirection: 'column' }}>
             <Text style={styles.h3}>{status}</Text>
-            <Text> {`INV-${orderNumber}`} </Text>
+            <Text> {`INV-${order.order_id}`} </Text>
           </View>
         </View>
 
         <View style={[styles.gridContainer, styles.mb40]}>
           <View style={styles.col6}>
             <Text style={[styles.overline, styles.mb8]}>Order from</Text>
-            <Text style={styles.body1}>{orderFrom.name}</Text>
-            <Text style={styles.body1}>{orderFrom.address}</Text>
-            <Text style={styles.body1}>{orderFrom.phone}</Text>
+            <Text style={styles.body1}>{order.shipping_info?.name}</Text>
+            <Text style={styles.body1}>{order.shipping_info?.address}, {order.shipping_info?.town}</Text>
+            <Text style={styles.body1}>{order.shipping_info?.address}, {order.shipping_info?.town}</Text>
+            <Text style={styles.body1}>{order.shipping_info?.mobile_number}</Text>
           </View>
 
-          <View style={styles.col6}>
+          {/* <View style={styles.col6}>
             <Text style={[styles.overline, styles.mb8]}>Order to</Text>
             <Text style={styles.body1}>{orderTo.name}</Text>
             <Text style={styles.body1}>{orderTo.address}</Text>
             <Text style={styles.body1}>{orderTo.phone}</Text>
-          </View>
+          </View> */}
         </View>
 
         <View style={[styles.gridContainer, styles.mb40]}>
@@ -93,7 +89,7 @@ export default function OrderPDF({ order }) {
           </View>
 
           <View style={styles.tableBody}>
-            {items.map((item, index) => (
+            {order.cart_info?.map((item, index) => (
               <View style={styles.tableRow} key={item.id}>
                 <View style={styles.tableCell_1}>
                   <Text>{index + 1}</Text>
@@ -101,7 +97,7 @@ export default function OrderPDF({ order }) {
 
                 <View style={styles.tableCell_2}>
                   <Text style={styles.subtitle2}>{item.title}</Text>
-                  <Text>{item.description}</Text>
+                  {/* <Text>{item.title}</Text> */}
                 </View>
 
                 <View style={styles.tableCell_3}>
@@ -109,11 +105,11 @@ export default function OrderPDF({ order }) {
                 </View>
 
                 <View style={styles.tableCell_3}>
-                  <Text>{item.price}</Text>
+                  <Text>{`₹ ${fCurrency(item.price)}`}</Text>
                 </View>
 
                 <View style={[styles.tableCell_3, styles.alignRight]}>
-                  <Text>{fCurrency(item.price * item.quantity)}</Text>
+                  <Text>{`₹ ${fCurrency(item.price * item.quantity)}`}</Text>
                 </View>
               </View>
             ))}
@@ -126,7 +122,7 @@ export default function OrderPDF({ order }) {
                 <Text>Subtotal</Text>
               </View>
               <View style={[styles.tableCell_3, styles.alignRight]}>
-                <Text>{fCurrency(subTotalPrice)}</Text>
+                <Text>{`₹ ${fCurrency(order.sub_total)}`}</Text>
               </View>
             </View>
 
@@ -135,10 +131,10 @@ export default function OrderPDF({ order }) {
               <View style={styles.tableCell_2} />
               <View style={styles.tableCell_3} />
               <View style={styles.tableCell_3}>
-                <Text>Discount</Text>
+                <Text>Shipping Fees</Text>
               </View>
               <View style={[styles.tableCell_3, styles.alignRight]}>
-                <Text>{fCurrency(-discount)}</Text>
+                <Text>{`₹ ${fCurrency(+order.shipping_fee)}`}</Text>
               </View>
             </View>
 
@@ -150,7 +146,7 @@ export default function OrderPDF({ order }) {
                 <Text>Taxes</Text>
               </View>
               <View style={[styles.tableCell_3, styles.alignRight]}>
-                <Text>{fCurrency(taxes)}</Text>
+                <Text>{`₹ ${fCurrency(gst)}`}</Text>
               </View>
             </View>
 
@@ -162,7 +158,7 @@ export default function OrderPDF({ order }) {
                 <Text style={styles.h4}>Total</Text>
               </View>
               <View style={[styles.tableCell_3, styles.alignRight]}>
-                <Text style={styles.h4}>{fCurrency(totalPrice)}</Text>
+                <Text style={styles.h4}>{`₹ ${fCurrency(total)}`}</Text>
               </View>
             </View>
           </View>

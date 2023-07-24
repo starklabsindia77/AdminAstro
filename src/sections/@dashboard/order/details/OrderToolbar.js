@@ -27,6 +27,8 @@ export default function OrderToolbar({ order }) {
     navigate(PATH_DASHBOARD.order.edit(order.id));
   };
 
+  
+
   return (
     <>
       <Stack
@@ -38,7 +40,7 @@ export default function OrderToolbar({ order }) {
       >
         <Stack direction="row" spacing={1}>
           <Tooltip title="Edit">
-            <IconButton onClick={handleEdit}>
+            <IconButton >
               <Iconify icon={'eva:edit-fill'} />
             </IconButton>
           </Tooltip>
@@ -51,7 +53,7 @@ export default function OrderToolbar({ order }) {
 
           <PDFDownloadLink
             document={<OrderPDF order={order} />}
-            fileName={order.orderNumber}
+            fileName={order.order_id}
             style={{ textDecoration: 'none' }}
           >
             {({ loading }) => (

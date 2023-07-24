@@ -47,18 +47,14 @@ export default function OrderDetails({ order }) {
   }
 
   const {
-    items,
-    taxes,
+    gst,
     status,
-    dueDate,
-    discount,
-    orderTo,
+    dueDate,    
     createDate,
-    totalPrice,
-    orderFrom,
-    orderNumber,
-    subTotalPrice,
+    total
   } = order;
+
+  console.log("single order shipping info", order);
 
   return (
     <>
@@ -75,17 +71,17 @@ export default function OrderDetails({ order }) {
               <Label
                 variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
                 color={
-                  (status === 'paid' && 'success') ||
-                  (status === 'unpaid' && 'warning') ||
-                  (status === 'overdue' && 'error') ||
+                  (status === 'Delivered' && 'success') ||
+                  (status === 'In Transit' && 'warning') ||
+                  (status === 'Cancelled' && 'error') ||
                   'default'
                 }
-                sx={{ textTransform: 'uppercase', mb: 1 }}
+                sx={{ textTransform: 'capitalize' }}
               >
                 {status}
               </Label>
 
-              <Typography variant="h6">{`INV-${orderNumber}`}</Typography>
+              <Typography variant="h6">{`INV-${order.order_id}`}</Typography>
             </Box>
           </Grid>
 
@@ -93,19 +89,20 @@ export default function OrderDetails({ order }) {
             <Typography paragraph variant="overline" sx={{ color: 'text.disabled' }}>
               Order from
             </Typography>
-            <Typography variant="body2">{orderFrom.name}</Typography>
-            <Typography variant="body2">{orderFrom.address}</Typography>
-            <Typography variant="body2">Phone: {orderFrom.phone}</Typography>
+            <Typography variant="body2">{order.shipping_info?.name}</Typography>
+            <Typography variant="body2">{order.shipping_info?.address}, {order.shipping_info?.town}</Typography>
+            <Typography variant="body2">{order.shipping_info?.city}, {order.shipping_info?.state} - {order.shipping_info?.pincode}</Typography>
+            <Typography variant="body2">Phone: {order.shipping_info?.mobile_number}</Typography>
           </Grid>
 
-          <Grid item xs={12} sm={6} sx={{ mb: 5 }}>
+          {/* <Grid item xs={12} sm={6} sx={{ mb: 5 }}>
             <Typography paragraph variant="overline" sx={{ color: 'text.disabled' }}>
               Order to
             </Typography>
-            <Typography variant="body2">{orderTo.name}</Typography>
-            <Typography variant="body2">{orderTo.address}</Typography>
-            <Typography variant="body2">Phone: {orderTo.phone}</Typography>
-          </Grid>
+            <Typography variant="body2">{shipping_info.name}</Typography>
+            <Typography variant="body2">{shipping_info.address}</Typography>
+            <Typography variant="body2">Phone: {shipping_info.mobile_number}</Typography>
+          </Grid> */}
 
           <Grid item xs={12} sm={6} sx={{ mb: 5 }}>
             <Typography paragraph variant="overline" sx={{ color: 'text.disabled' }}>
@@ -141,7 +138,7 @@ export default function OrderDetails({ order }) {
               </TableHead>
 
               <TableBody>
-                {items.map((row, index) => (
+                {order.cart_info?.map((row, index) => (
                   <TableRow
                     key={index}
                     sx={{
@@ -152,14 +149,14 @@ export default function OrderDetails({ order }) {
                     <TableCell align="left">
                       <Box sx={{ maxWidth: 560 }}>
                         <Typography variant="subtitle2">{row.title}</Typography>
-                        <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-                          {row.description}
-                        </Typography>
+                        {/* <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
+                          {row.title}
+                        </Typography> */}
                       </Box>
                     </TableCell>
                     <TableCell align="left">{row.quantity}</TableCell>
-                    <TableCell align="right">{fCurrency(row.price)}</TableCell>
-                    <TableCell align="right">{fCurrency(row.price * row.quantity)}</TableCell>
+                    <TableCell align="right">{`₹ ${fCurrency(row.price)}`}</TableCell>
+                    <TableCell align="right">{`₹ ${fCurrency(row.price * row.quantity)}`}</TableCell>
                   </TableRow>
                 ))}
 
@@ -171,17 +168,17 @@ export default function OrderDetails({ order }) {
                   </TableCell>
                   <TableCell align="right" width={120}>
                     <Box sx={{ mt: 2 }} />
-                    <Typography>{fCurrency(subTotalPrice)}</Typography>
+                    <Typography>{`₹ ${fCurrency(order.sub_total)}`}</Typography>
                   </TableCell>
                 </RowResultStyle>
 
                 <RowResultStyle>
                   <TableCell colSpan={3} />
                   <TableCell align="right">
-                    <Typography>Discount</Typography>
+                    <Typography>Shipping Fees</Typography>
                   </TableCell>
                   <TableCell align="right" width={120}>
-                    <Typography sx={{ color: 'error.main' }}>{discount && fCurrency(-discount)}</Typography>
+                    <Typography >{order.shipping_fee && `₹ ${fCurrency(+order.shipping_fee)}`}</Typography>
                   </TableCell>
                 </RowResultStyle>
 
@@ -191,7 +188,7 @@ export default function OrderDetails({ order }) {
                     <Typography>Taxes</Typography>
                   </TableCell>
                   <TableCell align="right" width={120}>
-                    <Typography>{taxes && fCurrency(taxes)}</Typography>
+                    <Typography>{gst && `₹ ${fCurrency(gst)}`}</Typography>
                   </TableCell>
                 </RowResultStyle>
 
@@ -201,7 +198,7 @@ export default function OrderDetails({ order }) {
                     <Typography variant="h6">Total</Typography>
                   </TableCell>
                   <TableCell align="right" width={140}>
-                    <Typography variant="h6">{fCurrency(totalPrice)}</Typography>
+                    <Typography variant="h6">{`₹ ${fCurrency(total)}`}</Typography>
                   </TableCell>
                 </RowResultStyle>
               </TableBody>

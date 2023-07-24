@@ -45,7 +45,7 @@ export default function OrderAnalytic({ title, total, icon, color, percent, pric
         </Typography>
 
         <Typography variant="subtitle2" sx={{ color }}>
-          {fCurrency(price)}
+        {`₹ ${fCurrency(price)}`}
         </Typography>
       </Stack>
     </Stack>

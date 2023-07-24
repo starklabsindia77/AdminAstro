@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import { useState, useLayoutEffect, useEffect  } from 'react';
 // @mui
 import { Container } from '@mui/material';
 // routes
@@ -13,6 +14,8 @@ import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
 // import Order from '../../sections/@dashboard/order/details';
 import Order from  '../../sections/@dashboard/order/details'
+import axios from '../../utils/axios';
+import { isValidToken, setSession } from '../../utils/jwt';
 
 // ----------------------------------------------------------------------
 
@@ -21,7 +24,18 @@ export default function OrderDetails() {
 
   const { id } = useParams();
 
-  const order = _orders.find((order) => order.id === id);
+  // const order = _orders.find((order) => order.id === id);
+  const [order, setOrder] = useState({});
+
+  const accessToken = localStorage.getItem('accessToken');
+  useLayoutEffect(async () => {    
+    if (accessToken && isValidToken(accessToken)) {
+      setSession(accessToken);
+      const response = await axios.get(`/orders/${id}`);
+      const { data } = response.data;
+      setOrder(data[0]);
+    }
+  }, [accessToken]);
 
   return (
     <Page title="Order: View">
@@ -34,7 +48,7 @@ export default function OrderDetails() {
               name: 'Orders',
               href: PATH_DASHBOARD.order.root,
             },
-            { name: `INV-${order?.orderNumber}` || '' },
+            { name: `INV-${order?.order_id}` || '' },
           ]}
         />
 

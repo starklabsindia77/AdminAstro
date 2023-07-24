@@ -58,8 +58,8 @@ const TABLE_HEAD = [
   { id: 'orderNumber', label: 'Client', align: 'left' },
   { id: 'createDate', label: 'Create', align: 'left' },
   { id: 'dueDate', label: 'Due', align: 'left' },
-  { id: 'price', label: 'Amount', align: 'center', width: 140 },
-  { id: 'sent', label: 'Sent', align: 'center', width: 140 },
+  { id: 'sub_total', label: 'Sub Total', align: 'center', width: 140 },
+  { id: 'total', label: 'Total Amount', align: 'center', width: 140 },
   { id: 'status', label: 'Status', align: 'left' },
   { id: '' },
 ];
@@ -92,7 +92,7 @@ export default function OrderList() {
     onChangeRowsPerPage,
   } = useTable({ defaultOrderBy: 'createDate' });
 
-  const [tableData, setTableData] = useState(_orders);
+  const [tableData, setTableData] = useState([]);
 
   const [filterName, setFilterName] = useState('');
 
@@ -103,17 +103,15 @@ export default function OrderList() {
   const [filterEndDate, setFilterEndDate] = useState(null);
 
   const { currentTab: filterStatus, onChangeTab: onFilterStatus } = useTabs('all');
-
-  useEffect(async () => {
-    const accessToken = localStorage.getItem('accessToken');
+  const accessToken = localStorage.getItem('accessToken');
+  useEffect(async () => {    
     if (accessToken && isValidToken(accessToken)) {
       setSession(accessToken);
       const response = await axios.get('/orders');
       const { data } = response.data;
-      console.log("order data", data);
       setTableData(data);
     }
-  }, [])
+  }, [accessToken]);
 
   const handleFilterName = (filterName) => {
     setFilterName(filterName);
@@ -168,16 +166,17 @@ export default function OrderList() {
   const getTotalPriceByStatus = (status) =>
     sumBy(
       tableData.filter((item) => item.status === status),
-      'totalPrice'
+      'total'
     );
 
   const getPercentByStatus = (status) => (getLengthByStatus(status) / tableData.length) * 100;
 
   const TABS = [
     { value: 'all', label: 'All', color: 'info', count: tableData.length },
-    { value: 'delivered', label: 'Delivered', color: 'success', count: getLengthByStatus('paid') },
-    { value: 'inTransit', label: 'In Transit', color: 'warning', count: getLengthByStatus('unpaid') },
-    { value: 'newOrder', label: 'New Order', color: 'error', count: getLengthByStatus('overdue') },
+    { value: 'Delivered', label: 'Delivered', color: 'success', count: getLengthByStatus('Delivered') },
+    { value: 'iIn Transit', label: 'In Transit', color: 'warning', count: getLengthByStatus('In Transit') },
+    { value: 'Cancelled', label: 'Cancelled', color:'error', count: getLengthByStatus('Cancelled') },
+    { value: 'New Order', label: 'New Order', color:'default', count: getLengthByStatus('New Order') },
     
   ];
 
@@ -211,28 +210,39 @@ export default function OrderList() {
               />
               <OrderAnalytic
                 title="Delivered"
-                total={getLengthByStatus('paid')}
-                percent={getPercentByStatus('paid')}
-                price={getTotalPriceByStatus('paid')}
+                total={getLengthByStatus('Delivered')}
+                percent={getPercentByStatus('Delivered')}
+                price={getTotalPriceByStatus('Delivered')}
                 icon="eva:checkmark-circle-2-fill"
                 color={theme.palette.success.main}
               />
               <OrderAnalytic
                 title="In Transit"
-                total={getLengthByStatus('unpaid')}
-                percent={getPercentByStatus('unpaid')}
-                price={getTotalPriceByStatus('unpaid')}
+                total={getLengthByStatus('In Transit')}
+                percent={getPercentByStatus('In Transit')}
+                price={getTotalPriceByStatus('In Transit')}
                 icon="eva:clock-fill"
                 color={theme.palette.warning.main}
               />
+
               <OrderAnalytic
                 title="New Order"
-                total={getLengthByStatus('overdue')}
-                percent={getPercentByStatus('overdue')}
-                price={getTotalPriceByStatus('overdue')}
+                total={getLengthByStatus('New Order')}
+                percent={getPercentByStatus('New Order')}
+                price={getTotalPriceByStatus('New Order')}
+                icon="eva:file-fill"
+                color={theme.palette.text.secondary}
+              />  
+              <OrderAnalytic
+                title="Cancelled"
+                total={getLengthByStatus('Cancelled')}
+                percent={getPercentByStatus('Cancelled')}
+                price={getTotalPriceByStatus('Cancelled')}
                 icon="eva:bell-fill"
                 color={theme.palette.error.main}
-              />             
+              />  
+
+                       
             </Stack>
           </Scrollbar>
         </Card>
@@ -403,17 +413,17 @@ function applySortFilter({
     tableData = tableData.filter(
       (item) =>
         item.orderNumber.toLowerCase().indexOf(filterName.toLowerCase()) !== -1 ||
-        item.orderTo.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1
+        item.shipping_info.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1
     );
   }
 
-  if (filterStatus !== 'all') {
-    tableData = tableData.filter((item) => item.status === filterStatus);
-  }
+  // if (filterStatus !== 'all') {
+  //   tableData = tableData.filter((item) => item.status === filterStatus);
+  // }
 
-  if (filterService !== 'all') {
-    tableData = tableData.filter((item) => item.items.some((c) => c.service === filterService));
-  }
+  // if (filterService !== 'all') {
+  //   tableData = tableData.filter((item) => item.items.some((c) => c.service === filterService));
+  // }
 
   if (filterStartDate && filterEndDate) {
     tableData = tableData.filter(

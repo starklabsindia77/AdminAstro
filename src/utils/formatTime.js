@@ -3,7 +3,16 @@ import { format, getTime, formatDistanceToNow } from 'date-fns';
 // ----------------------------------------------------------------------
 
 export function fDate(date) {
-  return format(new Date(date), 'dd MMMM yyyy');
+  if (!date) {
+    return ''; // Handle the case when date is undefined or null
+  }
+
+  const parsedDate = new Date(date);
+  if (Number.isNaN(parsedDate.getTime())) {
+    return '';
+  }
+
+  return format(parsedDate, 'dd MMMM yyyy');
 }
 
 export function fDateTime(date) {

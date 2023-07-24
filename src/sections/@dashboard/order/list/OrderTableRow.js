@@ -27,9 +27,9 @@ OrderTableRow.propTypes = {
 export default function OrderTableRow({ row, selected, onSelectRow, onViewRow, onEditRow, onDeleteRow }) {
   const theme = useTheme();
   
-  const { sent, orderNumber, createDate, dueDate, status, orderTo, totalPrice } = row;
+  // const { sent, orderNumber, createDate, dueDate, status, orderTo, totalPrice } = row;
   
-  // const { shipping_fee, gst, trans_id, order_id, cart_info, sub_total, createDate, status, orderTo, total, shipping_info } = row;
+  const { gst, total, status, createDate, dueDate, updatedDate, userInfo } = row;
 
   const [openMenu, setOpenMenuActions] = useState(null);
 
@@ -39,7 +39,8 @@ export default function OrderTableRow({ row, selected, onSelectRow, onViewRow, o
 
   const handleCloseMenu = () => {
     setOpenMenuActions(null);
-  };
+  };  
+  const orderTo = row.shipping_info;
 
   return (
     <TableRow hover selected={selected}>
@@ -58,7 +59,7 @@ export default function OrderTableRow({ row, selected, onSelectRow, onViewRow, o
           </Typography>
 
           <Link noWrap variant="body2" onClick={onViewRow} sx={{ color: 'text.disabled', cursor: 'pointer' }}>
-            {`INV-${orderNumber}`}
+            {`INV-${row.order_id }`}
           </Link>
         </Stack>
       </TableCell>
@@ -67,19 +68,19 @@ export default function OrderTableRow({ row, selected, onSelectRow, onViewRow, o
 
       <TableCell align="left">{fDate(dueDate)}</TableCell>
 
-      <TableCell align="center">{fCurrency(totalPrice)}</TableCell>
+      <TableCell align="center">{`₹ ${fCurrency(row.sub_total)}`}</TableCell>
 
       <TableCell align="center" sx={{ textTransform: 'capitalize' }}>
-        {sent}
+        {`₹ ${fCurrency(total)}`}
       </TableCell>
 
       <TableCell align="left">
         <Label
           variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
           color={
-            (status === 'paid' && 'success') ||
-            (status === 'unpaid' && 'warning') ||
-            (status === 'overdue' && 'error') ||
+            (status === 'Delivered' && 'success') ||
+            (status === 'In Transit' && 'warning') ||
+            (status === 'Cancelled' && 'error') ||
             'default'
           }
           sx={{ textTransform: 'capitalize' }}
@@ -95,7 +96,7 @@ export default function OrderTableRow({ row, selected, onSelectRow, onViewRow, o
           onClose={handleCloseMenu}
           actions={
             <>
-              <MenuItem
+              {/* <MenuItem
                 onClick={() => {
                   onDeleteRow();
                   handleCloseMenu();
@@ -104,7 +105,7 @@ export default function OrderTableRow({ row, selected, onSelectRow, onViewRow, o
               >
                 <Iconify icon={'eva:trash-2-outline'} />
                 Delete
-              </MenuItem>
+              </MenuItem> */}
 
               <MenuItem
                 onClick={() => {
@@ -118,7 +119,7 @@ export default function OrderTableRow({ row, selected, onSelectRow, onViewRow, o
 
               <MenuItem
                 onClick={() => {
-                  onEditRow();
+                  // onEditRow();
                   handleCloseMenu();
                 }}
               >
