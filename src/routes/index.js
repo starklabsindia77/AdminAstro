@@ -138,7 +138,7 @@ export default function Router() {
             { path: 'list', element: <OrderList /> },
             { path: ':id', element: <OrderDetails /> },
             { path: ':id/edit', element: <OrderEdit /> },
-            { path: 'new', element: <OrderCreate /> },
+            // { path: 'new', element: <OrderCreate /> },
           ],
         },
         {
@@ -244,7 +244,7 @@ const EcommerceCheckout = Loadable(lazy(() => import('../pages/dashboard/Ecommer
 // INVOICE
 const OrderList = Loadable(lazy(() => import('../pages/dashboard/OrderList')));
 const OrderDetails = Loadable(lazy(() => import('../pages/dashboard/OrderDetails')));
-const OrderCreate = Loadable(lazy(() => import('../pages/dashboard/OrderCreate')));
+// const OrderCreate = Loadable(lazy(() => import('../pages/dashboard/OrderCreate')));
 const OrderEdit = Loadable(lazy(() => import('../pages/dashboard/OrderEdit')));
 
 // BLOG

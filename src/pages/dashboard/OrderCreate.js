@@ -8,7 +8,7 @@ import useSettings from '../../hooks/useSettings';
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
-import OrderNewEditForm from '../../sections/@dashboard/order/new-edit-form';
+
 
 // ----------------------------------------------------------------------
 
@@ -27,7 +27,7 @@ export default function OrderCreate() {
           ]}
         />
 
-        <OrderNewEditForm />
+        {/* <OrderNewEditForm /> */}
       </Container>
     </Page>
   );
