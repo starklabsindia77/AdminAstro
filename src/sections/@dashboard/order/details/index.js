@@ -63,7 +63,7 @@ export default function OrderDetails({ order }) {
       <Card sx={{ pt: 5, px: 5 }}>
         <Grid container>
           <Grid item xs={12} sm={6} sx={{ mb: 5 }}>
-            <Image disabledEffect visibleByDefault alt="logo" src="/logo/logo_full.svg" sx={{ maxWidth: 120 }} />
+            <Image disabledEffect visibleByDefault alt="logo" src="https://res.cloudinary.com/dsty70mlq/image/upload/v1691036413/astroscoreWhiteLogo_lx3pnk.jpg" sx={{ maxWidth: 250 }} />
           </Grid>
 
           <Grid item xs={12} sm={6} sx={{ mb: 5 }}>
@@ -93,16 +93,7 @@ export default function OrderDetails({ order }) {
             <Typography variant="body2">{order.shipping_info?.address}, {order.shipping_info?.town}</Typography>
             <Typography variant="body2">{order.shipping_info?.city}, {order.shipping_info?.state} - {order.shipping_info?.pincode}</Typography>
             <Typography variant="body2">Phone: {order.shipping_info?.mobile_number}</Typography>
-          </Grid>
-
-          {/* <Grid item xs={12} sm={6} sx={{ mb: 5 }}>
-            <Typography paragraph variant="overline" sx={{ color: 'text.disabled' }}>
-              Order to
-            </Typography>
-            <Typography variant="body2">{shipping_info.name}</Typography>
-            <Typography variant="body2">{shipping_info.address}</Typography>
-            <Typography variant="body2">Phone: {shipping_info.mobile_number}</Typography>
-          </Grid> */}
+          </Grid>         
 
           <Grid item xs={12} sm={6} sx={{ mb: 5 }}>
             <Typography paragraph variant="overline" sx={{ color: 'text.disabled' }}>

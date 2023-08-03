@@ -26,7 +26,7 @@ export default function OrderPDF({ order }) {
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={[styles.gridContainer, styles.mb40]}>
-          <Image source="/logo/logo_full.jpg" style={{ height: 32 }} />
+          <Image source="https://res.cloudinary.com/dsty70mlq/image/upload/v1691036413/astroscoreWhiteLogo_lx3pnk.jpg" style={{ height: 52 }} />
           <View style={{ alignItems: 'flex-end', flexDirection: 'column' }}>
             <Text style={styles.h3}>{status}</Text>
             <Text> {`INV-${order.order_id}`} </Text>

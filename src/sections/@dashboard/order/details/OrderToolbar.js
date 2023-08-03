@@ -40,7 +40,7 @@ export default function OrderToolbar({ order }) {
       >
         <Stack direction="row" spacing={1}>
           <Tooltip title="Edit">
-            <IconButton >
+            <IconButton onClick={handleEdit}>
               <Iconify icon={'eva:edit-fill'} />
             </IconButton>
           </Tooltip>

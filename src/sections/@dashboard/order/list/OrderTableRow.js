@@ -119,7 +119,7 @@ export default function OrderTableRow({ row, selected, onSelectRow, onViewRow, o
 
               <MenuItem
                 onClick={() => {
-                  // onEditRow();
+                 onEditRow();
                   handleCloseMenu();
                 }}
               >

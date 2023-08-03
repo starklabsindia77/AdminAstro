@@ -8,7 +8,7 @@ import { RHFSelect, RHFTextField } from '../../../../components/hook-form';
 
 // ----------------------------------------------------------------------
 
-const STATUS_OPTIONS = ['paid', 'unpaid', 'overdue', 'draft'];
+const STATUS_OPTIONS = ['New Order', 'In Transit', 'Delivered', 'Cancelled'];
 
 // ----------------------------------------------------------------------
 
@@ -19,7 +19,7 @@ export default function OrderNewEditStatusDate() {
 
   return (
     <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }} sx={{ p: 3, bgcolor: 'background.neutral' }}>
-      <RHFTextField disabled name="orderNumber" label="Order number" value={`INV-${values.orderNumber}`} />
+      <RHFTextField disabled name="orderNumber" label="Order number" value={`INV-${values.orderId}`} />
 
       <RHFSelect
         fullWidth
@@ -55,7 +55,7 @@ export default function OrderNewEditStatusDate() {
             onChange={(newValue) => {
               field.onChange(newValue);
             }}
-            renderInput={(params) => <TextField {...params} fullWidth error={!!error} helperText={error?.message} />}
+            renderInput={(params) => <TextField {...params} disabled fullWidth error={!!error} helperText={error?.message} />}
           />
         )}
       />

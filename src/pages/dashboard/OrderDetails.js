@@ -28,7 +28,7 @@ export default function OrderDetails() {
   const [order, setOrder] = useState({});
 
   const accessToken = localStorage.getItem('accessToken');
-  useLayoutEffect(async () => {    
+  useEffect(async () => {    
     if (accessToken && isValidToken(accessToken)) {
       setSession(accessToken);
       const response = await axios.get(`/orders/${id}`);
