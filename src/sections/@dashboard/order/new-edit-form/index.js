@@ -156,7 +156,7 @@ export default function OrderNewEditForm({ isEdit, currentOrder }) {
           size="large"
           variant="contained"
           loading={loadingSave && isSubmitting}
-          onClick={handleSubmit(handleSaveAsDraft)}
+          onClick={() =>  handleSubmit(handleSaveAsDraft)}
         >
           Save as Draft
         </LoadingButton>
@@ -165,7 +165,7 @@ export default function OrderNewEditForm({ isEdit, currentOrder }) {
           size="large"
           variant="contained"
           loading={loadingSend && isSubmitting}
-          onClick={handleSubmit(handleCreateAndSend)}
+          onClick={() => handleSubmit(handleCreateAndSend)}
         >
           {isEdit ? 'Update' : 'Create'} & Send
         </LoadingButton>
