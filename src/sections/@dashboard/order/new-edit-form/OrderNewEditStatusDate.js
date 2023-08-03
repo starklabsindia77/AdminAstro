@@ -8,7 +8,7 @@ import { RHFSelect, RHFTextField } from '../../../../components/hook-form';
 
 // ----------------------------------------------------------------------
 
-const STATUS_OPTIONS = ['New Order', 'In Transit', 'Delivered', 'Cancelled'];
+const STATUS_OPTIONS = [ 'New Order', 'In Transit', 'Delivered', 'Cancelled' ];
 
 // ----------------------------------------------------------------------
 
