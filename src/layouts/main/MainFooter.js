@@ -59,11 +59,11 @@ export default function MainFooter() {
           </Grid>
           <Grid item xs={8} md={4}>
             <Typography variant="h4" sx={{ pr: { md: 5 } }}>
-              Astro Score: Your Cosmic Companion
+              AstroScore: Your Cosmic Companion
             </Typography>
 
             <Typography variant="body2" sx={{ pr: { md: 5 } }}>
-            Astro Score is your gateway to personal horoscopes and astrological insights. 
+            AstroScore is your gateway to personal horoscopes and astrological insights. 
             Discover the celestial influences in your life, unlock your destiny, and 
             navigate life's journey with clarity and confidence.
             </Typography>
