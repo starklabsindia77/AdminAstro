@@ -9,8 +9,8 @@ import { PATH_DASHBOARD } from './routes/paths';
 // export const HOST_API = process.env.REACT_APP_HOST_API_KEY || '';
 // ----------------------------------------------------------------------export const HOST_API = "http://localhost:3001/api/admin"; 
 // export const HOST_API = "https://astroapi.onrender.com/api/admin"; 
-// export const HOST_API = "http://astroscore.ai:3001/api/admin"; 
-export const HOST_API = "http://localhost:3001/api/admin";
+export const HOST_API = "http://astroscore.ai:3001/api/admin"; 
+// export const HOST_API = "http://localhost:3001/api/admin";
 // export const HOST_API = "arn:aws:lambda:ap-south-1:847092605256:function:backend/api/admin";
 
 
