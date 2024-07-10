@@ -59,7 +59,7 @@ export default function HomeBlog() {
             setPosts(response.data.posts);
           }
         } catch (error) {
-          console.error(error);
+          console.log(error, 'blog error' );
         }
       }, [isMountedRef]);
     

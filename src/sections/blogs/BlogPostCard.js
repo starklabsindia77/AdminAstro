@@ -40,7 +40,8 @@ export default function BlogPostCard({ post, index }) {
   const isDesktop = useResponsive('up', 'md');
 
   const { id, guid, cover, title, view, comment, share, createdAt } = post;
-  const author = JSON.parse(post.author);
+  console.log("autor info", post?.author);
+  const author = JSON.parse(post?.author);
   
   const latestPost = index === 0 || index === 1 || index === 2;
 

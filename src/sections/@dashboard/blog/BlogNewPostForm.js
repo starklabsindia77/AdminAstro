@@ -175,6 +175,7 @@ export default function BlogNewPostForm({ isEdit, currentBlog }) {
         name: user?.displayName,
         avatarUrl: user?.photoURL
       }
+      console.log("add post", data);
       const accessToken = localStorage.getItem('accessToken');
       if (accessToken && isValidToken(accessToken)) {
         setSession(accessToken);
@@ -187,6 +188,7 @@ export default function BlogNewPostForm({ isEdit, currentBlog }) {
             navigate(PATH_DASHBOARD.blog.posts);
           }
         }else{
+          console.log("add post 2", data)
           const response2 = await axios.post('/blogs', data);
           if (response2.status === 201) {
             reset();
@@ -197,7 +199,7 @@ export default function BlogNewPostForm({ isEdit, currentBlog }) {
         }
       }      
     } catch (error) {
-      console.error(error);
+      console.log(error, 'blog errorMessage');
     }
   };
 
