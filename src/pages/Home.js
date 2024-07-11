@@ -12,6 +12,7 @@ import {
   HomeHero,
   HomeMinimal,
   HomeDarkMode,
+  HomeTestMode,
   HomeBlog,
   HomeLookingFor,
   HomeColorPresets,
@@ -52,11 +53,11 @@ export default function HomePage() {
 
   const shadow = `-40px 40px 80px ${alpha(isLight ? theme.palette.grey[500] : theme.palette.common.black, 0.48)}`;
 
-  useEffect(() => {
-    setTimeout(() => {
-      handleOpen();
-    }, 1000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     handleOpen();
+  //   }, 1000);
+  // }, []);
 
   // ----------------------------------------------------------------------
 const style = {
@@ -98,6 +99,10 @@ const style = {
           <HomeBlog />
         </div>
 
+        <div id="darkmode">
+          <HomeTestMode />
+        </div>
+
         <div id="contact">
           <ContactHero />
         </div>
@@ -116,7 +121,7 @@ const style = {
 
       </ContentStyle>
 
-      <Modal
+      {/* <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-title"
@@ -152,7 +157,7 @@ const style = {
             </p>
           </Typography>
         </Box>
-      </Modal>
+      </Modal> */}
     </Page>
   );
 }

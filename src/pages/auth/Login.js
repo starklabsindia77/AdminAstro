@@ -128,7 +128,7 @@ export default function Login() {
                 <>
                   <Image
                     disabledEffect
-                    src={`https://minimal-assets-api-dev.vercel.app/assets/icons/auth/ic_${method}.png`}
+                    src={`https://pub-c5e31b5cdafb419fb247a8ac2e78df7a.r2.dev/public/assets/icons/platforms/ic-jwt.svg`}
                     sx={{ width: 32, height: 32 }}
                   />
                 </>
