@@ -1,15 +1,15 @@
 import { m } from 'framer-motion';
 // @mui
 import { alpha, useTheme, styled } from '@mui/material/styles';
-import { Box, Grid, Container, Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import { Grid, Container, Typography } from '@mui/material';
 // components
 import Image from '../../components/Image';
 import { MotionViewport, varFade } from '../../components/animate';
 import useResponsive from '../../hooks/useResponsive';
 // _mock_
-import { _faqs } from '../../_mock';
+
 // components
-import Iconify from '../../components/Iconify';
+
 
 // ----------------------------------------------------------------------
 
@@ -18,20 +18,6 @@ const RootStyle = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.grey[900],
 }));
 
-const ContentStyle = styled('div')(({ theme }) => ({
-  textAlign: 'center',
-  position: 'relative',
-  marginBottom: theme.spacing(10),
-  [theme.breakpoints.up('md')]: {
-    height: '100%',
-    marginBottom: 0,
-    textAlign: 'left',
-    display: 'inline-flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-  },
-}));
 
 
 // ----------------------------------------------------------------------
@@ -67,7 +53,7 @@ export default function HomeTestMode() {
 
         <Grid container spacing={3}>
 
-          {isDesktop && (
+          {/* {isDesktop && (
             <Grid item xs={12} md={6} lg={7} sx={{ pr: { md: 7 } }}>
               <Grid container spacing={3} alignItems="flex-end">
                 <Grid item xs={12}>
@@ -84,7 +70,24 @@ export default function HomeTestMode() {
                 </Grid>
               </Grid>
             </Grid>
-          )}
+          )} */}
+
+          <Grid item xs={12} md={6} lg={7} sx={{ pr: { md: 7 } }}>
+            <Grid container spacing={3} alignItems="flex-end">
+              <Grid item xs={12}>
+                <m.div variants={varFade().inUp}>
+                  <Image
+                    alt="our office 1"
+                    src="images/Babapic.jpg"
+                    sx={{
+                      borderRadius: 2,
+                      boxShadow: shadowvalue,
+                    }}
+                  />
+                </m.div>
+              </Grid>
+            </Grid>
+          </Grid>
 
           <Grid item xs={12} md={6} lg={5}>
             {/* <m.div variants={varFade().inRight}>
@@ -97,12 +100,12 @@ export default function HomeTestMode() {
               <Typography
                 sx={{
                   color: (theme) => (theme.palette.mode === 'light' ? 'text.secondary' : 'common.white'),
-                  textAlign: 'justify', textJustify: 'inter-word',
+                  textAlign: 'justify', textJustify: 'inter-word', fontWeight: '600' , fontSize: '22px'
                 }}
               >
-               This "AstroScore" website and App are dedicated to our revered Guruji, Shri Bhagwati Prasad Sharma Ji, who has guided thousands like me towards true spirituality and established "Sri Balaji Dham" in Noida Sector 126 for the continual and selfless upliftment of society. This place is a living and proven power center of Baba Hanuman and several other deities.
-              We invite you to explore this sacred space, embark on a journey of spiritual enlightenment, and witness the miracles unfolding in your life through the blessings of divine powers.
-              Jai Shri Ram 🙏 Jai Hanuman 🙏 Jai Guru Ji 🙏
+                This "AstroScore" website and App are dedicated to our revered Guruji, Shri Bhagwati Prasad Sharma Ji, who has guided thousands like me towards true spirituality and established "Sri Balaji Dham" in Noida Sector 126 for the continual and selfless upliftment of society. This place is a living and proven power center of Baba Hanuman and several other deities.
+                We invite you to explore this sacred space, embark on a journey of spiritual enlightenment, and witness the miracles unfolding in your life through the blessings of divine powers.
+                Jai Shri Ram 🙏 Jai Hanuman 🙏 Jai Guru Ji 🙏
               </Typography>
             </m.div>
           </Grid>
