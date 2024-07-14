@@ -29,7 +29,8 @@ BlogTableRow.propTypes = {
 export default function BlogTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
   const theme = useTheme();
 
-  const { title, cover, createdAt, publish } = row;
+  const { title, cover, created_at, publish } = row;
+  console.log("info", row);
   const author  = JSON.parse(row.author);
 
   const [openMenu, setOpenMenuActions] = useState(null);
@@ -58,7 +59,7 @@ export default function BlogTableRow({ row, selected, onEditRow, onSelectRow, on
         </Typography>
       </TableCell>
 
-      <TableCell>{fDate(createdAt)}</TableCell>     
+      <TableCell>{fDate(created_at)}</TableCell>     
 
       <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
         <Image disabledEffect alt={author.name} src={author.avatarUrl} sx={{ borderRadius: 1.5, width: 48, height: 48, mr: 2 }} />
